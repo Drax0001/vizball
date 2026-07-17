@@ -1,0 +1,21 @@
+; systemd unit for the Vizball backend (Express + Bun).
+; Copy to /etc/systemd/system/vizball-backend.service and replace the
+; placeholders below (BUN_PATH, WorkingDirectory, User) for your VPS.
+;
+; Find BUN_PATH with: which bun
+
+[Unit]
+Description=Vizball Play Pro backend (Express + Bun)
+After=network.target
+
+[Service]
+Type=simple
+User=deploy
+WorkingDirectory=/var/www/vizball/server
+ExecStart=/home/deploy/.bun/bin/bun run index.ts
+Restart=on-failure
+RestartSec=5
+EnvironmentFile=/var/www/vizball/server/.env
+
+[Install]
+WantedBy=multi-user.target
