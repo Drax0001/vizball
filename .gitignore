@@ -4,6 +4,8 @@
 
 .claude/
 
+CODEBASE_INDEX.md
+DEPLOYMENT.md
 # Logs
 /logs
 *.log
