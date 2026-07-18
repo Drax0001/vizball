@@ -29,8 +29,8 @@ export default function Contact() {
 
   const contactInfo = [
     { icon: MapPin, label: tr.contact_info_address, value: 'Cameroun' },
-    { icon: Mail, label: tr.contact_info_email, value: "contact@vizball.org" },
-    { icon: Globe, label: tr.contact_info_website, value: "www.vizball.org" }];
+    { icon: Mail, label: tr.contact_info_email, value: "contact@vizball.com" },
+    { icon: Globe, label: tr.contact_info_website, value: "www.vizball.com" }];
 
   const [form, setForm] = useState({ name: '', email: '', subject: '', message: '' });
   const [sent, setSent] = useState(false);

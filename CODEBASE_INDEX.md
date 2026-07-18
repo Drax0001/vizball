@@ -48,6 +48,8 @@ vizball-play-pro/
 │   │   ├── articles.ts, forum.ts, products.ts, clubs.ts, events.ts, visitors.ts
 │   │   ├── tutorials.ts               # backs the /tutoriels page (previously frontend-only mock data)
 │   │   ├── governance.ts              # backs the /gouvernance page documents
+│   │   ├── team-members.ts            # backs the association/gouvernance TeamSection components
+│   │   ├── gallery.ts                 # backs the Media page's photo gallery
 │   │   └── uploads.ts                 # POST /api/uploads (admin only, multer, local disk)
 │   ├── uploads/                       # Uploaded files land here (gitignored, .gitkeep only)
 │   ├── vizball.db                     # SQLite database file (gitignored, auto-created)
@@ -64,7 +66,7 @@ vizball-play-pro/
     │   ├── cartStore.js               # localStorage cart, no backend
     │   ├── shopData.js                # CATEGORIES + CATEGORY_LABELS + formatPrice(lang); PRODUCTS array is now empty
     │   ├── query-client.js            # TanStack Query client (provider mounted, unused)
-    │   └── utils.js / translations.js (~500 keys, fr/en) / app-params.js / PageNotFound.jsx
+    │   └── utils.js / translations.js (~535 keys, fr/en) / PageNotFound.jsx
     ├── hooks/use-mobile.jsx
     ├── utils/index.ts                 # createPageUrl() — the one TS file in src/
     ├── components/
@@ -124,6 +126,8 @@ Routes, all under `/api` (one file per resource in `server/routes/`):
 | Visitors | `GET/POST /visitors` (simple counter) | — |
 | Tutorials | `GET /tutorials`, `POST/PUT/DELETE /tutorials(/:id)`, `POST /tutorials/:id/view` | admin for write, view-tracking is public |
 | Governance documents | `GET /governance-documents`, `POST/PUT/DELETE /governance-documents(/:id)` | admin for write |
+| Team members | `GET /team-members`, `POST/PUT/DELETE /team-members(/:id)` | admin for write |
+| Gallery photos | `GET /gallery`, `POST/PUT/DELETE /gallery(/:id)` | admin for write |
 | Uploads | `POST /uploads` (multipart `file` field, returns `{ url }`, accepts JPEG/PNG/WEBP/GIF/PDF up to 10MB) | admin only |
 
 Other notable properties: still no pagination or rate limiting, no automated tests. Input validation is ad hoc (`if` checks in each route), not a schema library — zod is installed on the frontend but not used server-side.
@@ -134,7 +138,7 @@ Other notable properties: still no pagination or rate limiting, no automated tes
 
 ## 6. API client (`src/api/client.js`)
 
-Plain `fetch` wrapper, no axios, no retry/interceptor logic. `getAuthHeader()`/`getHeaders()` attach `Authorization: Bearer <token>` from `localStorage['vizball_auth_token']`. Namespaces: `api.auth` (now includes `register`), `api.articles`, `api.forum`, `api.products`, `api.clubs`, `api.events`, `api.visitors`, `api.tutorials`, `api.governanceDocuments`, `api.uploads` (uses `FormData`, skips the JSON `Content-Type` header so the browser can set the multipart boundary).
+Plain `fetch` wrapper, no axios, no retry/interceptor logic. `getAuthHeader()`/`getHeaders()` attach `Authorization: Bearer <token>` from `localStorage['vizball_auth_token']`. Namespaces: `api.auth` (now includes `register`), `api.articles`, `api.forum`, `api.products`, `api.clubs`, `api.events`, `api.visitors`, `api.tutorials`, `api.governanceDocuments`, `api.teamMembers`, `api.gallery`, `api.uploads` (uses `FormData`, skips the JSON `Content-Type` header so the browser can set the multipart boundary).
 
 ## 7. Data models
 
@@ -150,6 +154,8 @@ Shapes below come from `server/db.ts` (SQLite schema) and `server/seedData.ts`. 
 - **GovernanceDocument**: `{ id, pillarId, pillar, title, category, desc, content: string[], status, pages, year, fileUrl }` — now served from `GET /api/governance-documents`. The four `PILLARS` (icons, colors, descriptions) stay static on the frontend (`src/pages/Gouvernance.jsx`) since React icon components can't be stored in the DB; each fetched document's icon is re-attached client-side via an `ICONS_BY_CATEGORY` lookup keyed on `category`.
 - **Cart item** (client-only, `src/lib/cartStore.js`, `localStorage['vizball_cart']`): `{ key, product, size, qty }` — no server-side representation, unchanged.
 - **Visitor counter**: `{ count }` — single-row table, trivial global counter, no per-session tracking.
+- **TeamMember**: `{ id, name, role, bio, photo, display_order }` — served from `GET /api/team-members`, consumed by both `src/components/association/TeamSection.jsx` and `src/components/gouvernance/TeamSection.jsx` (previously two separate hardcoded arrays that had already drifted out of sync describing the same 4 people — now one shared source of truth). Single-language like articles/products, no `{fr,en}` shape.
+- **GalleryPhoto**: `{ id, image_url, category, caption, featured }` — served from `GET /api/gallery`, backs `src/components/gallery/MasonryGallery.jsx` on the Media page. Seeded empty (no stock photos) — the gallery shows a genuine empty state until an admin uploads real event photos via the admin dashboard's Gallery tab.
 
 ## 8. Internationalization (i18n)
 
@@ -163,7 +169,15 @@ Hand-rolled, no i18n library. Two layers, applied consistently across all ~44 fi
 - **Scope boundary**: this pass covers UI chrome only. Dynamic content actually stored in the database (article bodies, product names/descriptions, forum posts, tutorial/governance descriptions) is not localized — an admin writes it once, in whatever language they choose, and it displays as-is regardless of the visitor's selected language. Only the fixed category/status/level *labels* attached to that content are translated (see above).
 - **Bugs fixed along the way**: a "fake translation" bug in `HeroSection.jsx` (slides 2/3 took a `tr` argument but ignored it, returning hardcoded French regardless of language); dead `/regles` links in `HeroSection.jsx`/`Footer.jsx`/`FeatureCards.jsx` pointing at a route that doesn't exist (now `/le-sport`); `PageNotFound.jsx` and `UserNotRegisteredError.jsx` were English-only on an otherwise French-first site; `ProductDetail.jsx` briefly had a stale-on-language-switch bug during the rewrite (lang-dependent `badge`/`specs` were being baked into component state inside a fetch effect keyed only on `[id]` — fixed by computing them as render-time locals instead).
 
-## 9. Still open
+## 9. Static/placeholder content audit
+
+A full-codebase pass to find hardcoded content that should be real data. Two categories came out of it:
+
+- **Removed entirely**: two hardcoded `media.base44.com` images on the `/le-sport` page (leftover from the Base44 platform removal — see `BASE44_REMOVAL_DOCUMENTATION.md`) and 12 generic Unsplash stock photos in `MasonryGallery.jsx` pretending to be real event coverage. Per an explicit convention already used elsewhere in this codebase (`GallerySection.jsx` on the home page, the "Zones du terrain" section on `/le-sport`), a missing real photo is represented as a plain `bg-gray-900` placeholder box — **not** a broken `<img src="">` and **not** removing the layout slot the image would occupy. New content added later (via file upload or a real photo asset) drops into that same slot.
+- **Given real backend support**: team member bios and the photo gallery were both static/hardcoded with no way to update them without a code change — see the `TeamMember`/`GalleryPhoto` entries in §7 and the routes in §5. `src/components/home/AboutSection.jsx`'s "Fiche de présentation" facts were also found hardcoded in raw French with no `tr.*` keys (inconsistent with the rest of the bilingual site) and moved into `translations.js`.
+- **Confirmed fine as static, no action**: `LeSport.jsx`'s rule sections/positions/officials/gestures/principles, `Association.jsx`'s missions/organes, `Gouvernance.jsx`'s `PILLARS`, and `FaqSection.jsx` — all fixed reference/rules content, same category as a rulebook, not the kind of thing that benefits from admin CRUD.
+
+## 10. Still open
 
 - No frontend signup/account page for the new `'user'` role — see §5. The backend supports it; nothing in the UI surfaces it yet.
 - No pagination, rate limiting, or automated tests on the backend.

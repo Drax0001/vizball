@@ -1,4 +1,36 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&family=Bebas+Neue&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+@font-face {
+  font-family: 'Fester';
+  src: url('./assets/fonts/Fester Regular.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Fester';
+  src: url('./assets/fonts/Fester Bold.otf') format('opentype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Fester';
+  src: url('./assets/fonts/Fester Bold Italic.otf') format('opentype');
+  font-weight: 700;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Fester';
+  src: url('./assets/fonts/Fester Heavy.otf') format('opentype');
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
 
 @tailwind base;
 @tailwind components;
@@ -6,8 +38,8 @@
 
 @layer base {
   :root {
-    --font-heading: 'Bebas Neue', sans-serif;
-    --font-body: 'Montserrat', sans-serif;
+    --font-heading: 'Fester', sans-serif;
+    --font-body: 'Inter', sans-serif;
 
     --background: 0 0% 100%;
     --foreground: 150 30% 10%;

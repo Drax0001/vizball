@@ -12,6 +12,8 @@ import eventRoutes from './routes/events';
 import visitorRoutes from './routes/visitors';
 import tutorialRoutes from './routes/tutorials';
 import governanceRoutes from './routes/governance';
+import teamMemberRoutes from './routes/team-members';
+import galleryRoutes from './routes/gallery';
 import uploadRoutes from './routes/uploads';
 
 const app = express();
@@ -32,6 +34,8 @@ app.use('/api/events', eventRoutes);
 app.use('/api/visitors', visitorRoutes);
 app.use('/api/tutorials', tutorialRoutes);
 app.use('/api/governance-documents', governanceRoutes);
+app.use('/api/team-members', teamMemberRoutes);
+app.use('/api/gallery', galleryRoutes);
 app.use('/api/uploads', uploadRoutes);
 
 // Bound to loopback only — in production this process sits behind an Nginx

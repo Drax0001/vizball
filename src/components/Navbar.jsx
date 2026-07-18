@@ -92,17 +92,21 @@ export default function Navbar() {
             </div>
           </div>
         </div>
-        <div className="min-h-[17px] bg-accent w-full flex items-center justify-center px-2 py-0.5">
+        <div className="min-h-[17px] bg-accent w-full flex items-center justify-center px-2 py-0.5 overflow-hidden">
           <p className="text-center">
             {" "}
-            <motion.em
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              className="text-[12px] font-bold text-[#143D2B]"
-            >
-              {slogan}
-            </motion.em>{" "}
+            <AnimatePresence mode="wait">
+              <motion.em
+                key={slogan}
+                initial={{ opacity: 0, y: 6 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -6 }}
+                transition={{ duration: 0.4, ease: "easeInOut" }}
+                className="inline-block text-[12px] font-bold text-[#143D2B]"
+              >
+                {slogan}
+              </motion.em>
+            </AnimatePresence>{" "}
           </p>
         </div>
       </div>

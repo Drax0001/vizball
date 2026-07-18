@@ -11,6 +11,8 @@ import {
   seedVisitorsCount,
   seedTutorials,
   seedGovernanceDocuments,
+  seedTeamMembers,
+  seedGalleryPhotos,
 } from './seedData';
 
 const DB_PATH = process.env.DB_PATH || path.join(__dirname, 'vizball.db');
@@ -133,6 +135,23 @@ function migrate() {
       id INTEGER PRIMARY KEY CHECK (id = 1),
       count INTEGER NOT NULL DEFAULT 0
     );
+
+    CREATE TABLE IF NOT EXISTS team_members (
+      id TEXT PRIMARY KEY,
+      name TEXT NOT NULL,
+      role TEXT NOT NULL,
+      bio TEXT,
+      photo TEXT,
+      display_order INTEGER NOT NULL DEFAULT 0
+    );
+
+    CREATE TABLE IF NOT EXISTS gallery_photos (
+      id TEXT PRIMARY KEY,
+      image_url TEXT NOT NULL,
+      category TEXT NOT NULL,
+      caption TEXT,
+      featured INTEGER NOT NULL DEFAULT 0
+    );
   `);
 }
 
@@ -199,6 +218,12 @@ function seedIfEmpty() {
   const insertDoc = db.prepare(
     `INSERT INTO governance_documents (id, pillar_id, pillar, title, category, description, content, status, pages, year, file_url) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`
   );
+  const insertTeamMember = db.prepare(
+    `INSERT INTO team_members (id, name, role, bio, photo, display_order) VALUES (?, ?, ?, ?, ?, ?)`
+  );
+  const insertGalleryPhoto = db.prepare(
+    `INSERT INTO gallery_photos (id, image_url, category, caption, featured) VALUES (?, ?, ?, ?, ?)`
+  );
 
   db.transaction(() => {
     for (const u of seedUsers) insertUser.run(u.id, u.username, u.email, u.passwordHash, u.role, new Date().toISOString());
@@ -210,6 +235,8 @@ function seedIfEmpty() {
     for (const r of seedForumReplies) insertReply.run(r.id, r.topic_id, r.author_name, r.user_id, r.created_date, r.content);
     for (const v of seedTutorials) insertTutorial.run(v.id, v.title, v.category, v.description, v.duration, v.views, v.level, v.featured ? 1 : 0, v.thumb, v.src);
     for (const d of seedGovernanceDocuments) insertDoc.run(d.id, d.pillarId, d.pillar, d.title, d.category, d.description, JSON.stringify(d.content), d.status, d.pages, d.year, d.fileUrl);
+    for (const m of seedTeamMembers) insertTeamMember.run(m.id, m.name, m.role, m.bio, m.photo, m.displayOrder);
+    for (const g of seedGalleryPhotos) insertGalleryPhoto.run(g.id, g.imageUrl, g.category, g.caption, g.featured ? 1 : 0);
     db.prepare(`INSERT INTO visitors (id, count) VALUES (1, ?)`).run(seedVisitorsCount);
   })();
 }

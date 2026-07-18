@@ -383,6 +383,74 @@ export const api = {
     },
   },
 
+  // Team members
+  teamMembers: {
+    list: async () => {
+      const res = await fetch(`${API_BASE}/api/team-members`, {
+        method: 'GET',
+        headers: getHeaders(),
+      });
+      return handleResponse(res);
+    },
+    create: async (member) => {
+      const res = await fetch(`${API_BASE}/api/team-members`, {
+        method: 'POST',
+        headers: getHeaders(),
+        body: JSON.stringify(member),
+      });
+      return handleResponse(res);
+    },
+    update: async (id, member) => {
+      const res = await fetch(`${API_BASE}/api/team-members/${id}`, {
+        method: 'PUT',
+        headers: getHeaders(),
+        body: JSON.stringify(member),
+      });
+      return handleResponse(res);
+    },
+    delete: async (id) => {
+      const res = await fetch(`${API_BASE}/api/team-members/${id}`, {
+        method: 'DELETE',
+        headers: getHeaders(),
+      });
+      return handleResponse(res);
+    },
+  },
+
+  // Gallery photos
+  gallery: {
+    list: async () => {
+      const res = await fetch(`${API_BASE}/api/gallery`, {
+        method: 'GET',
+        headers: getHeaders(),
+      });
+      return handleResponse(res);
+    },
+    create: async (photo) => {
+      const res = await fetch(`${API_BASE}/api/gallery`, {
+        method: 'POST',
+        headers: getHeaders(),
+        body: JSON.stringify(photo),
+      });
+      return handleResponse(res);
+    },
+    update: async (id, photo) => {
+      const res = await fetch(`${API_BASE}/api/gallery/${id}`, {
+        method: 'PUT',
+        headers: getHeaders(),
+        body: JSON.stringify(photo),
+      });
+      return handleResponse(res);
+    },
+    delete: async (id) => {
+      const res = await fetch(`${API_BASE}/api/gallery/${id}`, {
+        method: 'DELETE',
+        headers: getHeaders(),
+      });
+      return handleResponse(res);
+    },
+  },
+
   // File uploads (admin only)
   uploads: {
     upload: async (file) => {

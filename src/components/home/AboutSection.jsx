@@ -5,6 +5,12 @@ import { ArrowRight, Users, Target, Trophy } from 'lucide-react';
 import { useLang } from '../../lib/LanguageContext';
 import t from '../../lib/translations';
 
+function renderBold(text) {
+  return text.split('**').map((part, i) =>
+    i % 2 === 1 ? <strong key={i} className="text-foreground">{part}</strong> : part
+  );
+}
+
 export default function AboutSection() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: '-100px' });
@@ -54,39 +60,31 @@ export default function AboutSection() {
 
             {/* Fiche de présentation */}
             <div className="bg-muted rounded-xl p-5 mb-8 border border-border space-y-2">
-              {[
-              { text: <>Sport collectif créé en <strong className="text-foreground">2007</strong> au <strong className="text-foreground">Cameroun</strong></> },
-              { text: <>Se déroule en <strong className="text-foreground">4 manches</strong> de 15 minutes chacune</> },
-              { text: <>Dimensions du terrain : <strong className="text-foreground">48 × 24 mètres</strong></> },
-              { text: <>Se joue à l'aide des <strong className="text-foreground">mains</strong>, parfois avec les <strong className="text-foreground">pieds</strong></> },
-              { text: <>Se joue avec <strong className="text-foreground">12 ballons</strong></> },
-              { text: <>Une équipe de <strong className="text-foreground">4 joueurs</strong> contre une équipe de <strong className="text-foreground">5 joueurs</strong></> },
-              { text: <><strong className="text-foreground">Permutation</strong> des positions des 2 équipes après chaque manche</> }].
-              map((item, i) =>
+              {[tr.about_fact_1, tr.about_fact_2, tr.about_fact_3, tr.about_fact_4, tr.about_fact_5, tr.about_fact_6, tr.about_fact_7].map((fact, i) =>
               <div key={i} className="flex items-start gap-2">
                   <span className="text-accent font-bold mt-0.5">—</span>
-                  <p className="font-body text-sm text-muted-foreground leading-relaxed">{item.text}</p>
+                  <p className="font-body text-sm text-muted-foreground leading-relaxed">{renderBold(fact)}</p>
                 </div>
               )}
-              <p className="font-body text-xs font-bold uppercase tracking-wider text-accent pt-2 border-t border-border mt-2">AUTEUR : MIAFFO NKENGNI Yannick Joël
-
-              </p>
+              <p className="font-body text-xs font-bold uppercase tracking-wider text-accent pt-2 border-t border-border mt-2">{tr.about_author}</p>
             </div>
 
             <div className="grid grid-cols-3 gap-6 mb-8">
-              {stats.map((stat, i) =>
-              <motion.div
-                key={i}
-                initial={{ opacity: 0, y: 20 }}
-                animate={isInView ? { opacity: 1, y: 0 } : {}}
-                transition={{ delay: 0.4 + i * 0.1 }}
-                className="text-center">
-                
-                  
-                  
-                  
-                </motion.div>
-              )}
+              {stats.map((stat, i) => {
+                const Icon = stat.icon;
+                return (
+                  <motion.div
+                    key={i}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={isInView ? { opacity: 1, y: 0 } : {}}
+                    transition={{ delay: 0.4 + i * 0.1 }}
+                    className="text-center">
+                    <Icon size={22} className="text-accent mx-auto mb-2" />
+                    <span className="font-heading text-3xl text-foreground block">{stat.value}</span>
+                    <p className="font-body text-xs text-muted-foreground uppercase tracking-wider mt-1">{stat.label}</p>
+                  </motion.div>
+                );
+              })}
             </div>
 
             <Link

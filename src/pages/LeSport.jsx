@@ -258,10 +258,7 @@ export default function LeSport() {
     <div>
       {/* Hero */}
       <section className="relative h-[60vh] min-h-[400px] overflow-hidden">
-        <img
-          src="https://media.base44.com/images/public/69ebbc425ff9fc8f11d3960b/e19c13cfa_generated_a282d46d.png"
-          alt="Vizball en action"
-          className="w-full h-full object-cover" />
+        <div className="w-full h-full bg-gray-900" />
 
         <div className="absolute inset-0 bg-gradient-to-r from-primary/90 via-primary/70 to-primary/40" />
         <div className="absolute inset-0 flex items-center">
@@ -309,10 +306,7 @@ export default function LeSport() {
                 </div>
               </div>
               <div className="relative">
-                <img
-                  src="https://media.base44.com/images/public/69ebbc425ff9fc8f11d3960b/e974c8229_generated_27869450.png"
-                  alt="Match de Vizball"
-                  className="rounded-lg w-full h-[450px] object-cover" />
+                <div className="rounded-lg w-full h-[450px] bg-gray-900" />
 
                 <div className="absolute -bottom-4 -left-4 bg-primary text-white p-5 rounded-lg">
                   <span className="font-heading text-3xl text-accent">{tr.sport_field_dims}</span>

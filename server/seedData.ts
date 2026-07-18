@@ -181,3 +181,14 @@ export const seedGovernanceDocuments = [
   { id: 'doc-11', pillarId: 'vision', pillar: 'Pilier Vision & Développement', title: "Rapport d'Impact Social", category: 'Impact & RSE', description: 'Documentation de la contribution du Vizball au bien-être des communautés : santé physique, cohésion sociale, emploi des jeunes et développement économique local.', content: ['Nombre de bénéficiaires directs et indirects', 'Indicateurs de santé et bien-être', "Impact sur l'emploi et la formation", 'Contribution à la cohésion sociale', "Témoignages et études de cas"], status: 'restreint', pages: 28, year: '2025', fileUrl: null },
   { id: 'doc-12', pillarId: 'vision', pillar: 'Pilier Vision & Développement', title: 'Kit Média & Dossier de Partenariat', category: 'Partenariat', description: 'Document visuel et professionnel présentant les opportunités de sponsoring Vizball avec les codes graphiques officiels (Vert Forêt et Or). Destiné aux sponsors et partenaires potentiels.', content: ['Présentation de la marque Vizball', 'Chiffres clés et audience', 'Offres de sponsoring et visibilité', 'Retours sur investissement estimés', 'Procédure de contact et signature'], status: 'restreint', pages: 30, year: '2025', fileUrl: null },
 ];
+
+export const seedTeamMembers = [
+  { id: 'team-1', name: 'MIAFFO NKENGNI Yannick Joël', role: 'Fondateur & Président du HCV', bio: "Créateur du Vizball en 2007, Yannick Joël est le visionnaire fondateur du sport. Il préside le Haut Conseil du Vizball et détient les droits de propriété intellectuelle perpétuels sur le sport.", photo: '', displayOrder: 1 },
+  { id: 'team-2', name: 'Membre du Bureau Exécutif', role: 'Secrétaire Général', bio: "Responsable de l'administration courante de l'Association, de la coordination entre les organes et de la communication officielle.", photo: '', displayOrder: 2 },
+  { id: 'team-3', name: 'Membre du Bureau Exécutif', role: 'Trésorier Général', bio: "Garant de la transparence financière de l'Association, chargé de la gestion budgétaire et des relations avec la Commission des Finances.", photo: '', displayOrder: 3 },
+  { id: 'team-4', name: 'Membre du Bureau Exécutif', role: 'Responsable Technique', bio: "En charge du développement sportif, de la formation des arbitres et des entraîneurs, et de l'organisation des compétitions officielles.", photo: '', displayOrder: 4 },
+];
+
+// No real event photography exists yet — deliberately empty rather than
+// seeded with stock photos. Admins add real photos via /admin.
+export const seedGalleryPhotos: { id: string; imageUrl: string; category: string; caption: string; featured: boolean }[] = [];

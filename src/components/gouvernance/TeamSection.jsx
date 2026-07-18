@@ -1,37 +1,11 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { motion, useInView } from 'framer-motion';
 import { Users } from 'lucide-react';
 import { useLang } from '../../lib/LanguageContext';
 import t from '../../lib/translations';
+import { api } from '../../api/client';
 
-const TEAM_MEMBERS = [
-  {
-    name: 'MIAFFO NKENGNI Yannick Joël',
-    role: { fr: 'Fondateur & Président du HCV', en: 'Founder & Chairman of the HCV' },
-    description: { fr: 'Créateur du Vizball en 2007, il est le visionnaire derrière ce sport innovant né au Cameroun. Membre de droit de l\'Association et du Haut Conseil du Vizball, avec voix prépondérante sur les décisions stratégiques.', en: 'Creator of Vizball in 2007, he is the visionary behind this innovative sport born in Cameroon. An ex officio member of the Association and the High Council of Vizball, with the deciding vote on strategic decisions.' },
-    imageUrl: '',
-  },
-  {
-    name: { fr: 'Membre du Bureau', en: 'Board Member' },
-    role: { fr: 'Secrétaire Général', en: 'Secretary General' },
-    description: { fr: 'Responsable de la coordination administrative et des communications officielles de l\'Association Vizball. Garant du respect des statuts et du bon fonctionnement interne.', en: "Responsible for administrative coordination and official communications of the Vizball Association. Ensures compliance with the bylaws and smooth internal operation." },
-    imageUrl: null,
-  },
-  {
-    name: { fr: 'Membre du Bureau', en: 'Board Member' },
-    role: { fr: 'Trésorier', en: 'Treasurer' },
-    description: { fr: 'En charge de la gestion financière et budgétaire de l\'Association. Assure la transparence des comptes et le suivi des partenariats financiers.', en: "In charge of the Association's financial and budget management. Ensures accounting transparency and follow-up on financial partnerships." },
-    imageUrl: null,
-  },
-  {
-    name: { fr: 'Membre du Bureau', en: 'Board Member' },
-    role: { fr: 'Responsable Technique', en: 'Technical Director' },
-    description: { fr: 'Supervise l\'encadrement sportif, la formation des arbitres et l\'organisation des compétitions officielles sur le territoire national.', en: 'Oversees sporting supervision, referee training, and the organisation of official competitions nationwide.' },
-    imageUrl: null,
-  },
-];
-
-function MemberCard({ member, index, lang }) {
+function MemberCard({ member, index }) {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: '-60px' });
 
@@ -45,10 +19,10 @@ function MemberCard({ member, index, lang }) {
     >
       {/* Photo */}
       <div className="shrink-0">
-        {member.imageUrl ? (
+        {member.photo ? (
           <img
-            src={member.imageUrl}
-            alt={typeof member.name === 'string' ? member.name : member.name[lang]}
+            src={member.photo}
+            alt={member.name}
             className="w-24 h-24 rounded-xl object-cover border border-white/10"
           />
         ) : (
@@ -60,9 +34,9 @@ function MemberCard({ member, index, lang }) {
 
       {/* Infos */}
       <div className="flex-1 min-w-0">
-        <p className="font-body text-xs font-bold uppercase tracking-widest text-accent mb-1">{member.role[lang]}</p>
-        <h4 className="font-heading text-xl text-white mb-2">{typeof member.name === 'string' ? member.name : member.name[lang]}</h4>
-        <p className="font-body text-sm text-white/50 leading-relaxed">{member.description[lang]}</p>
+        <p className="font-body text-xs font-bold uppercase tracking-widest text-accent mb-1">{member.role}</p>
+        <h4 className="font-heading text-xl text-white mb-2">{member.name}</h4>
+        <p className="font-body text-sm text-white/50 leading-relaxed">{member.bio}</p>
       </div>
     </motion.div>
   );
@@ -73,6 +47,15 @@ export default function GouvernanceTeamSection() {
   const isInView = useInView(ref, { once: true, margin: '-60px' });
   const { lang } = useLang();
   const tr = t[lang];
+  const [members, setMembers] = useState([]);
+
+  useEffect(() => {
+    api.teamMembers.list()
+      .then(setMembers)
+      .catch((err) => console.error('Failed to load team members:', err));
+  }, []);
+
+  if (members.length === 0) return null;
 
   return (
     <section className="py-20 bg-primary border-t border-white/10">
@@ -99,8 +82,8 @@ export default function GouvernanceTeamSection() {
 
         {/* Cards */}
         <div className="grid sm:grid-cols-2 gap-5">
-          {TEAM_MEMBERS.map((member, i) => (
-            <MemberCard key={i} member={member} index={i} lang={lang} />
+          {members.map((member, i) => (
+            <MemberCard key={member.id} member={member} index={i} />
           ))}
         </div>
       </div>

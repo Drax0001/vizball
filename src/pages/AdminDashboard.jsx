@@ -4,7 +4,7 @@ import {
   Users, ShoppingBag, Newspaper, MapPin, Calendar,
   LogOut, Trash2, Pencil, Plus, Pin, Lock, Unlock,
   Settings, Check, X, ShieldAlert, BarChart3, MessageSquare, Upload,
-  Video, FileText
+  Video, FileText, UserCircle2, Image as ImageIcon
 } from 'lucide-react';
 import { useAuth } from '../lib/AuthContext';
 import { api } from '../api/client';
@@ -25,6 +25,13 @@ const GOVERNANCE_PILLARS = [
   { id: 'vision', label: { fr: 'Vision & Développement', en: 'Vision & Development' }, pillarText: 'Pilier Vision & Développement' },
 ];
 const GOVERNANCE_STATUSES = ['disponible', 'restreint', 'bientôt'];
+const GALLERY_CATEGORIES = ['Matchs', 'Joueurs', 'Équipements', 'Événements'];
+const GALLERY_CATEGORY_KEYS = {
+  'Matchs': 'media_cat_matches',
+  'Joueurs': 'media_cat_players',
+  'Équipements': 'media_cat_equipment',
+  'Événements': 'media_cat_events',
+};
 const EVENT_TYPE_LABELS = {
   'Rencontre': { fr: 'Rencontre', en: 'Match' },
   'Tournoi': { fr: 'Tournoi', en: 'Tournament' },
@@ -54,6 +61,8 @@ export default function AdminDashboard() {
   const [topics, setTopics] = useState([]);
   const [tutorials, setTutorials] = useState([]);
   const [governanceDocs, setGovernanceDocs] = useState([]);
+  const [teamMembers, setTeamMembers] = useState([]);
+  const [galleryPhotos, setGalleryPhotos] = useState([]);
   const [visitorsCount, setVisitorsCount] = useState(0);
   const [loadingData, setLoadingData] = useState(false);
 
@@ -84,12 +93,22 @@ export default function AdminDashboard() {
   const [governanceForm, setGovernanceForm] = useState({ pillarId: GOVERNANCE_PILLARS[0].id, title: '', category: '', status: 'restreint', pages: '', year: '', desc: '', content: '', fileUrl: '' });
   const [governanceFileUploading, setGovernanceFileUploading] = useState(false);
 
+  const [teamFormOpen, setTeamFormOpen] = useState(false);
+  const [editingTeamMember, setEditingTeamMember] = useState(null);
+  const [teamForm, setTeamForm] = useState({ name: '', role: '', bio: '', photo: '', displayOrder: 0 });
+  const [teamPhotoUploading, setTeamPhotoUploading] = useState(false);
+
+  const [galleryFormOpen, setGalleryFormOpen] = useState(false);
+  const [editingGalleryPhoto, setEditingGalleryPhoto] = useState(null);
+  const [galleryForm, setGalleryForm] = useState({ imageUrl: '', category: GALLERY_CATEGORIES[0], caption: '', featured: false });
+  const [galleryPhotoUploading, setGalleryPhotoUploading] = useState(false);
+
   // Load all data from backend
   const loadAllData = async () => {
     if (!user || user.role !== 'admin') return;
     setLoadingData(true);
     try {
-      const [artData, prodData, clubData, evData, topData, tutData, govData, visData] = await Promise.all([
+      const [artData, prodData, clubData, evData, topData, tutData, govData, teamData, galleryData, visData] = await Promise.all([
         api.articles.list(),
         api.products.list(),
         api.clubs.list(),
@@ -97,6 +116,8 @@ export default function AdminDashboard() {
         api.forum.listTopics(),
         api.tutorials.list(),
         api.governanceDocuments.list(),
+        api.teamMembers.list(),
+        api.gallery.list(),
         api.visitors.get()
       ]);
       setArticles(artData);
@@ -106,6 +127,8 @@ export default function AdminDashboard() {
       setTopics(topData);
       setTutorials(tutData);
       setGovernanceDocs(govData);
+      setTeamMembers(teamData);
+      setGalleryPhotos(galleryData);
       setVisitorsCount(visData?.count || 0);
     } catch (err) {
       console.error('Error loading dashboard data:', err);
@@ -450,6 +473,113 @@ export default function AdminDashboard() {
     }
   };
 
+  // Team Member Actions
+  const handleEditTeamMember = (member) => {
+    setEditingTeamMember(member);
+    setTeamForm({
+      name: member.name,
+      role: member.role,
+      bio: member.bio || '',
+      photo: member.photo || '',
+      displayOrder: member.display_order ?? 0
+    });
+    setTeamFormOpen(true);
+  };
+  const handleNewTeamMember = () => {
+    setEditingTeamMember(null);
+    setTeamForm({ name: '', role: '', bio: '', photo: '', displayOrder: teamMembers.length + 1 });
+    setTeamFormOpen(true);
+  };
+  const handleTeamSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      if (editingTeamMember) {
+        await api.teamMembers.update(editingTeamMember.id, teamForm);
+      } else {
+        await api.teamMembers.create(teamForm);
+      }
+      setTeamFormOpen(false);
+      loadAllData();
+    } catch (err) {
+      alert(err.message);
+    }
+  };
+  const handleDeleteTeamMember = async (id) => {
+    if (!confirm(tr.admin_confirm_delete_team_member)) return;
+    try {
+      await api.teamMembers.delete(id);
+      loadAllData();
+    } catch (err) {
+      alert(err.message);
+    }
+  };
+  const handleTeamPhotoUpload = async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    setTeamPhotoUploading(true);
+    try {
+      const { url } = await api.uploads.upload(file);
+      setTeamForm((f) => ({ ...f, photo: url }));
+    } catch (err) {
+      alert(tr.admin_upload_error + err.message);
+    } finally {
+      setTeamPhotoUploading(false);
+    }
+  };
+
+  // Gallery Photo Actions
+  const handleEditGalleryPhoto = (photo) => {
+    setEditingGalleryPhoto(photo);
+    setGalleryForm({
+      imageUrl: photo.image_url,
+      category: photo.category,
+      caption: photo.caption || '',
+      featured: !!photo.featured
+    });
+    setGalleryFormOpen(true);
+  };
+  const handleNewGalleryPhoto = () => {
+    setEditingGalleryPhoto(null);
+    setGalleryForm({ imageUrl: '', category: GALLERY_CATEGORIES[0], caption: '', featured: false });
+    setGalleryFormOpen(true);
+  };
+  const handleGallerySubmit = async (e) => {
+    e.preventDefault();
+    try {
+      if (editingGalleryPhoto) {
+        await api.gallery.update(editingGalleryPhoto.id, galleryForm);
+      } else {
+        await api.gallery.create(galleryForm);
+      }
+      setGalleryFormOpen(false);
+      loadAllData();
+    } catch (err) {
+      alert(err.message);
+    }
+  };
+  const handleDeleteGalleryPhoto = async (id) => {
+    if (!confirm(tr.admin_confirm_delete_photo)) return;
+    try {
+      await api.gallery.delete(id);
+      loadAllData();
+    } catch (err) {
+      alert(err.message);
+    }
+  };
+  const handleGalleryPhotoUpload = async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    setGalleryPhotoUploading(true);
+    try {
+      const { url } = await api.uploads.upload(file);
+      setGalleryForm((f) => ({ ...f, imageUrl: url }));
+    } catch (err) {
+      alert(tr.admin_upload_error + err.message);
+    } finally {
+      setGalleryPhotoUploading(false);
+    }
+  };
+
   if (isLoadingAuth) {
     return (
       <div className="min-h-screen bg-primary flex items-center justify-center">
@@ -524,7 +654,7 @@ export default function AdminDashboard() {
 
   // 2. Render Admin Dashboard if authenticated
   return (
-    <div className="min-h-screen bg-primary text-white pt-24 pb-20">
+    <div className="min-h-screen bg-primary text-white pt-32 pb-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Header section */}
@@ -551,7 +681,9 @@ export default function AdminDashboard() {
             { id: 'events', label: tr.admin_tab_events, icon: Calendar },
             { id: 'forum', label: tr.admin_tab_forum, icon: MessageSquare },
             { id: 'tutorials', label: tr.nav_tutorials, icon: Video },
-            { id: 'governance', label: tr.nav_governance, icon: FileText }
+            { id: 'governance', label: tr.nav_governance, icon: FileText },
+            { id: 'team', label: tr.admin_tab_team, icon: UserCircle2 },
+            { id: 'gallery', label: tr.admin_tab_gallery, icon: ImageIcon }
           ].map((tab) => {
             const Icon = tab.icon;
             const active = activeTab === tab.id;
@@ -636,6 +768,24 @@ export default function AdminDashboard() {
                   <div>
                     <h3 className="font-heading text-3xl">{governanceDocs.length}</h3>
                     <p className="font-body text-xs text-white/50 uppercase tracking-wider">{tr.admin_stat_gov_docs}</p>
+                  </div>
+                </div>
+                <div className="bg-[#0f2c1e] border border-white/10 rounded-2xl p-6 flex items-center gap-4 shadow-xl">
+                  <div className="w-12 h-12 bg-accent/15 border border-accent/30 rounded-xl flex items-center justify-center text-accent shrink-0">
+                    <UserCircle2 size={22} />
+                  </div>
+                  <div>
+                    <h3 className="font-heading text-3xl">{teamMembers.length}</h3>
+                    <p className="font-body text-xs text-white/50 uppercase tracking-wider">{tr.admin_stat_team}</p>
+                  </div>
+                </div>
+                <div className="bg-[#0f2c1e] border border-white/10 rounded-2xl p-6 flex items-center gap-4 shadow-xl">
+                  <div className="w-12 h-12 bg-accent/15 border border-accent/30 rounded-xl flex items-center justify-center text-accent shrink-0">
+                    <ImageIcon size={22} />
+                  </div>
+                  <div>
+                    <h3 className="font-heading text-3xl">{galleryPhotos.length}</h3>
+                    <p className="font-body text-xs text-white/50 uppercase tracking-wider">{tr.admin_stat_gallery}</p>
                   </div>
                 </div>
 
@@ -1036,6 +1186,109 @@ export default function AdminDashboard() {
               </div>
             )}
 
+            {/* TABS 9: TEAM MEMBERS */}
+            {activeTab === 'team' && (
+              <div className="bg-[#0f2c1e] border border-white/10 rounded-2xl p-6 shadow-xl">
+                <div className="flex items-center justify-between mb-6 flex-wrap gap-3">
+                  <h2 className="font-heading text-2xl text-white">{tr.admin_team_title}</h2>
+                  <button
+                    onClick={handleNewTeamMember}
+                    className="flex items-center gap-1.5 bg-accent hover:bg-accent/90 text-primary font-body text-xs font-bold uppercase tracking-wider px-4 py-2 rounded-lg transition-all"
+                  >
+                    <Plus size={14} /> {tr.admin_team_new}
+                  </button>
+                </div>
+
+                <div className="overflow-x-auto">
+                  <table className="w-full min-w-[560px] text-left font-body text-sm text-white/80">
+                    <thead>
+                      <tr className="border-b border-white/10 text-xs font-bold uppercase tracking-wider text-white/40">
+                        <th className="py-3 px-4">{tr.admin_th_name}</th>
+                        <th className="py-3 px-4">{tr.admin_th_role}</th>
+                        <th className="py-3 px-4">{tr.admin_th_order}</th>
+                        <th className="py-3 px-4 text-right">{tr.admin_th_actions}</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {teamMembers.map((member) => (
+                        <tr key={member.id} className="border-b border-white/5 hover:bg-white/3">
+                          <td className="py-3 px-4 font-bold flex items-center gap-3">
+                            {member.photo ? (
+                              <img src={member.photo} alt={member.name} className="w-8 h-8 rounded-full object-cover" />
+                            ) : (
+                              <div className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center shrink-0"><UserCircle2 size={16} className="text-white/30" /></div>
+                            )}
+                            {member.name}
+                          </td>
+                          <td className="py-3 px-4">{member.role}</td>
+                          <td className="py-3 px-4">{member.display_order}</td>
+                          <td className="py-3 px-4 text-right">
+                            <div className="flex gap-2 justify-end">
+                              <button onClick={() => handleEditTeamMember(member)} className="p-1.5 bg-white/5 hover:bg-accent hover:text-primary rounded border border-white/10 hover:border-accent transition-colors"><Pencil size={13} /></button>
+                              <button onClick={() => handleDeleteTeamMember(member.id)} className="p-1.5 bg-white/5 hover:bg-red-500 hover:text-white rounded border border-white/10 hover:border-red-500 transition-colors"><Trash2 size={13} /></button>
+                            </div>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            )}
+
+            {/* TABS 10: GALLERY PHOTOS */}
+            {activeTab === 'gallery' && (
+              <div className="bg-[#0f2c1e] border border-white/10 rounded-2xl p-6 shadow-xl">
+                <div className="flex items-center justify-between mb-6 flex-wrap gap-3">
+                  <h2 className="font-heading text-2xl text-white">{tr.admin_gallery_title}</h2>
+                  <button
+                    onClick={handleNewGalleryPhoto}
+                    className="flex items-center gap-1.5 bg-accent hover:bg-accent/90 text-primary font-body text-xs font-bold uppercase tracking-wider px-4 py-2 rounded-lg transition-all"
+                  >
+                    <Plus size={14} /> {tr.admin_gallery_new}
+                  </button>
+                </div>
+
+                <div className="overflow-x-auto">
+                  <table className="w-full min-w-[640px] text-left font-body text-sm text-white/80">
+                    <thead>
+                      <tr className="border-b border-white/10 text-xs font-bold uppercase tracking-wider text-white/40">
+                        <th className="py-3 px-4">{tr.admin_th_preview}</th>
+                        <th className="py-3 px-4">{tr.admin_th_category}</th>
+                        <th className="py-3 px-4">{tr.admin_th_caption}</th>
+                        <th className="py-3 px-4">{tr.admin_th_featured}</th>
+                        <th className="py-3 px-4 text-right">{tr.admin_th_actions}</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {galleryPhotos.map((photo) => (
+                        <tr key={photo.id} className="border-b border-white/5 hover:bg-white/3">
+                          <td className="py-3 px-4">
+                            {photo.image_url ? (
+                              <img src={photo.image_url} alt={photo.caption} className="w-12 h-12 rounded object-cover" />
+                            ) : (
+                              <div className="w-12 h-12 rounded bg-gray-900" />
+                            )}
+                          </td>
+                          <td className="py-3 px-4">{tr[GALLERY_CATEGORY_KEYS[photo.category]] || photo.category}</td>
+                          <td className="py-3 px-4">{photo.caption}</td>
+                          <td className="py-3 px-4">
+                            {photo.featured && <span className="bg-accent/20 text-accent border border-accent/30 text-[10px] font-bold px-1.5 py-0.5 rounded uppercase">{tr.admin_th_featured}</span>}
+                          </td>
+                          <td className="py-3 px-4 text-right">
+                            <div className="flex gap-2 justify-end">
+                              <button onClick={() => handleEditGalleryPhoto(photo)} className="p-1.5 bg-white/5 hover:bg-accent hover:text-primary rounded border border-white/10 hover:border-accent transition-colors"><Pencil size={13} /></button>
+                              <button onClick={() => handleDeleteGalleryPhoto(photo.id)} className="p-1.5 bg-white/5 hover:bg-red-500 hover:text-white rounded border border-white/10 hover:border-red-500 transition-colors"><Trash2 size={13} /></button>
+                            </div>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            )}
+
           </div>
         )}
       </div>
@@ -1405,6 +1658,116 @@ export default function AdminDashboard() {
                 </div>
                 <div className="flex justify-end gap-3 pt-3">
                   <button type="button" onClick={() => setGovernanceFormOpen(false)} className="text-white/40 hover:text-white px-4 py-2">{tr.admin_cancel}</button>
+                  <button type="submit" className="bg-accent hover:bg-accent/90 text-primary px-6 py-2 rounded-lg font-bold">{tr.admin_save}</button>
+                </div>
+              </form>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* TEAM MEMBER FORM MODAL */}
+      <AnimatePresence>
+        {teamFormOpen && (
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="fixed inset-0 z-50 bg-black/80 flex items-center justify-center p-4">
+            <motion.div initial={{ scale: 0.95 }} animate={{ scale: 1 }} className="w-full max-w-lg bg-[#0f2c1e] border border-white/10 rounded-2xl p-6 shadow-2xl max-h-[90vh] overflow-y-auto">
+              <div className="flex items-center justify-between pb-4 border-b border-white/10 mb-5">
+                <h3 className="font-heading text-2xl">{editingTeamMember ? tr.admin_team_edit : tr.admin_team_new_modal}</h3>
+                <button onClick={() => setTeamFormOpen(false)} className="text-white/40 hover:text-white"><X size={20} /></button>
+              </div>
+              <form onSubmit={handleTeamSubmit} className="space-y-4 font-body text-sm">
+                <div>
+                  <label className="text-white/40 block mb-1">{tr.admin_label_title_req}</label>
+                  <Input required value={teamForm.name} onChange={e => setTeamForm({...teamForm, name: e.target.value})} className="bg-white/5 border-white/15 text-white" />
+                </div>
+                <div className="grid sm:grid-cols-2 gap-4">
+                  <div>
+                    <label className="text-white/40 block mb-1">{tr.admin_label_role}</label>
+                    <Input required value={teamForm.role} onChange={e => setTeamForm({...teamForm, role: e.target.value})} className="bg-white/5 border-white/15 text-white" />
+                  </div>
+                  <div>
+                    <label className="text-white/40 block mb-1">{tr.admin_label_display_order}</label>
+                    <Input type="number" value={teamForm.displayOrder} onChange={e => setTeamForm({...teamForm, displayOrder: Number(e.target.value)})} className="bg-white/5 border-white/15 text-white" />
+                  </div>
+                </div>
+                <div>
+                  <label className="text-white/40 block mb-1">{tr.admin_label_bio}</label>
+                  <Textarea value={teamForm.bio} onChange={e => setTeamForm({...teamForm, bio: e.target.value})} rows={3} className="bg-white/5 border-white/15 text-white" />
+                </div>
+                <div>
+                  <label className="text-white/40 block mb-1">{tr.admin_label_photo}</label>
+                  <div className="flex gap-3 items-start">
+                    <Input value={teamForm.photo} onChange={e => setTeamForm({...teamForm, photo: e.target.value})} placeholder="https://..." className="bg-white/5 border-white/15 text-white flex-1" />
+                    <label className={`flex items-center gap-2 px-4 py-2 border border-white/15 rounded-md text-xs text-white/60 hover:border-accent/40 hover:text-white transition-all cursor-pointer shrink-0 ${teamPhotoUploading ? 'opacity-50 pointer-events-none' : ''}`}>
+                      <Upload size={14} />
+                      {teamPhotoUploading ? tr.admin_uploading : tr.admin_upload}
+                      <input type="file" accept="image/*" className="hidden" onChange={handleTeamPhotoUpload} />
+                    </label>
+                  </div>
+                  {teamForm.photo && (
+                    <div className="mt-3 rounded-lg overflow-hidden h-32 w-32 border border-white/10">
+                      <img src={teamForm.photo} alt="preview" className="w-full h-full object-cover" />
+                    </div>
+                  )}
+                </div>
+                <div className="flex justify-end gap-3 pt-3">
+                  <button type="button" onClick={() => setTeamFormOpen(false)} className="text-white/40 hover:text-white px-4 py-2">{tr.admin_cancel}</button>
+                  <button type="submit" className="bg-accent hover:bg-accent/90 text-primary px-6 py-2 rounded-lg font-bold">{tr.admin_save}</button>
+                </div>
+              </form>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* GALLERY PHOTO FORM MODAL */}
+      <AnimatePresence>
+        {galleryFormOpen && (
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="fixed inset-0 z-50 bg-black/80 flex items-center justify-center p-4">
+            <motion.div initial={{ scale: 0.95 }} animate={{ scale: 1 }} className="w-full max-w-lg bg-[#0f2c1e] border border-white/10 rounded-2xl p-6 shadow-2xl max-h-[90vh] overflow-y-auto">
+              <div className="flex items-center justify-between pb-4 border-b border-white/10 mb-5">
+                <h3 className="font-heading text-2xl">{editingGalleryPhoto ? tr.admin_gallery_edit : tr.admin_gallery_new_modal}</h3>
+                <button onClick={() => setGalleryFormOpen(false)} className="text-white/40 hover:text-white"><X size={20} /></button>
+              </div>
+              <form onSubmit={handleGallerySubmit} className="space-y-4 font-body text-sm">
+                <div>
+                  <label className="text-white/40 block mb-1">{tr.admin_label_image_req}</label>
+                  <div className="flex gap-3 items-start">
+                    <Input required value={galleryForm.imageUrl} onChange={e => setGalleryForm({...galleryForm, imageUrl: e.target.value})} placeholder="https://..." className="bg-white/5 border-white/15 text-white flex-1" />
+                    <label className={`flex items-center gap-2 px-4 py-2 border border-white/15 rounded-md text-xs text-white/60 hover:border-accent/40 hover:text-white transition-all cursor-pointer shrink-0 ${galleryPhotoUploading ? 'opacity-50 pointer-events-none' : ''}`}>
+                      <Upload size={14} />
+                      {galleryPhotoUploading ? tr.admin_uploading : tr.admin_upload}
+                      <input type="file" accept="image/*" className="hidden" onChange={handleGalleryPhotoUpload} />
+                    </label>
+                  </div>
+                  {galleryForm.imageUrl && (
+                    <div className="mt-3 rounded-lg overflow-hidden h-32 border border-white/10">
+                      <img src={galleryForm.imageUrl} alt="preview" className="w-full h-full object-cover" />
+                    </div>
+                  )}
+                </div>
+                <div>
+                  <label className="text-white/40 block mb-1">{tr.admin_th_category}</label>
+                  <select value={galleryForm.category} onChange={e => setGalleryForm({...galleryForm, category: e.target.value})} className="w-full bg-white/5 border border-white/15 rounded-md px-3 py-2 text-white focus:outline-none focus:border-accent">
+                    {GALLERY_CATEGORIES.map(cat => (
+                      <option key={cat} value={cat} className="bg-[#0f2c1e]">{tr[GALLERY_CATEGORY_KEYS[cat]]}</option>
+                    ))}
+                  </select>
+                </div>
+                <div>
+                  <label className="text-white/40 block mb-1">{tr.admin_label_caption}</label>
+                  <Input value={galleryForm.caption} onChange={e => setGalleryForm({...galleryForm, caption: e.target.value})} className="bg-white/5 border-white/15 text-white" />
+                </div>
+                <div className="flex items-center gap-3">
+                  <label className="flex items-center gap-3 cursor-pointer">
+                    <div onClick={() => setGalleryForm({...galleryForm, featured: !galleryForm.featured})} className={`w-12 h-6 rounded-full transition-colors relative ${galleryForm.featured ? 'bg-accent' : 'bg-white/15'}`}>
+                      <div className={`absolute top-1 w-4 h-4 rounded-full bg-white transition-transform ${galleryForm.featured ? 'translate-x-7' : 'translate-x-1'}`} />
+                    </div>
+                    <span className="text-white/60">{tr.admin_th_featured}</span>
+                  </label>
+                </div>
+                <div className="flex justify-end gap-3 pt-3">
+                  <button type="button" onClick={() => setGalleryFormOpen(false)} className="text-white/40 hover:text-white px-4 py-2">{tr.admin_cancel}</button>
                   <button type="submit" className="bg-accent hover:bg-accent/90 text-primary px-6 py-2 rounded-lg font-bold">{tr.admin_save}</button>
                 </div>
               </form>
