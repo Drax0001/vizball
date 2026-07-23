@@ -11,7 +11,7 @@ import vizballLogo from "../assets/images/LOGO-VIZBALL-ASSOCIATION-blanc.png";
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [slogan, setSlogan] = useState("Rise Above The Game");
+  const [slogan, setSlogan] = useState('"Rise Above The Game"');
   const location = useLocation();
   const { lang } = useLang();
   const tr = t[lang];
@@ -32,9 +32,9 @@ export default function Navbar() {
   useEffect(() => {
     const timer = setInterval(() => {
       setSlogan((prev) =>
-        prev === "Rise Above The Game"
+        prev === '"Rise Above The Game"'
           ? "Justice - Volonté - Succès"
-          : "Rise Above The Game",
+          : '"Rise Above The Game"',
       );
     }, 8000);
     return () => clearInterval(timer);
