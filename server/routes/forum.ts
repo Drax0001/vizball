@@ -1,7 +1,7 @@
 import { Router, Request, Response } from 'express';
 import { randomUUID } from 'crypto';
 import { db } from '../db';
-import { authenticateAdmin, optionalAuthenticate, AuthenticatedRequest } from '../middleware';
+import { authenticateAdmin, authenticateUser, AuthenticatedRequest } from '../middleware';
 
 const router = Router();
 
@@ -9,19 +9,19 @@ function serializeTopic(row: any) {
   return { ...row, pinned: !!row.pinned, closed: !!row.closed };
 }
 
-router.get('/topics', (req: Request, res: Response) => {
+router.get('/topics', authenticateUser, (req: Request, res: Response) => {
   const rows = db.query('SELECT * FROM forum_topics ORDER BY pinned DESC, created_date DESC').all();
   return res.json(rows.map(serializeTopic));
 });
 
-router.get('/topics/:id', (req: Request, res: Response) => {
+router.get('/topics/:id', authenticateUser, (req: Request, res: Response) => {
   const topic = db.query('SELECT * FROM forum_topics WHERE id = ?').get(req.params.id) as any;
   if (!topic) return res.status(404).json({ error: 'Topic not found' });
   const replies = db.query('SELECT * FROM forum_replies WHERE topic_id = ? ORDER BY created_date ASC').all(req.params.id);
   return res.json({ ...serializeTopic(topic), replies });
 });
 
-router.post('/topics', optionalAuthenticate, (req: AuthenticatedRequest, res: Response) => {
+router.post('/topics', authenticateUser, (req: AuthenticatedRequest, res: Response) => {
   const authorName = req.user ? req.user.username : req.body.author_name;
   if (!req.body.title || !req.body.content) {
     return res.status(400).json({ error: 'Title and content are required' });
@@ -49,12 +49,12 @@ router.post('/topics', optionalAuthenticate, (req: AuthenticatedRequest, res: Re
   return res.status(201).json(serializeTopic(topic));
 });
 
-router.get('/topics/:id/replies', (req: Request, res: Response) => {
+router.get('/topics/:id/replies', authenticateUser, (req: Request, res: Response) => {
   const replies = db.query('SELECT * FROM forum_replies WHERE topic_id = ? ORDER BY created_date ASC').all(req.params.id);
   return res.json(replies);
 });
 
-router.post('/topics/:id/replies', optionalAuthenticate, (req: AuthenticatedRequest, res: Response) => {
+router.post('/topics/:id/replies', authenticateUser, (req: AuthenticatedRequest, res: Response) => {
   const topic = db.query('SELECT * FROM forum_topics WHERE id = ?').get(req.params.id) as any;
   if (!topic) return res.status(404).json({ error: 'Topic not found' });
   if (topic.closed) return res.status(400).json({ error: 'Topic is closed for replies' });

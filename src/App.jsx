@@ -1,11 +1,13 @@
 import { Toaster } from "@/components/ui/toaster"
 import { QueryClientProvider } from '@tanstack/react-query'
 import { queryClientInstance } from '@/lib/query-client'
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import PageNotFound from './lib/PageNotFound';
 import { AuthProvider, useAuth } from '@/lib/AuthContext';
 import { LanguageProvider } from '@/lib/LanguageContext';
 import UserNotRegisteredError from '@/components/UserNotRegisteredError';
+import ProtectedRoute from '@/components/ProtectedRoute';
+import ScrollToTop from '@/components/ScrollToTop';
 import Layout from './components/Layout';
 import Home from './pages/Home';
 import LeSport from './pages/LeSport';
@@ -22,6 +24,8 @@ import Forum from './pages/Forum';
 import Media from './pages/Media';
 import Tutoriels from './pages/Tutoriels';
 import AdminDashboard from './pages/AdminDashboard';
+import Login from './pages/Login';
+import Register from './pages/Register';
 
 const AuthenticatedApp = () => {
   const { isLoadingAuth, isLoadingPublicSettings, authError, navigateToLogin } = useAuth();
@@ -59,7 +63,11 @@ const AuthenticatedApp = () => {
         <Route path="/boutique" element={<Boutique />} />
         <Route path="/boutique/panier" element={<Panier />} />
         <Route path="/boutique/:id" element={<ProductDetail />} />
-        <Route path="/forum" element={<Forum />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route element={<ProtectedRoute unauthenticatedElement={<Navigate to="/login" replace />} />}>
+          <Route path="/forum" element={<Forum />} />
+        </Route>
         <Route path="/media" element={<Media />} />
         <Route path="/tutoriels" element={<Tutoriels />} />
         <Route path="/admin" element={<AdminDashboard />} />
@@ -75,6 +83,7 @@ function App() {
       <AuthProvider>
         <QueryClientProvider client={queryClientInstance}>
           <Router>
+            <ScrollToTop />
             <AuthenticatedApp />
           </Router>
           <Toaster />

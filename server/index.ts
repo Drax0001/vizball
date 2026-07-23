@@ -21,6 +21,10 @@ const PORT = Number(process.env.PORT) || 5000;
 const UPLOAD_DIR = process.env.UPLOAD_DIR || path.join(__dirname, 'uploads');
 const CORS_ORIGIN = process.env.CORS_ORIGIN;
 
+// Trust the Nginx reverse proxy's X-Forwarded-For header so req.ip reflects
+// the real client IP (used for visitor de-duplication).
+app.set('trust proxy', 1);
+
 app.use(cors(CORS_ORIGIN ? { origin: CORS_ORIGIN.split(',') } : {}));
 app.use(express.json());
 app.use('/uploads', express.static(UPLOAD_DIR));

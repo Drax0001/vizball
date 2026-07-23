@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Menu, X } from "lucide-react";
+import { Menu, X, LogIn, LogOut } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useLang } from "../lib/LanguageContext";
+import { useAuth } from "../lib/AuthContext";
 import t from "../lib/translations";
 import LanguageSwitcher from "./LanguageSwitcher";
 import vizballLogo from "../assets/images/LOGO-VIZBALL-ASSOCIATION-blanc.png";
@@ -14,6 +15,7 @@ export default function Navbar() {
   const location = useLocation();
   const { lang } = useLang();
   const tr = t[lang];
+  const { isAuthenticated, user, logout } = useAuth();
 
   const NAV_LINKS = [
     { label: tr.nav_home, path: "/" },
@@ -76,7 +78,25 @@ export default function Navbar() {
                   {link.label}
                 </Link>
               ))}
-              <div className="ml-2 pl-2 border-l border-white/20">
+              <div className="ml-2 pl-2 border-l border-white/20 flex items-center gap-3">
+                {isAuthenticated ? (
+                  <button
+                    onClick={() => logout()}
+                    className="flex items-center gap-1 px-2 py-2 text-xs font-semibold uppercase tracking-wider text-white/90 hover:text-accent transition-colors whitespace-nowrap"
+                    title={user?.username}
+                  >
+                    <LogOut size={14} />
+                    {tr.nav_logout}
+                  </button>
+                ) : (
+                  <Link
+                    to="/login"
+                    className="flex items-center gap-1 px-2 py-2 text-xs font-semibold uppercase tracking-wider text-white/90 hover:text-accent transition-colors whitespace-nowrap"
+                  >
+                    <LogIn size={14} />
+                    {tr.nav_login}
+                  </Link>
+                )}
                 <LanguageSwitcher />
               </div>
             </div>
@@ -133,6 +153,23 @@ export default function Navbar() {
                   {link.label}
                 </Link>
               ))}
+              {isAuthenticated ? (
+                <button
+                  onClick={() => logout()}
+                  className="flex items-center gap-2 w-full px-4 py-3 font-body text-sm font-semibold uppercase tracking-wider text-white/90 hover:text-accent hover:bg-white/5 transition-colors rounded"
+                >
+                  <LogOut size={16} />
+                  {tr.nav_logout}
+                </button>
+              ) : (
+                <Link
+                  to="/login"
+                  className="flex items-center gap-2 px-4 py-3 font-body text-sm font-semibold uppercase tracking-wider text-white/90 hover:text-accent hover:bg-white/5 transition-colors rounded"
+                >
+                  <LogIn size={16} />
+                  {tr.nav_login}
+                </Link>
+              )}
             </div>
           </motion.div>
         )}

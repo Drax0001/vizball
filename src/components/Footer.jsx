@@ -1,15 +1,16 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Mail, MapPin, Twitter, Facebook, Instagram, Youtube } from 'lucide-react';
+import { Mail, MapPin, Globe, X as XIcon, Linkedin, Facebook, Instagram, Youtube } from 'lucide-react';
 import { useLang } from '../lib/LanguageContext';
 import t from '../lib/translations';
 import VisitorCounter from './VisitorCounter';
 
 const SOCIAL_LINKS = [
-  { icon: Twitter, label: 'X (Twitter)', href: '#' },
+  { icon: XIcon, label: 'X (Twitter)', href: '#' },
   { icon: Facebook, label: 'Facebook', href: '#' },
   { icon: Instagram, label: 'Instagram', href: '#' },
   { icon: Youtube, label: 'YouTube', href: '#' },
+  { icon: Linkedin, label: 'LinkedIn', href: '#' },
 ];
 
 export default function Footer() {
@@ -61,32 +62,40 @@ export default function Footer() {
                 <Mail size={16} className="text-accent mt-1 shrink-0" />
                 <span className="font-body text-sm text-white/70">contact@vizball.com</span>
               </div>
+              <div className="flex items-start gap-3">
+                <Globe size={16} className="text-accent mt-1 shrink-0" />
+                <a href="https://vizball.org" target="_blank" rel="noopener noreferrer" className="font-body text-sm text-white/70 hover:text-white transition-colors">vizball.org</a>
+              </div>
+            </div>
+
+            <div className="mt-6">
+              <span className="font-body text-xs text-white/40 uppercase tracking-wider block mb-3">{tr.footer_follow_us}</span>
+              <div className="flex items-center gap-3">
+                {SOCIAL_LINKS.map(({ icon: Icon, label, href }) => (
+                  <a
+                    key={label}
+                    href={href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={label}
+                    className="p-2 rounded-lg border border-white/10 text-white/70 hover:text-white hover:border-white/30 transition-colors"
+                  >
+                    <Icon size={14} />
+                  </a>
+                ))}
+              </div>
             </div>
           </div>
         </div>
 
-        <div className="mt-16 pt-8 border-t border-white/10 flex flex-col md:flex-row items-center justify-between gap-6">
+        <div className="mt-16 pt-8 border-t border-white/10 grid grid-cols-1 md:grid-cols-3 items-center gap-4">
           <p className="font-body text-xs text-white/50 text-center md:text-left">
             © {new Date().getFullYear()} Vizball Association. {tr.footer_rights}
           </p>
 
-          <div className="flex items-center gap-3">
-            <span className="font-body text-xs text-white/40 uppercase tracking-wider hidden sm:inline">{tr.footer_follow_us}</span>
-            {SOCIAL_LINKS.map(({ icon: Icon, label, href }) => (
-              <a
-                key={label}
-                href={href}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label={label}
-                className="p-2 rounded-lg border border-white/10 text-white/70 hover:text-white hover:border-white/30 transition-colors"
-              >
-                <Icon size={14} />
-              </a>
-            ))}
+          <div className="flex justify-center">
+            <VisitorCounter />
           </div>
-
-          <VisitorCounter />
 
           <p className="font-body text-xs text-white/50 text-center md:text-right">{tr.footer_created}</p>
         </div>

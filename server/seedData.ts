@@ -90,12 +90,7 @@ export const seedProducts = [
   },
 ];
 
-export const seedClubs = [
-  { id: 'club-1', name: 'Vizball Club de Yaoundé (VCY)', city: 'Yaoundé', address: 'Complexe Sportif de Tsinga, Rue du Stade', latitude: 3.864, longitude: 11.502, status: 'actif', members: 45 },
-  { id: 'club-2', name: 'Association Vizball Littoral', city: 'Douala', address: 'Parcours Vita de Douala, Bonamoussadi', latitude: 4.051, longitude: 9.767, status: 'actif', members: 60 },
-  { id: 'club-3', name: 'Vizball Sahel Club', city: 'Garoua', address: 'Stade Omnisports de Garoua, Secteur Ouest', latitude: 9.301, longitude: 13.395, status: 'actif', members: 30 },
-  { id: 'club-4', name: 'Club de Vizball de l\'Ouest', city: 'Bafoussam', address: 'Plateau Multisports de Tamdja', latitude: 5.473, longitude: 10.418, status: 'en formation', members: 15 },
-];
+export const seedClubs: Array<{ id: string; name: string; city: string; address: string; latitude: number; longitude: number; status: string; members: number }> = [];
 
 export const seedEvents = [
   { id: 'evt-1', title: 'Match d\'ouverture : Yaoundé vs Douala', type: 'Rencontre', date: '2026-08-15', time: '16:00', location: 'Complexe Sportif de Tsinga', city: 'Yaoundé', teams: 'VCY vs Vizball Littoral', status: 'confirmé' },

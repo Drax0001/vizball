@@ -136,6 +136,11 @@ function migrate() {
       count INTEGER NOT NULL DEFAULT 0
     );
 
+    CREATE TABLE IF NOT EXISTS visitor_log (
+      ip TEXT PRIMARY KEY,
+      first_seen_at TEXT NOT NULL
+    );
+
     CREATE TABLE IF NOT EXISTS team_members (
       id TEXT PRIMARY KEY,
       name TEXT NOT NULL,

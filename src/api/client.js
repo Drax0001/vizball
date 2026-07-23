@@ -463,5 +463,13 @@ export const api = {
       });
       return handleResponse(res);
     },
+    resolveImageUrl: async (url) => {
+      const res = await fetch(`${API_BASE}/api/uploads/resolve-image-url`, {
+        method: 'POST',
+        headers: getHeaders(),
+        body: JSON.stringify({ url }),
+      });
+      return handleResponse(res);
+    },
   },
 };

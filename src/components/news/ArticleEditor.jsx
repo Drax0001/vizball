@@ -37,8 +37,23 @@ export default function ArticleEditor({ article, onSave, onClose }) {
   });
   const [uploading, setUploading] = useState(false);
   const [saving, setSaving] = useState(false);
+  const [resolvingImage, setResolvingImage] = useState(false);
 
   const set = (key, val) => setForm((f) => ({ ...f, [key]: val }));
+
+  const handleCoverImageBlur = async () => {
+    const isUnsplashPageUrl = /^https?:\/\/(www\.)?unsplash\.com\/photos\//i.test(form.cover_image);
+    if (!isUnsplashPageUrl) return;
+    setResolvingImage(true);
+    try {
+      const { url } = await api.uploads.resolveImageUrl(form.cover_image);
+      if (url) set('cover_image', url);
+    } catch (err) {
+      console.error('Error resolving Unsplash image URL:', err);
+    } finally {
+      setResolvingImage(false);
+    }
+  };
 
   const handleImageUpload = async (e) => {
     const file = e.target.files[0];
@@ -123,13 +138,15 @@ export default function ArticleEditor({ article, onSave, onClose }) {
           <div>
             <label className="font-body text-xs font-bold uppercase tracking-wider text-white/40 block mb-2">{tr.editor_cover_image}</label>
             <div className="flex gap-3 items-start">
-              <Input value={form.cover_image} onChange={(e) => set('cover_image', e.target.value)} placeholder="https://..." className="bg-white/5 border-white/15 text-white placeholder-white/20 focus:border-accent/50 flex-1" />
+              <Input value={form.cover_image} onChange={(e) => set('cover_image', e.target.value)} onBlur={handleCoverImageBlur} placeholder="https://..." className="bg-white/5 border-white/15 text-white placeholder-white/20 focus:border-accent/50 flex-1" />
               <label className={`flex items-center gap-2 px-4 py-2 border border-white/15 rounded-md font-body text-xs text-white/60 hover:border-accent/40 hover:text-white transition-all cursor-pointer shrink-0 ${uploading ? 'opacity-50 pointer-events-none' : ''}`}>
                 <Upload size={14} />
                 {uploading ? tr.admin_uploading : tr.admin_upload}
                 <input type="file" accept="image/*" className="hidden" onChange={handleImageUpload} />
               </label>
             </div>
+            <p className="font-body text-xs text-white/30 mt-2">{tr.editor_cover_image_hint}</p>
+            {resolvingImage && <p className="font-body text-xs text-accent mt-1">{tr.editor_cover_image_resolving}</p>}
             {form.cover_image && (
               <div className="mt-3 rounded-lg overflow-hidden h-32 border border-white/10">
                 <img src={form.cover_image} alt="preview" className="w-full h-full object-cover" />

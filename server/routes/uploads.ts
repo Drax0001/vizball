@@ -41,4 +41,37 @@ router.post('/', authenticateAdmin, (req: Request, res: Response) => {
   });
 });
 
+// Resolves an Unsplash *page* URL (unsplash.com/photos/...) to the direct
+// images.unsplash.com asset URL by reading the page's og:image meta tag —
+// the page slug doesn't encode the CDN asset id, so this can't be done by
+// string manipulation alone.
+router.post('/resolve-image-url', authenticateAdmin, async (req: Request, res: Response) => {
+  const { url } = req.body;
+  if (!url || typeof url !== 'string') {
+    return res.status(400).json({ error: 'A url is required.' });
+  }
+
+  let parsed: URL;
+  try {
+    parsed = new URL(url);
+  } catch {
+    return res.status(400).json({ error: 'Invalid URL.' });
+  }
+
+  if (parsed.hostname !== 'unsplash.com' && parsed.hostname !== 'www.unsplash.com') {
+    return res.status(400).json({ error: 'Only unsplash.com page URLs can be resolved.' });
+  }
+
+  try {
+    const pageRes = await fetch(parsed.toString(), { headers: { 'User-Agent': 'Mozilla/5.0' } });
+    if (!pageRes.ok) return res.status(422).json({ error: 'Could not fetch the Unsplash page.' });
+    const html = await pageRes.text();
+    const match = html.match(/<meta[^>]+property=["']og:image["'][^>]+content=["']([^"']+)["']/i);
+    if (!match) return res.status(422).json({ error: 'Could not find an image on that page.' });
+    return res.json({ url: match[1] });
+  } catch (err) {
+    return res.status(502).json({ error: 'Failed to resolve the image URL.' });
+  }
+});
+
 export default router;
