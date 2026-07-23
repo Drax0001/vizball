@@ -113,7 +113,7 @@ function PillarHeader({ pillar, count, lang }) {
       </div>
       <div className="flex-1 min-w-0">
         <div className="flex items-center gap-3 flex-wrap">
-          <span className={`font-body text-xs font-bold uppercase tracking-widest ${pillar.iconColor}`}>{pillar.label[lang]}</span>
+          <span className={`font-subtitle text-xs uppercase tracking-widest ${pillar.iconColor}`}>{pillar.label[lang]}</span>
           <span className="font-body text-xs text-white/30 bg-white/5 border border-white/10 px-2 py-0.5 rounded-full">{count} documents</span>
         </div>
         <h3 className="font-heading text-3xl text-white mt-0.5">{pillar.title[lang]}</h3>

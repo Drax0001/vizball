@@ -110,7 +110,7 @@ export default function CalendarSection() {
           className="flex flex-col sm:flex-row sm:items-end justify-between mb-12 gap-4">
           
           <div>
-            <span className="font-body text-sm font-bold uppercase tracking-widest text-secondary">{tr.calendar_badge}</span>
+            <span className="font-subtitle text-sm uppercase tracking-widest text-secondary">{tr.calendar_badge}</span>
             <h2 className="font-heading text-5xl sm:text-6xl text-accent mt-2">{tr.calendar_title}<br /><span className="text-[hsl(var(--accent))]">{tr.calendar_title2}</span></h2>
             <p className="font-body text-white/50 mt-3 text-sm max-w-md">
               {tr.calendar_subtitle}

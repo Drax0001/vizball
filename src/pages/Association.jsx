@@ -51,7 +51,7 @@ export default function Association() {
         <div className="absolute inset-0 flex items-center">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
             <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>
-              <span className="font-body text-sm font-bold uppercase tracking-widest text-accent">{tr.assoc_badge}</span>
+              <span className="font-subtitle text-sm uppercase tracking-widest text-accent">{tr.assoc_badge}</span>
               <h1 className="font-heading text-6xl sm:text-7xl md:text-8xl text-white mt-2">
                 {tr.assoc_title}
               </h1>
@@ -64,7 +64,7 @@ export default function Association() {
       <section className="py-24 bg-background">
         <div className="text-[hsl(var(--accent))] mx-auto px-4 max-w-4xl sm:px-6 lg:px-8">
           <AnimatedSection>
-            <span className="font-body text-sm font-bold uppercase tracking-widest text-secondary">{tr.assoc_preamble_badge}</span>
+            <span className="font-subtitle text-sm uppercase tracking-widest text-secondary">{tr.assoc_preamble_badge}</span>
             <h2 className="text-[hsl(var(--accent))] mt-3 mb-8 text-4xl font-heading sm:text-5xl">{tr.assoc_history_title} {tr.assoc_history_title2}</h2>
             <div className="space-y-4 font-body text-muted-foreground leading-relaxed">
               <p>
@@ -101,7 +101,7 @@ export default function Association() {
       <section className="py-24 bg-muted">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <AnimatedSection>
-            <span className="font-body text-sm font-bold uppercase tracking-widest text-secondary">{tr.assoc_structure_badge}</span>
+            <span className="font-subtitle text-sm uppercase tracking-widest text-secondary">{tr.assoc_structure_badge}</span>
             <h2 className="text-[hsl(var(--sidebar-ring))] mt-3 mb-8 text-4xl font-heading sm:text-5xl">{tr.assoc_governance_title} {tr.assoc_governance_title2}</h2>
           </AnimatedSection>
 

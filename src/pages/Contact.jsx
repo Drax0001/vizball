@@ -60,7 +60,7 @@ export default function Contact() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8 }}
             >
-              <span className="font-body text-sm font-bold uppercase tracking-widest text-accent hidden">
+              <span className="font-subtitle text-sm uppercase tracking-widest text-accent hidden">
                 {tr.contact_badge}
               </span>
               <h1 className="font-heading text-6xl sm:text-7xl md:text-8xl text-white mt-2">

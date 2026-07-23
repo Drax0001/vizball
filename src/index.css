@@ -1,5 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
-
 @font-face {
   font-family: 'Fester';
   src: url('./assets/fonts/Fester Regular.otf') format('opentype');
@@ -39,7 +37,7 @@
 @layer base {
   :root {
     --font-heading: 'Fester', sans-serif;
-    --font-body: 'Inter', sans-serif;
+    --font-body: 'Fester', sans-serif;
 
     --background: 0 0% 100%;
     --foreground: 150 30% 10%;
@@ -121,6 +119,17 @@
   body {
     @apply bg-background text-foreground;
   }
+}
+
+.font-heading {
+  font-weight: 900;
+  font-style: normal;
+}
+
+.font-subtitle {
+  font-family: 'Fester', sans-serif;
+  font-weight: 700;
+  font-style: italic;
 }
 
 html {

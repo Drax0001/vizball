@@ -608,7 +608,7 @@ export default function AdminDashboard() {
               <ShieldAlert className="text-accent" size={32} />
             </div>
             <h1 className="font-heading text-3xl text-white tracking-wide">VIZBALL PRO</h1>
-            <p className="font-body text-xs text-white/50 uppercase tracking-widest mt-1">{tr.admin_login_badge}</p>
+            <p className="font-subtitle text-xs text-white/50 uppercase tracking-widest mt-1">{tr.admin_login_badge}</p>
           </div>
 
           <form onSubmit={handleLoginSubmit} className="space-y-5">

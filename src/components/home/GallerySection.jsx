@@ -26,7 +26,7 @@ export default function GallerySection() {
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           className="text-center mb-16">
           
-          <span className="font-body text-sm font-bold uppercase tracking-widest text-secondary">{tr.gallery_badge}</span>
+          <span className="font-subtitle text-sm uppercase tracking-widest text-secondary">{tr.gallery_badge}</span>
           <h2 className="text-[hsl(var(--accent))] mt-3 text-5xl font-heading sm:text-6xl">
             {tr.gallery_title_1} <span className="text-[hsl(var(--chart-3))]">{tr.gallery_title_2}</span>
           </h2>

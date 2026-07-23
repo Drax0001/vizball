@@ -60,7 +60,7 @@ export default function AboutSection() {
             animate={isInView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
-            <span className="font-body text-sm font-bold uppercase tracking-widest text-secondary">
+            <span className="font-subtitle text-sm uppercase tracking-widest text-secondary">
               {tr.about_badge}
             </span>
             <h2 className="text-[hsl(var(--chart-3))] mt-3 mb-6 text-5xl font-heading sm:text-6xl">

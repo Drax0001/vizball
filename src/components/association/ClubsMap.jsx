@@ -115,7 +115,7 @@ export default function ClubsMap() {
           transition={{ duration: 0.7 }}
           className="mb-12">
           
-          <span className="font-body text-sm font-bold uppercase tracking-widest text-secondary">
+          <span className="font-subtitle text-sm uppercase tracking-widest text-secondary">
             {tr.clubs_badge}
           </span>
           <h2 className="font-heading text-5xl sm:text-6xl mt-2 text-[hsl(var(--chart-3))]">{tr.clubs_title} {tr.clubs_title2}</h2>

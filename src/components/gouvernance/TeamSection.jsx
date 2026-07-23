@@ -34,7 +34,7 @@ function MemberCard({ member, index }) {
 
       {/* Infos */}
       <div className="flex-1 min-w-0">
-        <p className="font-body text-xs font-bold uppercase tracking-widest text-accent mb-1">{member.role}</p>
+        <p className="font-subtitle text-xs uppercase tracking-widest text-accent mb-1">{member.role}</p>
         <h4 className="font-heading text-xl text-white mb-2">{member.name}</h4>
         <p className="font-body text-sm text-white/50 leading-relaxed">{member.bio}</p>
       </div>

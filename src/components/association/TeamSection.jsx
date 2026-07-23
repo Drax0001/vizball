@@ -45,7 +45,7 @@ function MemberCard({ member, index, tr }) {
         <div className="flex flex-col justify-center p-6 flex-1">
           <div className="flex items-center gap-2 mb-1">
             <span className="w-1.5 h-1.5 rounded-full bg-brand-red shrink-0" />
-            <span className="font-body text-xs font-bold uppercase tracking-widest text-accent">{member.role}</span>
+            <span className="font-subtitle text-xs uppercase tracking-widest text-accent">{member.role}</span>
           </div>
           <h3 className="font-heading text-2xl text-white mb-3 leading-tight">{member.name}</h3>
           <p className="font-body text-sm text-white/60 leading-relaxed">{member.bio}</p>
@@ -73,7 +73,7 @@ export default function TeamSection() {
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <AnimatedSection className="mb-14">
-          <span className="font-body text-sm font-bold uppercase tracking-widest text-secondary">{tr.team_badge}</span>
+          <span className="font-subtitle text-sm uppercase tracking-widest text-secondary">{tr.team_badge}</span>
           <h2 className="font-heading text-5xl sm:text-6xl mt-3 text-[hsl(var(--accent))]">{tr.team_title}</h2>
 
           <p className="font-body text-sm text-white/50 mt-4 max-w-xl leading-relaxed">

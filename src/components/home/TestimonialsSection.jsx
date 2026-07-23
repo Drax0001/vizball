@@ -19,7 +19,7 @@ export default function TestimonialsSection() {
           transition={{ duration: 0.6 }}
           className="text-center mb-14">
           
-          <span className="font-body text-xs font-bold uppercase tracking-widest text-secondary">{tr.testimonials_badge}</span>
+          <span className="font-subtitle text-xs uppercase tracking-widest text-secondary">{tr.testimonials_badge}</span>
           <h2 className="font-heading text-5xl sm:text-6xl text-white mt-3">
             {tr.testimonials_title} <span className="text-[hsl(var(--background))]">{tr.testimonials_title2}</span>
           </h2>
