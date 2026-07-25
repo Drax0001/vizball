@@ -122,7 +122,7 @@
 }
 
 .font-heading {
-  font-weight: 900;
+  font-weight: 700;
   font-style: normal;
 }
 
@@ -130,6 +130,20 @@
   font-family: 'Fester', sans-serif;
   font-weight: 700;
   font-style: italic;
+}
+
+#clientexpress-widget-shell {
+  background-color: hsl(var(--primary)) !important;
+  border: 1px solid hsl(var(--accent) / 0.5) !important;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.25) !important;
+}
+
+@media (prefers-color-scheme: dark) {
+  #clientexpress-widget-shell {
+    background-color: hsl(var(--primary) / 0.92) !important;
+    border-color: hsl(var(--accent) / 0.7) !important;
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.45) !important;
+  }
 }
 
 html {

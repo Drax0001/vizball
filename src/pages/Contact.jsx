@@ -53,7 +53,7 @@ export default function Contact() {
         <div className="w-full h-full bg-gray-900" />
 
         <div className="absolute inset-0 bg-gradient-to-r from-primary/90 via-primary/70 to-primary/40" />
-        <div className="absolute inset-0 flex items-center">
+        <div className="absolute inset-x-0 top-[100px] bottom-0 flex items-center">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
             <motion.div
               initial={{ opacity: 0, y: 30 }}
@@ -81,9 +81,6 @@ export default function Contact() {
             {/* Info */}
             <div className="lg:col-span-2">
               <AnimatedSection>
-                <h2 className="font-heading text-4xl text-foreground mt-3 mb-6">
-                  {tr.contact_title2}
-                </h2>
                 <p className="font-body text-muted-foreground leading-relaxed mb-8">
                   {tr.contact_intro}
                 </p>

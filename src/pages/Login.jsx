@@ -35,7 +35,7 @@ export default function Login() {
   };
 
   return (
-    <div className="min-h-[70vh] flex items-center justify-center bg-background px-4 py-16">
+    <div className="min-h-screen pt-32 pb-20 flex items-center justify-center bg-background px-4">
       <div className="max-w-md w-full p-8 bg-white rounded-lg shadow-lg border border-slate-100">
         <h1 className="font-heading text-3xl text-primary mb-2">{tr.login_title}</h1>
         <p className="text-sm text-slate-500 mb-8">{tr.login_subtitle}</p>

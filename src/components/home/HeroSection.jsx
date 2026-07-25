@@ -122,13 +122,13 @@ export default function HeroSection() {
               <div className="flex flex-col sm:flex-row gap-4">
                 <Link
                   to="/le-sport"
-                  className="group inline-flex items-center justify-center gap-2 bg-accent hover:bg-accent/90 text-primary font-body font-bold text-sm uppercase tracking-wider px-8 py-4 rounded transition-all duration-300">
+                  className="group inline-flex items-center justify-center gap-2 bg-accent hover:bg-accent/90 text-primary font-body font-bold text-lg sm:text-xl uppercase tracking-wider px-8 py-4 rounded transition-all duration-300">
                   {slide.ctaDiscover(tr)}
                   <ChevronRight size={18} className="group-hover:translate-x-1 transition-transform" />
                 </Link>
                 <Link
                   to="/le-sport"
-                  className="group inline-flex items-center justify-center gap-2 border-2 border-white/30 hover:border-accent text-white hover:text-accent font-body font-bold text-sm uppercase tracking-wider px-8 py-4 rounded transition-all duration-300">
+                  className="group inline-flex items-center justify-center gap-2 border-2 border-white/30 hover:border-accent text-white hover:text-accent font-body font-bold text-lg sm:text-xl uppercase tracking-wider px-8 py-4 rounded transition-all duration-300">
                   <Play size={16} />
                   {slide.ctaRules(tr)}
                 </Link>

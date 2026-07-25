@@ -64,12 +64,12 @@ export default function Navbar() {
               <img src={vizballLogo} className="h-14 w-auto object-contain" />
             </Link>
 
-            <div className="hidden lg:flex items-center gap-2 xl:gap-4">
+            <div className="hidden lg:flex items-center gap-1 xl:gap-2">
               {NAV_LINKS.map((link) => (
                 <Link
                   key={link.path}
                   to={link.path}
-                  className={`px-2 xl:px-3 py-2 text-xs font-semibold uppercase tracking-wider rounded-sm transition-all duration-300 hover:text-accent whitespace-nowrap ${
+                  className={`px-1.5 xl:px-2 py-2 text-base font-semibold uppercase tracking-wider rounded-sm transition-all duration-300 hover:text-accent whitespace-nowrap ${
                     location.pathname === link.path
                       ? "text-accent"
                       : "text-white/90"
@@ -78,11 +78,11 @@ export default function Navbar() {
                   {link.label}
                 </Link>
               ))}
-              <div className="ml-2 pl-2 border-l border-white/20 flex items-center gap-3">
+              <div className="ml-1 pl-2 border-l border-white/20 flex items-center gap-2">
                 {isAuthenticated ? (
                   <button
                     onClick={() => logout()}
-                    className="flex items-center gap-1 px-2 py-2 text-xs font-semibold uppercase tracking-wider text-white/90 hover:text-accent transition-colors whitespace-nowrap"
+                    className="flex items-center gap-1 px-1.5 py-2 text-base font-semibold uppercase tracking-wider text-white/90 hover:text-accent transition-colors whitespace-nowrap"
                     title={user?.username}
                   >
                     <LogOut size={14} />
@@ -91,7 +91,7 @@ export default function Navbar() {
                 ) : (
                   <Link
                     to="/login"
-                    className="flex items-center gap-1 px-2 py-2 text-xs font-semibold uppercase tracking-wider text-white/90 hover:text-accent transition-colors whitespace-nowrap"
+                    className="flex items-center gap-1 px-1.5 py-2 text-base font-semibold uppercase tracking-wider text-white/90 hover:text-accent transition-colors whitespace-nowrap"
                   >
                     <LogIn size={14} />
                     {tr.nav_login}
@@ -122,7 +122,7 @@ export default function Navbar() {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -6 }}
                 transition={{ duration: 0.4, ease: "easeInOut" }}
-                className="inline-block text-[12px] font-bold text-[#143D2B]"
+                className="inline-block -mt-0.5 text-[16px] font-bold text-[#143D2B]"
               >
                 {slogan}
               </motion.em>
