@@ -7,6 +7,7 @@ import { useLang } from '../../lib/LanguageContext';
 import { getDateLocale } from '../../lib/dateLocale';
 import t from '../../lib/translations';
 import { api } from '../../api/client';
+import TranslateButton from '../TranslateButton';
 
 const TYPE_CONFIG = {
   'Rencontre': { icon: Swords, color: 'bg-blue-500/10 text-blue-400 border-blue-500/20', label: { fr: 'Rencontre', en: 'Match' } },
@@ -19,6 +20,8 @@ function EventCard({ event, index, lang, dateLocale, tr }) {
   const config = TYPE_CONFIG[event.type] || TYPE_CONFIG['Autre'];
   const Icon = config.icon;
   const dateObj = event.date ? parseISO(event.date) : null;
+  const [translated, setTranslated] = useState(null);
+  const displayTitle = translated?.title ?? event.title;
 
   return (
     <motion.div
@@ -51,8 +54,9 @@ function EventCard({ event, index, lang, dateLocale, tr }) {
           }
         </div>
         <h3 className="font-heading text-lg text-white group-hover:text-accent transition-colors leading-tight">
-          {event.title}
+          {displayTitle}
         </h3>
+        <TranslateButton contentType="event" contentId={event.id} fields={{ title: event.title }} onResult={setTranslated} compact />
         {event.teams &&
         <p className="font-body text-sm text-white/50 mt-0.5">{event.teams}</p>
         }

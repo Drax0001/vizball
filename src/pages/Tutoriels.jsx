@@ -70,6 +70,14 @@ export default function Tutoriels() {
 
   const gridVideos = filtered.filter((v) => !v.featured || activeCategory !== 'Tous' || search || activeLevel !== 'Tous les niveaux');
 
+  const categoryCount = new Set(videos.map((v) => v.category)).size;
+  const levelCount = new Set(videos.map((v) => v.level)).size;
+  const totalMinutes = videos.reduce((sum, v) => {
+    const [m, s] = (v.duration || '0:00').split(':').map(Number);
+    return sum + (m || 0) + (s || 0) / 60;
+  }, 0);
+  const contentHours = videos.length === 0 ? '0h' : `${Math.max(1, Math.floor(totalMinutes / 60))}h+`;
+
   return (
     <div className="min-h-screen bg-primary">
       {/* Hero */}
@@ -96,9 +104,9 @@ export default function Tutoriels() {
           <div className="flex items-center divide-x divide-white/10 py-4 overflow-x-auto">
             {[
             { value: `${videos.length}`, label: tr.tutoriels_stat_tutorials },
-            { value: '4', label: tr.tutoriels_stat_categories },
-            { value: '3', label: tr.tutoriels_stat_levels },
-            { value: '3h+', label: tr.tutoriels_stat_content }].
+            { value: `${categoryCount}`, label: tr.tutoriels_stat_categories },
+            { value: `${levelCount}`, label: tr.tutoriels_stat_levels },
+            { value: contentHours, label: tr.tutoriels_stat_content }].
             map((s, i) =>
             <div key={i} className="flex-1 min-w-[120px] px-6 text-center">
                 <span className="font-heading text-3xl text-accent">{s.value}</span>

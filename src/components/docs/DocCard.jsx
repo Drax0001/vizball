@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { FileText, Download, Eye, Lock, ChevronRight } from 'lucide-react';
 import { useLang } from '../../lib/LanguageContext';
 import t from '../../lib/translations';
+import { translateDocStatus } from '../../lib/docLabels';
 
 const statusStyles = {
   disponible: 'bg-secondary/20 text-secondary border-secondary/30',
@@ -37,8 +38,8 @@ export default function DocCard({ doc, index, onClick }) {
         }>
           <doc.icon size={22} className={hovered && isAvailable ? 'text-accent' : 'text-white/60'} />
         </div>
-        <span className="bg-[hsl(var(--brand-red))] text-[hsl(var(--background))] px-3 py-1 text-xs font-bold uppercase tracking-wider rounded-full border border-secondary/30">
-          {doc.status}
+        <span className={`px-3 py-1 text-xs font-bold uppercase tracking-wider rounded-full border ${statusStyles[doc.status] || statusStyles.restreint}`}>
+          {translateDocStatus(doc.status, lang)}
         </span>
       </div>
 

@@ -15,6 +15,8 @@ import governanceRoutes from './routes/governance';
 import teamMemberRoutes from './routes/team-members';
 import galleryRoutes from './routes/gallery';
 import uploadRoutes from './routes/uploads';
+import translateRoutes from './routes/translate';
+import contactRoutes from './routes/contact';
 
 const app = express();
 const PORT = Number(process.env.PORT) || 5000;
@@ -41,6 +43,8 @@ app.use('/api/governance-documents', governanceRoutes);
 app.use('/api/team-members', teamMemberRoutes);
 app.use('/api/gallery', galleryRoutes);
 app.use('/api/uploads', uploadRoutes);
+app.use('/api/translate', translateRoutes);
+app.use('/api/contact', contactRoutes);
 
 // Bound to loopback only — in production this process sits behind an Nginx
 // reverse proxy on the same host, and should never be reachable directly

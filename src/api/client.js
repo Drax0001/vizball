@@ -472,4 +472,44 @@ export const api = {
       return handleResponse(res);
     },
   },
+
+  // Manual on-demand translation (Groq)
+  translate: {
+    run: async ({ contentType, contentId, targetLang, fields }) => {
+      const res = await fetch(`${API_BASE}/api/translate`, {
+        method: 'POST',
+        headers: getHeaders(),
+        body: JSON.stringify({ contentType, contentId, targetLang, fields }),
+      });
+      return handleResponse(res);
+    },
+  },
+
+  // Contact form submissions
+  contact: {
+    submit: async (form) => {
+      const res = await fetch(`${API_BASE}/api/contact`, {
+        method: 'POST',
+        headers: getHeaders(),
+        body: JSON.stringify(form),
+      });
+      return handleResponse(res);
+    },
+    list: async () => {
+      const res = await fetch(`${API_BASE}/api/contact`, { method: 'GET', headers: getHeaders() });
+      return handleResponse(res);
+    },
+    markRead: async (id, read = true) => {
+      const res = await fetch(`${API_BASE}/api/contact/${id}`, {
+        method: 'PATCH',
+        headers: getHeaders(),
+        body: JSON.stringify({ read }),
+      });
+      return handleResponse(res);
+    },
+    delete: async (id) => {
+      const res = await fetch(`${API_BASE}/api/contact/${id}`, { method: 'DELETE', headers: getHeaders() });
+      return handleResponse(res);
+    },
+  },
 };

@@ -76,6 +76,7 @@ export default function ClubsMap() {
   const [loading, setLoading] = useState(false);
   const [activeClub, setActiveClub] = useState(null);
   const [search, setSearch] = useState('');
+  const mapRef = useRef(null);
 
   const loadClubs = async () => {
     setLoading(true);
@@ -92,6 +93,18 @@ export default function ClubsMap() {
   useEffect(() => {
     loadClubs();
   }, []);
+
+  // The map mounts inside a framer-motion fade/slide transition and behind a
+  // loading-state swap, both of which can leave Leaflet's internal size cache
+  // stale (rendering the map shifted/overflowing until something forces a
+  // recalculation) — force one once the transition has settled.
+  useEffect(() => {
+    if (loading) return;
+    const timer = setTimeout(() => {
+      mapRef.current?.invalidateSize();
+    }, 350);
+    return () => clearTimeout(timer);
+  }, [loading]);
 
   const filteredClubs = clubs.filter((c) => {
     const q = search.toLowerCase();
@@ -131,7 +144,7 @@ export default function ClubsMap() {
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.7, delay: 0.2 }}
-          className="grid lg:grid-cols-3 gap-6">
+          className="grid lg:grid-cols-3 gap-6 overflow-hidden">
           
             {/* Liste des clubs */}
             <div className="lg:col-span-1 bg-primary rounded-2xl p-4 flex flex-col gap-2 max-h-[300px] sm:max-h-[400px] lg:max-h-[520px]">
@@ -184,6 +197,7 @@ export default function ClubsMap() {
             {/* Carte */}
             <div className="lg:col-span-2 rounded-2xl overflow-hidden border border-border h-[320px] sm:h-[420px] lg:h-[520px]">
               <MapContainer
+              ref={mapRef}
               center={center}
               zoom={6}
               style={{ height: '100%', width: '100%' }}

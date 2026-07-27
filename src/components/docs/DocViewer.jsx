@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { X, Download, FileText, Calendar, Tag, ExternalLink } from 'lucide-react';
 import { useLang } from '../../lib/LanguageContext';
 import t from '../../lib/translations';
+import { translateDocCategory } from '../../lib/docLabels';
 
 export default function DocViewer({ doc, onClose }) {
   const { lang } = useLang();
@@ -57,7 +58,7 @@ export default function DocViewer({ doc, onClose }) {
           {/* Meta badges */}
           <div className="flex flex-wrap gap-2 px-6 py-4 border-b border-white/10">
             {[
-              { icon: Tag, label: doc.category },
+              { icon: Tag, label: translateDocCategory(doc.category, lang) },
               { icon: Calendar, label: doc.year || '2024' },
               { icon: FileText, label: doc.pages ? `${doc.pages} pages` : tr.doc_pdf },
             ].map((m, i) => (

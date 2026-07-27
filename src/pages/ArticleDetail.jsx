@@ -8,6 +8,7 @@ import { useLang } from '../lib/LanguageContext';
 import { getDateLocale } from '../lib/dateLocale';
 import t from '../lib/translations';
 import { api } from '../api/client';
+import TranslateButton from '../components/TranslateButton';
 
 const categoryColors = {
   'Événement':   'bg-accent/20 text-accent border-accent/30',
@@ -25,10 +26,12 @@ export default function ArticleDetail() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [hasRated, setHasRated] = useState(false);
+  const [translated, setTranslated] = useState(null);
 
   const loadArticle = async () => {
     setLoading(true);
     setError(null);
+    setTranslated(null);
     try {
       const data = await api.articles.get(id);
       setArticle(data);
@@ -98,6 +101,10 @@ export default function ArticleDetail() {
       ? format(new Date(article.created_date), 'd MMMM yyyy', { locale: dateLocale })
       : tr.article_unknown_date;
 
+  const displayTitle = translated?.title ?? article.title;
+  const displayExcerpt = translated?.excerpt ?? article.excerpt;
+  const displayContent = translated?.content ?? article.content;
+
   return (
     <div className="min-h-screen bg-primary">
       {/* Cover */}
@@ -148,17 +155,27 @@ export default function ArticleDetail() {
             </span>
           </div>
 
+          {/* Translate */}
+          <div className="mb-4">
+            <TranslateButton
+              contentType="article"
+              contentId={article.id}
+              fields={{ title: article.title, excerpt: article.excerpt || '', content: article.content }}
+              onResult={setTranslated}
+            />
+          </div>
+
           {/* Title */}
-          <h1 className="font-heading text-4xl sm:text-5xl md:text-6xl text-white leading-tight mb-6">{article.title}</h1>
+          <h1 className="font-heading text-4xl sm:text-5xl md:text-6xl text-white leading-tight mb-6">{displayTitle}</h1>
 
           {/* Excerpt */}
-          {article.excerpt && (
-            <p className="font-body text-lg text-white/60 leading-relaxed border-l-2 border-accent pl-5 mb-10">{article.excerpt}</p>
+          {displayExcerpt && (
+            <p className="font-body text-lg text-white/60 leading-relaxed border-l-2 border-accent pl-5 mb-10">{displayExcerpt}</p>
           )}
 
           {/* Content */}
           <div className="font-body text-white/75 leading-relaxed space-y-4 text-[15px]">
-            {article.content.split('\n\n').map((para, i) => (
+            {displayContent.split('\n\n').map((para, i) => (
               para.trim() ? <p key={i}>{para.trim()}</p> : null
             ))}
           </div>

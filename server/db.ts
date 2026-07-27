@@ -157,6 +157,25 @@ function migrate() {
       caption TEXT,
       featured INTEGER NOT NULL DEFAULT 0
     );
+
+    CREATE TABLE IF NOT EXISTS translations_cache (
+      content_type TEXT NOT NULL,
+      content_id TEXT NOT NULL,
+      target_lang TEXT NOT NULL CHECK (target_lang IN ('fr','en')),
+      translated_json TEXT NOT NULL,
+      created_at TEXT NOT NULL,
+      PRIMARY KEY (content_type, content_id, target_lang)
+    );
+
+    CREATE TABLE IF NOT EXISTS contact_messages (
+      id TEXT PRIMARY KEY,
+      name TEXT NOT NULL,
+      email TEXT NOT NULL,
+      subject TEXT,
+      message TEXT NOT NULL,
+      created_at TEXT NOT NULL,
+      read INTEGER NOT NULL DEFAULT 0
+    );
   `);
 }
 

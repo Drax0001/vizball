@@ -110,6 +110,8 @@ JWT_EXPIRES_IN=24h
 CORS_ORIGIN=https://YOUR_DOMAIN,https://www.YOUR_DOMAIN
 DB_PATH=/var/www/vizball/server/vizball.db
 UPLOAD_DIR=/var/www/vizball/server/uploads
+GROQ_API_KEY=<your Groq API key — https://console.groq.com/keys>
+GROQ_MODEL=llama-3.3-70b-versatile
 ```
 
 Generate a real `JWT_SECRET` (don't ship the placeholder):
@@ -269,6 +271,7 @@ sudo tail -f /var/log/nginx/error.log     # Nginx errors
 | Uploaded images/PDFs 404 after upload | `UPLOAD_DIR` in `.env` doesn't match where Nginx's `/uploads/` block proxies to, or permissions on that directory are wrong for the `deploy` user |
 | Visiting `/tutoriels` directly (not via in-app navigation) gives an Nginx 404 | The `try_files $uri $uri/ /index.html;` fallback is missing from the Nginx config — this is what makes client-side routing work on a hard refresh |
 | Browser console shows CORS errors | `CORS_ORIGIN` in `.env` doesn't match the domain you're actually visiting (include both the bare domain and `www.` if you use both) |
+| "Translate" button always fails (503) | `GROQ_API_KEY` missing from `.env` |
 
 ## Deliberately out of scope
 

@@ -141,7 +141,7 @@ export default function Footer() {
               <div className="flex items-start gap-3">
                 <MapPin size={16} className="text-accent mt-1 shrink-0" />
                 <span className="font-body text-sm text-white/70">
-                  Cameroun
+                  {tr.country_name}
                 </span>
               </div>
               <div className="flex items-start gap-3">

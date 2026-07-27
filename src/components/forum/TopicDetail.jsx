@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { ArrowLeft, Send, MessageCircle, Pin, Lock, MapPin } from 'lucide-react';
-import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { motion } from 'framer-motion';
 import { format } from 'date-fns';
@@ -8,6 +7,8 @@ import { useLang } from '../../lib/LanguageContext';
 import { getDateLocale } from '../../lib/dateLocale';
 import tr from '../../lib/translations';
 import { api } from '../../api/client';
+import { translateCategory } from '../../lib/forumCategories';
+import TranslateButton from '../TranslateButton';
 
 const categoryColors = {
   'Tactiques':  'bg-secondary/20 text-secondary border-secondary/30',
@@ -18,6 +19,8 @@ const categoryColors = {
 };
 
 function ReplyBubble({ reply, index, dateLocale }) {
+  const [translated, setTranslated] = useState(null);
+  const displayContent = translated?.content ?? reply.content;
   return (
     <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: index * 0.05 }}
       className="flex gap-4">
@@ -31,7 +34,10 @@ function ReplyBubble({ reply, index, dateLocale }) {
             {format(new Date(reply.created_date), 'd MMM yyyy · HH:mm', { locale: dateLocale })}
           </span>
         </div>
-        <p className="font-body text-sm text-white/70 leading-relaxed whitespace-pre-wrap">{reply.content}</p>
+        <p className="font-body text-sm text-white/70 leading-relaxed whitespace-pre-wrap">{displayContent}</p>
+        <div className="mt-2">
+          <TranslateButton contentType="forum_reply" contentId={reply.id} fields={{ content: reply.content }} onResult={setTranslated} compact />
+        </div>
       </div>
     </motion.div>
   );
@@ -40,8 +46,9 @@ function ReplyBubble({ reply, index, dateLocale }) {
 export default function TopicDetail({ topic, onBack }) {
   const [replies, setReplies] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [form, setForm] = useState({ author_name: '', content: '' });
+  const [form, setForm] = useState({ content: '' });
   const [sending, setSending] = useState(false);
+  const [topicTranslated, setTopicTranslated] = useState(null);
   const { lang } = useLang();
   const t = tr[lang];
   const dateLocale = getDateLocale(lang);
@@ -59,15 +66,19 @@ export default function TopicDetail({ topic, onBack }) {
   };
 
   useEffect(() => {
+    setTopicTranslated(null);
     loadReplies();
   }, [topic.id]);
+
+  const displayTopicTitle = topicTranslated?.title ?? topic.title;
+  const displayTopicContent = topicTranslated?.content ?? topic.content;
 
   const handleReply = async (e) => {
     e.preventDefault();
     setSending(true);
     try {
       await api.forum.createReply(topic.id, form);
-      setForm({ author_name: '', content: '' });
+      setForm({ content: '' });
       loadReplies();
     } catch (err) {
       console.error('Failed to create reply:', err);
@@ -89,13 +100,13 @@ export default function TopicDetail({ topic, onBack }) {
         <div className="p-6 border-b border-white/10">
           <div className="flex flex-wrap items-center gap-3 mb-3">
             <span className={`text-xs font-body font-bold uppercase tracking-wider px-3 py-1 rounded-full border ${categoryColors[topic.category] || categoryColors['Général']}`}>
-              {topic.category}
+              {translateCategory(topic.category, lang)}
             </span>
             {topic.pinned && <span className="flex items-center gap-1 text-accent text-xs font-body"><Pin size={11} /> {t.forum_pinned}</span>}
             {topic.closed && <span className="flex items-center gap-1 text-white/40 text-xs font-body"><Lock size={11} /> {t.forum_closed}</span>}
             {topic.city && <span className="flex items-center gap-1 text-white/40 text-xs font-body"><MapPin size={11} /> {topic.city}</span>}
           </div>
-          <h1 className="font-heading text-3xl text-white mb-4">{topic.title}</h1>
+          <h1 className="font-heading text-3xl text-white mb-4">{displayTopicTitle}</h1>
           <div className="flex items-center gap-4">
             <div className="w-10 h-10 rounded-full bg-accent/20 border border-accent/30 flex items-center justify-center font-heading text-accent text-lg shrink-0">
               {(topic.author_name || 'A')[0].toUpperCase()}
@@ -107,7 +118,15 @@ export default function TopicDetail({ topic, onBack }) {
           </div>
         </div>
         <div className="p-6">
-          <p className="font-body text-sm text-white/70 leading-relaxed whitespace-pre-wrap">{topic.content}</p>
+          <p className="font-body text-sm text-white/70 leading-relaxed whitespace-pre-wrap">{displayTopicContent}</p>
+          <div className="mt-3">
+            <TranslateButton
+              contentType="forum_topic"
+              contentId={topic.id}
+              fields={{ title: topic.title, content: topic.content }}
+              onResult={setTopicTranslated}
+            />
+          </div>
         </div>
       </div>
 
@@ -131,11 +150,6 @@ export default function TopicDetail({ topic, onBack }) {
         <div className="bg-white/5 border border-white/10 rounded-2xl p-6">
           <h4 className="font-heading text-lg text-white mb-5">{t.forum_your_reply}</h4>
           <form onSubmit={handleReply} className="space-y-4">
-            <div>
-              <label className="font-body text-xs font-bold uppercase tracking-wider text-white/40 block mb-2">{t.forum_reply_name}</label>
-              <Input required value={form.author_name} onChange={e => setForm(f => ({ ...f, author_name: e.target.value }))}
-                placeholder="Prénom Nom" className="bg-white/5 border-white/15 text-white placeholder-white/20 focus:border-accent/50" />
-            </div>
             <div>
               <label className="font-body text-xs font-bold uppercase tracking-wider text-white/40 block mb-2">{t.forum_topic_content}</label>
               <Textarea required value={form.content} onChange={e => setForm(f => ({ ...f, content: e.target.value }))}

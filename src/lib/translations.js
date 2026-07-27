@@ -251,6 +251,8 @@ const t = {
     contact_subject: "Sujet *",
     contact_message: "Votre message *",
     contact_send: "Envoyer",
+    contact_sending: "Envoi…",
+    contact_error: "Une erreur est survenue lors de l'envoi. Veuillez réessayer.",
     contact_sent_title: "Message envoyé !",
     contact_sent_desc:
       "Merci pour votre message. Nous vous répondrons dans les meilleurs délais.",
@@ -288,6 +290,7 @@ const t = {
     contact_info_address: "Adresse",
     contact_info_email: "Email",
     contact_info_website: "Site Web",
+    country_name: "Cameroun",
     contact_name_placeholder: "Votre nom",
     contact_email_placeholder: "votre@email.com",
     contact_subject_placeholder: "Objet de votre message",
@@ -538,6 +541,28 @@ const t = {
     admin_tab_clubs: "Clubs & Terrains",
     admin_tab_events: "Calendrier / Rencontres",
     admin_tab_forum: "Modération Forum",
+    admin_tab_messages: "Messages",
+
+    // Admin — contact messages
+    admin_messages_title: "Messages de Contact",
+    admin_messages_empty: "Aucun message pour le moment.",
+    admin_th_name: "Nom",
+    admin_th_email: "Email",
+    admin_th_message: "Message",
+    admin_message_read: "Lu",
+    admin_message_unread: "Non lu",
+    admin_title_mark_read: "Marquer comme lu",
+    admin_title_mark_unread: "Marquer comme non lu",
+    admin_title_delete_message: "Supprimer le message",
+    admin_confirm_delete_message: "Supprimer ce message ?",
+
+    // Translate button (manual LLM translation)
+    translate_button: "Traduire en anglais",
+    translate_loading: "Traduction…",
+    translate_error: "Échec. Réessayer.",
+    translate_translated_label: "Traduit par IA",
+    translate_show_original: "Afficher l'original",
+    translate_show_translation: "Afficher la traduction",
 
     // Admin — overview
     admin_stat_visitors: "Visiteurs uniques",
@@ -840,7 +865,7 @@ const t = {
 
     // Actualités
     news_badge: "Vizball News",
-    news_title: "LATEST",
+    news_title: "LATEST ",
     news_title2: "NEWS",
     news_subtitle:
       "Events, tournaments, player profiles and official announcements from the Vizball Association.",
@@ -971,6 +996,8 @@ const t = {
     contact_subject: "Subject *",
     contact_message: "Your message *",
     contact_send: "Send",
+    contact_sending: "Sending…",
+    contact_error: "An error occurred while sending. Please try again.",
     contact_sent_title: "Message sent!",
     contact_sent_desc:
       "Thank you for your message. We will get back to you as soon as possible.",
@@ -1008,6 +1035,7 @@ const t = {
     contact_info_address: "Address",
     contact_info_email: "Email",
     contact_info_website: "Website",
+    country_name: "Cameroon",
     contact_name_placeholder: "Your name",
     contact_email_placeholder: "your@email.com",
     contact_subject_placeholder: "Subject of your message",
@@ -1254,6 +1282,28 @@ const t = {
     admin_tab_clubs: "Clubs & Grounds",
     admin_tab_events: "Calendar / Matches",
     admin_tab_forum: "Forum Moderation",
+    admin_tab_messages: "Messages",
+
+    // Admin — contact messages
+    admin_messages_title: "Contact Messages",
+    admin_messages_empty: "No messages yet.",
+    admin_th_name: "Name",
+    admin_th_email: "Email",
+    admin_th_message: "Message",
+    admin_message_read: "Read",
+    admin_message_unread: "Unread",
+    admin_title_mark_read: "Mark as read",
+    admin_title_mark_unread: "Mark as unread",
+    admin_title_delete_message: "Delete message",
+    admin_confirm_delete_message: "Delete this message?",
+
+    // Translate button (manual LLM translation)
+    translate_button: "Translate to English",
+    translate_loading: "Translating…",
+    translate_error: "Translation failed. Try again.",
+    translate_translated_label: "Translated by AI",
+    translate_show_original: "Show original",
+    translate_show_translation: "Show translation",
 
     // Admin — overview
     admin_stat_visitors: "Unique visitors",

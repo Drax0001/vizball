@@ -6,18 +6,10 @@ import { motion } from 'framer-motion';
 import { useLang } from '../../lib/LanguageContext';
 import tr from '../../lib/translations';
 import { api } from '../../api/client';
-
-const CATEGORIES = ['Tactiques', 'Règles', 'Rencontres', 'Général', 'Équipement'];
-const CATEGORY_LABELS = {
-  'Tactiques': { fr: 'Tactiques', en: 'Tactics' },
-  'Règles': { fr: 'Règles', en: 'Rules' },
-  'Rencontres': { fr: 'Rencontres', en: 'Meetings' },
-  'Général': { fr: 'Général', en: 'General' },
-  'Équipement': { fr: 'Équipement', en: 'Equipment' },
-};
+import { FORUM_CATEGORIES as CATEGORIES, CATEGORY_LABELS } from '../../lib/forumCategories';
 
 export default function NewTopicModal({ onClose, onSave }) {
-  const [form, setForm] = useState({ title: '', category: 'Général', content: '', author_name: '', city: '' });
+  const [form, setForm] = useState({ title: '', category: 'Général', content: '', city: '' });
   const [saving, setSaving] = useState(false);
   const { lang } = useLang();
   const t = tr[lang];
@@ -49,19 +41,12 @@ export default function NewTopicModal({ onClose, onSave }) {
         </div>
 
         <form onSubmit={handleSubmit} className="p-6 space-y-4">
-          <div className="grid sm:grid-cols-2 gap-4">
-            <div>
-              <label className="font-body text-xs font-bold uppercase tracking-wider text-white/40 block mb-2">{t.forum_topic_category}</label>
-              <select value={form.category} onChange={e => set('category', e.target.value)}
-                className="w-full bg-white/5 border border-white/15 rounded-md px-3 py-2 font-body text-sm text-white focus:outline-none focus:border-accent/50 transition-colors">
-                {CATEGORIES.map(c => <option key={c} value={c} className="bg-[#0f2c1e]">{CATEGORY_LABELS[c][lang]}</option>)}
-              </select>
-            </div>
-            <div>
-              <label className="font-body text-xs font-bold uppercase tracking-wider text-white/40 block mb-2">{t.forum_topic_your_name}</label>
-              <Input required value={form.author_name} onChange={e => set('author_name', e.target.value)}
-                placeholder="Prénom Nom" className="bg-white/5 border-white/15 text-white placeholder-white/20 focus:border-accent/50" />
-            </div>
+          <div>
+            <label className="font-body text-xs font-bold uppercase tracking-wider text-white/40 block mb-2">{t.forum_topic_category}</label>
+            <select value={form.category} onChange={e => set('category', e.target.value)}
+              className="w-full bg-white/5 border border-white/15 rounded-md px-3 py-2 font-body text-sm text-white focus:outline-none focus:border-accent/50 transition-colors">
+              {CATEGORIES.map(c => <option key={c} value={c} className="bg-[#0f2c1e]">{CATEGORY_LABELS[c][lang]}</option>)}
+            </select>
           </div>
 
           <div>

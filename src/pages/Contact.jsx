@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useLang } from "../lib/LanguageContext";
 import t from "../lib/translations";
+import { api } from "../api/client";
 
 function AnimatedSection({ children, className = "" }) {
   const ref = useRef(null);
@@ -28,7 +29,7 @@ export default function Contact() {
   const tr = t[lang];
 
   const contactInfo = [
-    { icon: MapPin, label: tr.contact_info_address, value: "Cameroun" },
+    { icon: MapPin, label: tr.contact_info_address, value: tr.country_name },
     { icon: Mail, label: tr.contact_info_email, value: "contact@vizball.org" },
     { icon: Globe, label: tr.contact_info_website, value: "www.vizball.org" },
   ];
@@ -40,10 +41,21 @@ export default function Contact() {
     message: "",
   });
   const [sent, setSent] = useState(false);
+  const [sending, setSending] = useState(false);
+  const [sendError, setSendError] = useState("");
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    setSent(true);
+    setSendError("");
+    setSending(true);
+    try {
+      await api.contact.submit(form);
+      setSent(true);
+    } catch (err) {
+      setSendError(err.message || tr.contact_error);
+    } finally {
+      setSending(false);
+    }
   };
 
   return (
@@ -186,11 +198,13 @@ export default function Contact() {
                     </div>
                     <Button
                       type="submit"
-                      className="w-full bg-accent hover:bg-accent/90 text-primary font-body font-bold uppercase tracking-wider py-6"
+                      disabled={sending}
+                      className="w-full bg-accent hover:bg-accent/90 text-primary font-body font-bold uppercase tracking-wider py-6 disabled:opacity-60"
                     >
                       <Send size={16} className="mr-2" />
-                      {tr.contact_send}
+                      {sending ? tr.contact_sending : tr.contact_send}
                     </Button>
+                    {sendError && <p className="font-body text-sm text-red-500">{sendError}</p>}
                   </form>
                 )}
               </AnimatedSection>

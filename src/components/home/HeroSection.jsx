@@ -41,7 +41,7 @@ export default function HeroSection() {
       setCurrentSlide((prev) => (prev + 1) % HERO_SLIDES.length);
     }, 5000);
     return () => clearInterval(timer);
-  }, []);
+  }, [currentSlide]);
 
   const goToSlide = (index) => {
     setDirection(index > currentSlide ? 1 : -1);
@@ -171,7 +171,7 @@ export default function HeroSection() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1.5 }}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10">
+        className="hidden sm:block absolute bottom-8 left-1/2 -translate-x-1/2 z-10">
         <motion.div
           animate={{ y: [0, 10, 0] }}
           transition={{ repeat: Infinity, duration: 2 }}

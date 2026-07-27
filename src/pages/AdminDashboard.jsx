@@ -4,7 +4,7 @@ import {
   Users, ShoppingBag, Newspaper, MapPin, Calendar,
   LogOut, Trash2, Pencil, Plus, Pin, Lock, Unlock,
   Settings, Check, X, ShieldAlert, BarChart3, MessageSquare, Upload,
-  Video, FileText, UserCircle2, Image as ImageIcon
+  Video, FileText, UserCircle2, Image as ImageIcon, Mail
 } from 'lucide-react';
 import { useAuth } from '../lib/AuthContext';
 import { api } from '../api/client';
@@ -63,6 +63,7 @@ export default function AdminDashboard() {
   const [governanceDocs, setGovernanceDocs] = useState([]);
   const [teamMembers, setTeamMembers] = useState([]);
   const [galleryPhotos, setGalleryPhotos] = useState([]);
+  const [messages, setMessages] = useState([]);
   const [visitorsCount, setVisitorsCount] = useState(0);
   const [loadingData, setLoadingData] = useState(false);
 
@@ -108,7 +109,7 @@ export default function AdminDashboard() {
     if (!user || user.role !== 'admin') return;
     setLoadingData(true);
     try {
-      const [artData, prodData, clubData, evData, topData, tutData, govData, teamData, galleryData, visData] = await Promise.all([
+      const [artData, prodData, clubData, evData, topData, tutData, govData, teamData, galleryData, visData, msgData] = await Promise.all([
         api.articles.list(),
         api.products.list(),
         api.clubs.list(),
@@ -118,7 +119,8 @@ export default function AdminDashboard() {
         api.governanceDocuments.list(),
         api.teamMembers.list(),
         api.gallery.list(),
-        api.visitors.get()
+        api.visitors.get(),
+        api.contact.list()
       ]);
       setArticles(artData);
       setProducts(prodData);
@@ -130,6 +132,7 @@ export default function AdminDashboard() {
       setTeamMembers(teamData);
       setGalleryPhotos(galleryData);
       setVisitorsCount(visData?.count || 0);
+      setMessages(msgData);
     } catch (err) {
       console.error('Error loading dashboard data:', err);
     } finally {
@@ -345,6 +348,25 @@ export default function AdminDashboard() {
     if (!confirm(tr.admin_confirm_delete_topic)) return;
     try {
       await api.forum.deleteTopic(id);
+      loadAllData();
+    } catch (err) {
+      alert(err.message);
+    }
+  };
+
+  // Contact Message Actions
+  const handleToggleReadMessage = async (msg) => {
+    try {
+      await api.contact.markRead(msg.id, !msg.read);
+      loadAllData();
+    } catch (err) {
+      alert(err.message);
+    }
+  };
+  const handleDeleteMessage = async (id) => {
+    if (!confirm(tr.admin_confirm_delete_message)) return;
+    try {
+      await api.contact.delete(id);
       loadAllData();
     } catch (err) {
       alert(err.message);
@@ -680,6 +702,7 @@ export default function AdminDashboard() {
             { id: 'clubs', label: tr.admin_tab_clubs, icon: MapPin },
             { id: 'events', label: tr.admin_tab_events, icon: Calendar },
             { id: 'forum', label: tr.admin_tab_forum, icon: MessageSquare },
+            { id: 'messages', label: tr.admin_tab_messages, icon: Mail },
             { id: 'tutorials', label: tr.nav_tutorials, icon: Video },
             { id: 'governance', label: tr.nav_governance, icon: FileText },
             { id: 'team', label: tr.admin_tab_team, icon: UserCircle2 },
@@ -1077,6 +1100,69 @@ export default function AdminDashboard() {
                     </tbody>
                   </table>
                 </div>
+              </div>
+            )}
+
+            {/* TABS: CONTACT MESSAGES */}
+            {activeTab === 'messages' && (
+              <div className="bg-[#0f2c1e] border border-white/10 rounded-2xl p-6 shadow-xl">
+                <div className="flex items-center justify-between mb-6 flex-wrap gap-3">
+                  <h2 className="font-heading text-2xl text-white">{tr.admin_messages_title}</h2>
+                </div>
+
+                {messages.length === 0 ? (
+                  <p className="font-body text-sm text-white/30 text-center py-8">{tr.admin_messages_empty}</p>
+                ) : (
+                  <div className="overflow-x-auto">
+                    <table className="w-full min-w-[880px] text-left font-body text-sm text-white/80">
+                      <thead>
+                        <tr className="border-b border-white/10 text-xs font-bold uppercase tracking-wider text-white/40">
+                          <th className="py-3 px-4">{tr.admin_th_name}</th>
+                          <th className="py-3 px-4">{tr.admin_th_email}</th>
+                          <th className="py-3 px-4">{tr.admin_th_subject}</th>
+                          <th className="py-3 px-4">{tr.admin_th_message}</th>
+                          <th className="py-3 px-4">{tr.admin_th_date}</th>
+                          <th className="py-3 px-4">{tr.admin_th_state}</th>
+                          <th className="py-3 px-4 text-right">{tr.admin_th_actions}</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {messages.map((msg) => (
+                          <tr key={msg.id} className="border-b border-white/5 hover:bg-white/3">
+                            <td className="py-3 px-4 font-bold">{msg.name}</td>
+                            <td className="py-3 px-4">{msg.email}</td>
+                            <td className="py-3 px-4">{msg.subject || '—'}</td>
+                            <td className="py-3 px-4 max-w-xs truncate" title={msg.message}>{msg.message}</td>
+                            <td className="py-3 px-4 text-xs">{new Date(msg.created_at).toLocaleString(lang === 'en' ? 'en-US' : 'fr-FR')}</td>
+                            <td className="py-3 px-4">
+                              <span className={`text-[10px] font-bold px-1.5 py-0.5 rounded uppercase border ${msg.read ? 'bg-white/10 text-white/60 border-white/10' : 'bg-accent/20 text-accent border-accent/30'}`}>
+                                {msg.read ? tr.admin_message_read : tr.admin_message_unread}
+                              </span>
+                            </td>
+                            <td className="py-3 px-4 text-right">
+                              <div className="flex gap-2 justify-end">
+                                <button
+                                  onClick={() => handleToggleReadMessage(msg)}
+                                  title={msg.read ? tr.admin_title_mark_unread : tr.admin_title_mark_read}
+                                  className="p-1.5 bg-white/5 hover:bg-white/10 rounded border border-white/10 transition-colors"
+                                >
+                                  <Mail size={13} />
+                                </button>
+                                <button
+                                  onClick={() => handleDeleteMessage(msg.id)}
+                                  title={tr.admin_title_delete_message}
+                                  className="p-1.5 bg-white/5 hover:bg-red-500 hover:text-white rounded border border-white/10 hover:border-red-500 transition-colors"
+                                >
+                                  <Trash2 size={13} />
+                                </button>
+                              </div>
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                )}
               </div>
             )}
 

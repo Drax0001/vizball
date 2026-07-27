@@ -5,6 +5,7 @@ import { format } from 'date-fns';
 import { useLang } from '../../lib/LanguageContext';
 import { getDateLocale } from '../../lib/dateLocale';
 import t from '../../lib/translations';
+import { translateCategory } from '../../lib/forumCategories';
 
 const categoryColors = {
   'Tactiques': 'bg-secondary/20 text-secondary border-secondary/30',
@@ -25,8 +26,8 @@ export default function TopicRow({ topic, onClick, index }) {
         <div className="flex items-start justify-between gap-4">
           <div className="flex-1 min-w-0">
             <div className="flex flex-wrap items-center gap-2 mb-2">
-              <span className="bg-[hsl(var(--brand-red))] text-[hsl(var(--background))] px-2.5 py-0.5 text-xs font-bold uppercase tracking-wider rounded-full border border-secondary/30">
-                {topic.category}
+              <span className={`px-2.5 py-0.5 text-xs font-bold uppercase tracking-wider rounded-full border ${categoryColors[topic.category] || categoryColors['Général']}`}>
+                {translateCategory(topic.category, lang)}
               </span>
               {topic.pinned && <Pin size={12} className="text-accent" />}
               {topic.closed && <Lock size={12} className="text-white/30" />}
