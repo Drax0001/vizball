@@ -9,7 +9,6 @@ const t = {
     nav_forum: "Forum",
     nav_shop: "Boutique",
     nav_governance: "Gouvernance",
-    nav_association: "Association",
     nav_contact: "Contact",
 
     // Hero
@@ -30,9 +29,6 @@ const t = {
     about_desc2:
       "Deux équipes s'affrontent pour marquer des points en envoyant la balle sur la Cible adverse, défendue par le joueur Cible, à l'aide d'un tir ou d'une frappe.",
     about_learn_more: "En savoir plus",
-    about_stat_players: "Joueurs / équipe",
-    about_stat_zones: "Zones de marque",
-    about_stat_half: "Minutes / mi-temps",
     about_since: "Depuis",
     about_fact_1: "Sport collectif créé en **2007** au **Cameroun**",
     about_fact_2: "Se déroule en **4 manches** de 15 minutes chacune",
@@ -377,11 +373,6 @@ const t = {
     assoc_governance_title2: "GOUVERNANCE",
 
     // Team sections
-    team_badge: "Les visages du Vizball",
-    team_title: "NOTRE ÉQUIPE",
-    team_subtitle:
-      "Découvrez les membres qui œuvrent au quotidien pour le développement et le rayonnement du Vizball.",
-    team_photo_soon: "Photo à venir",
     gov_team_badge: "Bureau Exécutif",
     gov_team_title: "L'ÉQUIPE",
     gov_team_title2: "DIRIGEANTE",
@@ -481,6 +472,10 @@ const t = {
     sport_zone_duel_3: "Zone de 1 point (Z1) — 8m de large",
     sport_zone_duel_4: "Butoir (B) — Plaque cible parallèle à la ligne de fond",
     sport_zone_duel_5: "Point de Claque (PC) — Point de pénalité",
+
+    // Under construction gate
+    construction_title: "En construction…",
+    construction_cta: "Entrez pour visiter le chantier",
 
     // 404 / access error pages
     error_404_title: "Page introuvable",
@@ -759,7 +754,6 @@ const t = {
     nav_forum: "Forum",
     nav_shop: "Shop",
     nav_governance: "Governance",
-    nav_association: "Association",
     nav_contact: "Contact",
 
     // Hero
@@ -780,9 +774,6 @@ const t = {
     about_desc2:
       "Two teams compete to score points by sending the ball onto the opponent's Target, defended by the Target player, using a shot or a strike.",
     about_learn_more: "Learn more",
-    about_stat_players: "Players / team",
-    about_stat_zones: "Scoring zones",
-    about_stat_half: "Minutes / half",
     about_since: "Since",
     about_fact_1: "Team sport created in **2007** in **Cameroon**",
     about_fact_2: "Played in **4 periods** of 15 minutes each",
@@ -1121,11 +1112,6 @@ const t = {
     assoc_governance_title2: "BODIES",
 
     // Team sections
-    team_badge: "The Faces of Vizball",
-    team_title: "OUR TEAM",
-    team_subtitle:
-      "Meet the members who work every day for the development and growth of Vizball.",
-    team_photo_soon: "Photo coming soon",
     gov_team_badge: "Executive Board",
     gov_team_title: "THE",
     gov_team_title2: "LEADERSHIP TEAM",
@@ -1223,6 +1209,10 @@ const t = {
     sport_zone_duel_3: "1-point Zone (Z1) — 8m wide",
     sport_zone_duel_4: "Backstop (B) — Target plate parallel to the back line",
     sport_zone_duel_5: "Slap Point (PC) — Penalty point",
+
+    // Under construction gate
+    construction_title: "Under construction…",
+    construction_cta: "Enter to visit the site",
 
     // 404 / access error pages
     error_404_title: "Page Not Found",

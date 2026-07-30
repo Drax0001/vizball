@@ -2,6 +2,7 @@ import React, { useRef, useState, useEffect } from 'react';
 import { motion, useInView } from 'framer-motion';
 import { Users, Target, Crosshair, Shield, ChevronRight, ChevronDown, Search, Filter, Play, BookOpen, Dumbbell, Scale } from 'lucide-react';
 import FaqSection from '../components/rules/FaqSection';
+import Seo from '../components/Seo';
 import VideoCard from '../components/tutorials/VideoCard';
 import FeaturedVideo from '../components/tutorials/FeaturedVideo';
 import VideoPlayer from '../components/tutorials/VideoPlayer';
@@ -256,6 +257,7 @@ export default function LeSport() {
   const tr = t[lang];
   return (
     <div>
+      <Seo title={tr.sport_title} description={tr.sport_subtitle} canonicalPath="/le-sport" />
       {/* Hero */}
       <section className="relative h-[60vh] min-h-[400px] overflow-hidden">
         <div className="w-full h-full bg-gray-900" />

@@ -7,6 +7,7 @@ import NewTopicModal from '../components/forum/NewTopicModal';
 import { useLang } from '../lib/LanguageContext';
 import tr from '../lib/translations';
 import { api } from '../api/client';
+import Seo from '../components/Seo';
 
 const CATEGORIES_FR = ['Tous', 'Tactiques', 'Règles', 'Rencontres', 'Général', 'Équipement'];
 const CATEGORIES_EN = ['All', 'Tactics', 'Rules', 'Meetings', 'General', 'Equipment'];
@@ -89,6 +90,7 @@ export default function Forum() {
 
   return (
     <div className="min-h-screen bg-primary">
+      <Seo title={t.forum_title} description={t.forum_subtitle} canonicalPath="/forum" />
       {/* Hero */}
       <section className="relative overflow-hidden pt-32 pb-16">
         <div className="absolute inset-0 opacity-5" style={{ backgroundImage: 'radial-gradient(circle at 1px 1px, hsl(43,75%,49%) 1px, transparent 0)', backgroundSize: '40px 40px' }} />

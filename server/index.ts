@@ -17,6 +17,7 @@ import galleryRoutes from './routes/gallery';
 import uploadRoutes from './routes/uploads';
 import translateRoutes from './routes/translate';
 import contactRoutes from './routes/contact';
+import sitemapRoutes from './routes/sitemap';
 
 const app = express();
 const PORT = Number(process.env.PORT) || 5000;
@@ -45,6 +46,7 @@ app.use('/api/gallery', galleryRoutes);
 app.use('/api/uploads', uploadRoutes);
 app.use('/api/translate', translateRoutes);
 app.use('/api/contact', contactRoutes);
+app.use('/api/sitemap.xml', sitemapRoutes);
 
 // Bound to loopback only — in production this process sits behind an Nginx
 // reverse proxy on the same host, and should never be reachable directly

@@ -7,6 +7,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { useLang } from "../lib/LanguageContext";
 import t from "../lib/translations";
 import { api } from "../api/client";
+import Seo from "../components/Seo";
 
 function AnimatedSection({ children, className = "" }) {
   const ref = useRef(null);
@@ -60,6 +61,7 @@ export default function Contact() {
 
   return (
     <div>
+      <Seo title={tr.contact_title + tr.contact_title2} description={tr.contact_intro} canonicalPath="/contact" />
       {/* Hero */}
       <section className="relative h-[40vh] min-h-[300px] overflow-hidden">
         <div className="w-full h-full bg-gray-900" />

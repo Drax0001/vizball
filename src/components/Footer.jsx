@@ -87,12 +87,6 @@ export default function Footer() {
                 {tr.nav_governance}
               </Link>
               <Link
-                to="/association"
-                className="block font-body text-sm text-white/70 hover:text-white transition-colors"
-              >
-                {tr.nav_association}
-              </Link>
-              <Link
                 to="/contact"
                 className="block font-body text-sm text-white/70 hover:text-white transition-colors"
               >
@@ -125,7 +119,7 @@ export default function Footer() {
                 {tr.footer_field}
               </Link>
               <Link
-                to="/association"
+                to="/gouvernance"
                 className="block font-body text-sm text-white/70 hover:text-white transition-colors"
               >
                 {tr.footer_hcv}

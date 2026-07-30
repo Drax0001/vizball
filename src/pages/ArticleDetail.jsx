@@ -9,6 +9,7 @@ import { getDateLocale } from '../lib/dateLocale';
 import t from '../lib/translations';
 import { api } from '../api/client';
 import TranslateButton from '../components/TranslateButton';
+import Seo from '../components/Seo';
 
 const categoryColors = {
   'Événement':   'bg-accent/20 text-accent border-accent/30',
@@ -105,8 +106,25 @@ export default function ArticleDetail() {
   const displayExcerpt = translated?.excerpt ?? article.excerpt;
   const displayContent = translated?.content ?? article.content;
 
+  const articleJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: article.title,
+    description: article.excerpt || undefined,
+    image: article.cover_image || undefined,
+    datePublished: article.published_at || article.created_date || undefined,
+    author: article.author_name ? { '@type': 'Person', name: article.author_name } : undefined,
+  };
+
   return (
     <div className="min-h-screen bg-primary">
+      <Seo
+        title={article.title}
+        description={article.excerpt}
+        canonicalPath={`/actualites/${id}`}
+        image={article.cover_image}
+        jsonLd={articleJsonLd}
+      />
       {/* Cover */}
       {article.cover_image && (
         <div className="relative h-[55vh] min-h-[350px] overflow-hidden">

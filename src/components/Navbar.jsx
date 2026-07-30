@@ -25,7 +25,6 @@ export default function Navbar() {
     { label: tr.nav_forum, path: "/forum" },
     { label: tr.nav_shop, path: "/boutique" },
     { label: tr.nav_governance, path: "/gouvernance" },
-    { label: tr.nav_association, path: "/association" },
     { label: tr.nav_contact, path: "/contact" },
   ];
 
@@ -61,7 +60,7 @@ export default function Navbar() {
               to="/"
               className="flex items-center justify-center px-4 py-2 rounded-lg transition-opacity duration-300 hover:opacity-80"
             >
-              <img src={vizballLogo} className="h-14 w-auto object-contain" />
+              <img src={vizballLogo} alt="Vizball" className="h-14 w-auto object-contain" />
             </Link>
 
             <div className="hidden lg:flex items-center gap-1 xl:gap-2">

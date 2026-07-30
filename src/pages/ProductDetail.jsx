@@ -8,6 +8,7 @@ import CartIcon from '../components/shop/CartIcon';
 import { useLang } from '../lib/LanguageContext';
 import t from '../lib/translations';
 import { api } from '../api/client';
+import Seo from '../components/Seo';
 
 export default function ProductDetail() {
   const { id } = useParams();
@@ -88,8 +89,29 @@ export default function ProductDetail() {
     { label: tr.shop_spec_status, value: product.in_stock ? tr.shop_in_stock : tr.shop_on_order_avail }
   ];
 
+  const productJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'Product',
+    name: product.name,
+    description: product.desc || undefined,
+    image: product.image_url || undefined,
+    offers: {
+      '@type': 'Offer',
+      priceCurrency: 'XAF',
+      price: product.price,
+      availability: product.in_stock ? 'https://schema.org/InStock' : 'https://schema.org/OutOfStock',
+    },
+  };
+
   return (
     <div className="min-h-screen bg-primary">
+      <Seo
+        title={product.name}
+        description={product.desc}
+        canonicalPath={`/boutique/${id}`}
+        image={product.image_url}
+        jsonLd={productJsonLd}
+      />
       {/* Top bar */}
       <div className="fixed top-20 left-0 right-0 z-30 bg-primary/95 backdrop-blur-md border-b border-white/10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-14 flex items-center justify-between">

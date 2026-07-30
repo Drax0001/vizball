@@ -7,6 +7,7 @@ import CartIcon from '../components/shop/CartIcon';
 import { useLang } from '../lib/LanguageContext';
 import t from '../lib/translations';
 import { api } from '../api/client';
+import Seo from '../components/Seo';
 
 function AnimatedSection({ children, className = '' }) {
   const ref = useRef(null);
@@ -50,6 +51,7 @@ export default function Boutique() {
 
   return (
     <div className="min-h-screen bg-primary">
+      <Seo title={tr.shop_title} description={tr.shop_subtitle} canonicalPath="/boutique" />
       {/* Hero */}
       <section className="relative overflow-hidden pt-32 pb-16">
         <div className="absolute inset-0 opacity-5" style={{ backgroundImage: 'radial-gradient(circle at 1px 1px, hsl(43,75%,49%) 1px, transparent 0)', backgroundSize: '40px 40px' }} />

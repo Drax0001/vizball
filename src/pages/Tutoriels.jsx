@@ -8,6 +8,7 @@ import { api } from '../api/client';
 import { useLang } from '../lib/LanguageContext';
 import t from '../lib/translations';
 import { CATEGORY_LABELS, LEVEL_LABELS } from '../lib/tutorialLabels';
+import Seo from '../components/Seo';
 
 const CATEGORIES = [
 { label: 'Tous', icon: Play },
@@ -80,6 +81,7 @@ export default function Tutoriels() {
 
   return (
     <div className="min-h-screen bg-primary">
+      <Seo title={tr.tutoriels_title + tr.tutoriels_title2} description={tr.tutoriels_subtitle} canonicalPath="/tutoriels" />
       {/* Hero */}
       <section className="relative h-[50vh] min-h-[350px] overflow-hidden bg-gray-900">
         <div className="absolute inset-0 bg-gradient-to-r from-primary/95 via-primary/80 to-primary/50" />

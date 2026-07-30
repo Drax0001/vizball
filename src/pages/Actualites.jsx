@@ -3,6 +3,7 @@ import { motion, useInView } from 'framer-motion';
 import { Newspaper, Search } from 'lucide-react';
 import ArticleCard from '../components/news/ArticleCard';
 import CalendarSection from '../components/home/CalendarSection';
+import Seo from '../components/Seo';
 import { useLang } from '../lib/LanguageContext';
 import t from '../lib/translations';
 import { api } from '../api/client';
@@ -64,6 +65,7 @@ export default function Actualites() {
 
   return (
     <div className="min-h-screen bg-primary">
+      <Seo title={tr.news_title + tr.news_title2} description={tr.news_subtitle} canonicalPath="/actualites" />
       {/* Hero */}
       <section className="relative overflow-hidden pt-32 pb-16">
         <div className="absolute inset-0 opacity-5" style={{ backgroundImage: 'radial-gradient(circle at 1px 1px, hsl(43,75%,49%) 1px, transparent 0)', backgroundSize: '40px 40px' }} />

@@ -1,7 +1,7 @@
 import React, { useRef } from "react";
 import { Link } from "react-router-dom";
 import { motion, useInView } from "framer-motion";
-import { ArrowRight, Users, Target, Trophy } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { useLang } from "../../lib/LanguageContext";
 import t from "../../lib/translations";
 
@@ -22,12 +22,6 @@ export default function AboutSection() {
   const isInView = useInView(ref, { once: true, margin: "-100px" });
   const { lang } = useLang();
   const tr = t[lang];
-
-  const stats = [
-    { icon: Users, value: "10", label: tr.about_stat_players },
-    { icon: Target, value: "4", label: tr.about_stat_zones },
-    { icon: Trophy, value: "3", label: tr.about_stat_half },
-  ];
 
   return (
     <section ref={ref} className="py-24 bg-background relative overflow-hidden">
@@ -91,29 +85,6 @@ export default function AboutSection() {
               {/* <p className="font-body text-xs font-bold uppercase tracking-wider text-accent pt-2 border-t border-border mt-2">
                 {tr.about_author}
               </p> */}
-            </div>
-
-            <div className="grid grid-cols-3 gap-6 mb-8">
-              {stats.map((stat, i) => {
-                const Icon = stat.icon;
-                return (
-                  <motion.div
-                    key={i}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={isInView ? { opacity: 1, y: 0 } : {}}
-                    transition={{ delay: 0.4 + i * 0.1 }}
-                    className="text-center"
-                  >
-                    <Icon size={22} className="text-accent mx-auto mb-2" />
-                    <span className="font-heading text-3xl text-foreground block">
-                      {stat.value}
-                    </span>
-                    <p className="font-body text-xs text-muted-foreground uppercase tracking-wider mt-1">
-                      {stat.label}
-                    </p>
-                  </motion.div>
-                );
-              })}
             </div>
 
             <Link

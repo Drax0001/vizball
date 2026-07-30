@@ -25,7 +25,7 @@ export default function FeatureCards() {
     title: tr.features_association_title,
     desc: tr.features_association_desc,
     cta: tr.features_association_cta,
-    link: '/association',
+    link: '/gouvernance',
     img: ''
   },
   {

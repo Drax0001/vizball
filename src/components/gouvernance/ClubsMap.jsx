@@ -47,7 +47,7 @@ function ClubCard({ club, active, onClick, lang }) {
       'bg-accent/10 border-accent/40' :
       'bg-white/5 border-white/10 hover:border-white/20 hover:bg-white/8'}`
       }>
-      
+
       <div className="flex items-start justify-between gap-2 mb-1">
         <h3 className={`font-heading text-lg leading-tight ${active ? 'text-accent' : 'text-white'}`}>
           {club.name}
@@ -127,7 +127,7 @@ export default function ClubsMap() {
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.7 }}
           className="mb-12">
-          
+
           <span className="font-subtitle text-sm uppercase tracking-widest text-secondary">
             {tr.clubs_badge}
           </span>
@@ -145,7 +145,7 @@ export default function ClubsMap() {
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.7, delay: 0.2 }}
           className="grid lg:grid-cols-3 gap-6 overflow-hidden">
-          
+
             {/* Liste des clubs */}
             <div className="lg:col-span-1 bg-primary rounded-2xl p-4 flex flex-col gap-2 max-h-[300px] sm:max-h-[400px] lg:max-h-[520px]">
               {/* Header */}
@@ -163,7 +163,7 @@ export default function ClubsMap() {
                 onChange={(e) => setSearch(e.target.value)}
                 placeholder={tr.clubs_search_placeholder}
                 className="w-full bg-white/5 border border-white/10 rounded-lg pl-8 pr-8 py-2 font-body text-sm text-white placeholder-white/30 focus:outline-none focus:border-accent/50 transition-colors" />
-              
+
                 {search &&
               <button onClick={() => setSearch('')} className="absolute right-3 top-1/2 -translate-y-1/2 text-white/30 hover:text-white transition-colors">
                     <X size={13} />
@@ -202,18 +202,18 @@ export default function ClubsMap() {
               zoom={6}
               style={{ height: '100%', width: '100%' }}
               scrollWheelZoom={false}>
-              
+
                 <TileLayer
                 attribution='&copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a>'
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
-              
+
                 {clubs.map((club) =>
               <Marker
                 key={club.id}
                 position={[club.latitude, club.longitude]}
                 icon={customIcon}
                 eventHandlers={{ click: () => setActiveClub(club) }}>
-                
+
                     <Popup>
                       <div className="min-w-[140px] sm:min-w-[180px] max-w-[220px]">
                         <p className="font-bold text-sm mb-1">{club.name}</p>

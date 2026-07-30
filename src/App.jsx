@@ -1,3 +1,5 @@
+import { useState } from 'react';
+import { HelmetProvider } from 'react-helmet-async';
 import { Toaster } from "@/components/ui/toaster"
 import { QueryClientProvider } from '@tanstack/react-query'
 import { queryClientInstance } from '@/lib/query-client'
@@ -6,13 +8,12 @@ import PageNotFound from './lib/PageNotFound';
 import { AuthProvider, useAuth } from '@/lib/AuthContext';
 import { LanguageProvider } from '@/lib/LanguageContext';
 import UserNotRegisteredError from '@/components/UserNotRegisteredError';
+import UnderConstruction from '@/components/UnderConstruction';
 import ProtectedRoute from '@/components/ProtectedRoute';
 import ScrollToTop from '@/components/ScrollToTop';
 import Layout from './components/Layout';
 import Home from './pages/Home';
 import LeSport from './pages/LeSport';
-
-import Association from './pages/Association';
 import Contact from './pages/Contact';
 import Gouvernance from './pages/Gouvernance';
 import Actualites from './pages/Actualites';
@@ -27,8 +28,26 @@ import AdminDashboard from './pages/AdminDashboard';
 import Login from './pages/Login';
 import Register from './pages/Register';
 
+// Flip to false to retire the "under construction" gate once the site is ready.
+const CONSTRUCTION_MODE = true;
+const CONSTRUCTION_GATE_KEY = 'vizball_construction_gate_passed';
+
 const AuthenticatedApp = () => {
   const { isLoadingAuth, isLoadingPublicSettings, authError, navigateToLogin } = useAuth();
+  const [gatePassed, setGatePassed] = useState(
+    () => sessionStorage.getItem(CONSTRUCTION_GATE_KEY) === 'true'
+  );
+
+  if (CONSTRUCTION_MODE && !gatePassed) {
+    return (
+      <UnderConstruction
+        onEnter={() => {
+          sessionStorage.setItem(CONSTRUCTION_GATE_KEY, 'true');
+          setGatePassed(true);
+        }}
+      />
+    );
+  }
 
   if (isLoadingPublicSettings || isLoadingAuth) {
     return (
@@ -55,7 +74,7 @@ const AuthenticatedApp = () => {
       <Route element={<Layout />}>
         <Route path="/" element={<Home />} />
         <Route path="/le-sport" element={<LeSport />} />
-        <Route path="/association" element={<Association />} />
+        <Route path="/association" element={<Navigate to="/gouvernance" replace />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/gouvernance" element={<Gouvernance />} />
         <Route path="/actualites" element={<Actualites />} />
@@ -79,17 +98,19 @@ const AuthenticatedApp = () => {
 
 function App() {
   return (
-    <LanguageProvider>
-      <AuthProvider>
-        <QueryClientProvider client={queryClientInstance}>
-          <Router>
-            <ScrollToTop />
-            <AuthenticatedApp />
-          </Router>
-          <Toaster />
-        </QueryClientProvider>
-      </AuthProvider>
-    </LanguageProvider>
+    <HelmetProvider>
+      <LanguageProvider>
+        <AuthProvider>
+          <QueryClientProvider client={queryClientInstance}>
+            <Router>
+              <ScrollToTop />
+              <AuthenticatedApp />
+            </Router>
+            <Toaster />
+          </QueryClientProvider>
+        </AuthProvider>
+      </LanguageProvider>
+    </HelmetProvider>
   )
 }
 

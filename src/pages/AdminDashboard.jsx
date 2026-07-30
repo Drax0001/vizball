@@ -14,6 +14,7 @@ import ArticleEditor from '../components/news/ArticleEditor';
 import { useLang } from '../lib/LanguageContext';
 import t from '../lib/translations';
 import { CATEGORY_LABELS } from '../lib/shopData';
+import Seo from '../components/Seo';
 import { CATEGORY_LABELS as TUTORIAL_CATEGORY_LABELS, LEVEL_LABELS } from '../lib/tutorialLabels';
 
 const TUTORIAL_CATEGORIES = ['Gestes Techniques', 'Placements Tactiques', 'Entraînements', 'Règles & Arbitrage'];
@@ -614,6 +615,7 @@ export default function AdminDashboard() {
   if (!user || user.role !== 'admin') {
     return (
       <div className="min-h-screen bg-primary flex items-center justify-center p-4 relative overflow-hidden">
+        <Seo title="Admin" canonicalPath="/admin" noindex />
         {/* Background visual styling */}
         <div className="absolute inset-0 opacity-5" style={{ backgroundImage: 'radial-gradient(circle at 1px 1px, hsl(43,75%,49%) 1px, transparent 0)', backgroundSize: '40px 40px' }} />
         <div className="absolute -top-40 -right-40 w-96 h-96 bg-accent/10 rounded-full blur-3xl" />
@@ -677,8 +679,9 @@ export default function AdminDashboard() {
   // 2. Render Admin Dashboard if authenticated
   return (
     <div className="min-h-screen bg-primary text-white pt-32 pb-20">
+      <Seo title="Admin" canonicalPath="/admin" noindex />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
+
         {/* Header section */}
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-white/10 pb-6 mb-8">
           <div>

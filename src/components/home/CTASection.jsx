@@ -40,9 +40,9 @@ export default function CTASection() {
               <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
             </Link>
             <Link
-              to="/association"
+              to="/gouvernance"
               className="inline-flex items-center justify-center gap-2 border-2 border-white/30 hover:border-accent text-white hover:text-accent font-body font-bold text-sm uppercase tracking-wider px-10 py-4 rounded transition-all">
-              
+
               {tr.cta_association}
             </Link>
           </div>

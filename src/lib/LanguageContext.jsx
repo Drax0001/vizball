@@ -14,6 +14,7 @@ export function LanguageProvider({ children }) {
 
   useEffect(() => {
     window.localStorage.setItem(STORAGE_KEY, lang);
+    document.documentElement.lang = lang;
   }, [lang]);
 
   return (
