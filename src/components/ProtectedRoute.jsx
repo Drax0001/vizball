@@ -1,5 +1,5 @@
-import { useEffect } from 'react';
-import { Outlet } from 'react-router-dom';
+import { cloneElement, useEffect } from 'react';
+import { Outlet, useLocation } from 'react-router-dom';
 import { useAuth } from '@/lib/AuthContext';
 import UserNotRegisteredError from '@/components/UserNotRegisteredError';
 
@@ -11,12 +11,15 @@ const DefaultFallback = () => (
 
 export default function ProtectedRoute({ fallback = <DefaultFallback />, unauthenticatedElement }) {
   const { isAuthenticated, isLoadingAuth, authChecked, authError, checkUserAuth } = useAuth();
+  const location = useLocation();
 
   useEffect(() => {
     if (!authChecked && !isLoadingAuth) {
       checkUserAuth();
     }
   }, [authChecked, isLoadingAuth, checkUserAuth]);
+
+  const redirectWithState = () => cloneElement(unauthenticatedElement, { state: { from: location.pathname } });
 
   if (isLoadingAuth || !authChecked) {
     return fallback;
@@ -26,11 +29,11 @@ export default function ProtectedRoute({ fallback = <DefaultFallback />, unauthe
     if (authError.type === 'user_not_registered') {
       return <UserNotRegisteredError />;
     }
-    return unauthenticatedElement;
+    return redirectWithState();
   }
 
   if (!isAuthenticated) {
-    return unauthenticatedElement;
+    return redirectWithState();
   }
 
   return <Outlet />;

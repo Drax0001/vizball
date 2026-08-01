@@ -85,7 +85,7 @@ export default function Tutoriels() {
       {/* Hero */}
       <section className="relative h-[50vh] min-h-[350px] overflow-hidden bg-gray-900">
         <div className="absolute inset-0 bg-gradient-to-r from-primary/95 via-primary/80 to-primary/50" />
-        <div className="absolute inset-0 flex items-center">
+        <div className="absolute inset-x-0 top-[100px] bottom-0 flex items-center">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
             <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>
               <span className="font-subtitle text-sm uppercase tracking-widest text-accent">{tr.tutoriels_badge}</span>

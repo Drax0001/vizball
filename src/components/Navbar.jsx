@@ -28,6 +28,13 @@ export default function Navbar() {
     { label: tr.nav_contact, path: "/contact" },
   ];
 
+  // Keep a protected link (e.g. Forum) highlighted while sitting on the
+  // /login redirect it was sent to, using the state ProtectedRoute threads
+  // through — but not when /login was reached any other way.
+  const isActiveLink = (path) =>
+    location.pathname === path ||
+    (location.pathname === "/login" && location.state?.from === path);
+
   useEffect(() => {
     const timer = setInterval(() => {
       setSlogan((prev) =>
@@ -69,7 +76,7 @@ export default function Navbar() {
                   key={link.path}
                   to={link.path}
                   className={`px-1.5 xl:px-2 py-2 text-base font-semibold uppercase tracking-wider rounded-sm transition-all duration-300 hover:text-accent whitespace-nowrap ${
-                    location.pathname === link.path
+                    isActiveLink(link.path)
                       ? "text-accent"
                       : "text-white/90"
                   }`}
@@ -144,7 +151,7 @@ export default function Navbar() {
                   key={link.path}
                   to={link.path}
                   className={`block px-4 py-3 font-body text-sm font-semibold uppercase tracking-wider transition-colors rounded ${
-                    location.pathname === link.path
+                    isActiveLink(link.path)
                       ? "text-accent bg-white/5"
                       : "text-white/90 hover:text-accent hover:bg-white/5"
                   }`}

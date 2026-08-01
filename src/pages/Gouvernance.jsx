@@ -219,11 +219,11 @@ export default function Gouvernance() {
 
       {/* ── Association: Préambule ── */}
       <section className="py-24 bg-background">
-        <div className="text-[hsl(var(--accent))] mx-auto px-4 max-w-4xl sm:px-6 lg:px-8">
+        <div className="mx-auto px-4 max-w-7xl sm:px-6 lg:px-8">
           <AnimatedSection>
             <span className="font-subtitle text-sm uppercase tracking-widest text-secondary">{tr.assoc_preamble_badge}</span>
             <h2 className="text-[hsl(var(--accent))] mt-3 mb-8 text-4xl font-heading sm:text-5xl">{tr.assoc_history_title} {tr.assoc_history_title2}</h2>
-            <div className="space-y-4 font-body text-muted-foreground leading-relaxed">
+            <div className="max-w-4xl space-y-4 font-body text-muted-foreground leading-relaxed">
               <p>
                 {tr.assoc_history_p1}
               </p>
@@ -236,8 +236,8 @@ export default function Gouvernance() {
       {/* ── Association: Missions ── */}
       <section className="py-24 bg-primary">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <AnimatedSection className="text-center mb-16">
-            <h2 className="text-[hsl(var(--accent))] mt-3 text-5xl font-heading sm:text-6xl">{tr.assoc_objectives_title}</h2>
+          <AnimatedSection className="mb-16">
+            <h2 className="text-[hsl(var(--accent))] mt-3 text-4xl font-heading sm:text-5xl">{tr.assoc_objectives_title}</h2>
           </AnimatedSection>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -256,13 +256,13 @@ export default function Gouvernance() {
 
       {/* ── Association: Organes de gouvernance ── */}
       <section className="py-24 bg-muted">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <AnimatedSection>
             <span className="font-subtitle text-sm uppercase tracking-widest text-secondary">{tr.assoc_structure_badge}</span>
             <h2 className="text-[hsl(var(--sidebar-ring))] mt-3 mb-8 text-4xl font-heading sm:text-5xl">{tr.assoc_governance_title} {tr.assoc_governance_title2}</h2>
           </AnimatedSection>
 
-          <div className="space-y-4">
+          <div className="max-w-4xl space-y-4">
             {organes.map((org, i) =>
             <AnimatedSection key={i}>
                 <div className="flex items-start gap-4 p-6 bg-card rounded-lg border border-border">

@@ -8,6 +8,9 @@ module.exports = {
         heading: ['var(--font-heading)'],
         body: ['var(--font-body)'],
       },
+      fontSize: {
+        sm: ['0.9375rem', { lineHeight: '1.25rem' }],
+      },
   		borderRadius: {
   			lg: 'var(--radius)',
   			md: 'calc(var(--radius) - 2px)',

@@ -131,7 +131,7 @@ export default function ClubsMap() {
           <span className="font-subtitle text-sm uppercase tracking-widest text-secondary">
             {tr.clubs_badge}
           </span>
-          <h2 className="font-heading text-5xl sm:text-6xl mt-2 text-[hsl(var(--chart-3))]">{tr.clubs_title} {tr.clubs_title2}</h2>
+          <h2 className="font-heading text-4xl sm:text-5xl mt-2 text-[hsl(var(--chart-3))]">{tr.clubs_title} {tr.clubs_title2}</h2>
           <p className="font-body text-muted-foreground mt-3 max-w-xl">
             {tr.clubs_subtitle}
           </p>

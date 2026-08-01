@@ -5,12 +5,6 @@ import { useLang } from '../../lib/LanguageContext';
 import t from '../../lib/translations';
 import { translateDocStatus } from '../../lib/docLabels';
 
-const statusStyles = {
-  disponible: 'bg-secondary/20 text-secondary border-secondary/30',
-  'bientôt': 'bg-accent/20 text-accent border-accent/30',
-  restreint: 'bg-white/10 text-white/50 border-white/20'
-};
-
 export default function DocCard({ doc, index, onClick }) {
   const [hovered, setHovered] = useState(false);
   const { lang } = useLang();
@@ -38,7 +32,7 @@ export default function DocCard({ doc, index, onClick }) {
         }>
           <doc.icon size={22} className={hovered && isAvailable ? 'text-accent' : 'text-white/60'} />
         </div>
-        <span className={`px-3 py-1 text-xs font-bold uppercase tracking-wider rounded-full border ${statusStyles[doc.status] || statusStyles.restreint}`}>
+        <span className="bg-[hsl(var(--brand-red))] text-[hsl(var(--background))] px-3 py-1 text-xs font-bold uppercase tracking-wider rounded-full border border-secondary/30">
           {translateDocStatus(doc.status, lang)}
         </span>
       </div>
