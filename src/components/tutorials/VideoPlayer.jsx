@@ -1,22 +1,52 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Play, Pause, Volume2, VolumeX, Maximize, X, Clock, Eye } from 'lucide-react';
+import { Play, X, Clock, Eye } from 'lucide-react';
 import { api } from '@/api/client';
 import { useLang } from '@/lib/LanguageContext';
 import t from '@/lib/translations';
 import StarRating from '../StarRating';
 
+// Resolves a YouTube or Vimeo URL (in any of their common forms) to an
+// embeddable iframe URL. Self-hosted video files aren't supported — see
+// the video-hosting decision this mirrors: tutorial videos live on
+// YouTube/Vimeo rather than this app's own server/VPS.
+function getEmbedInfo(src) {
+  if (!src) return null;
+  let url;
+  try {
+    url = new URL(src);
+  } catch {
+    return null;
+  }
+  const host = url.hostname.replace(/^www\.|^m\./, '');
+
+  if (host === 'youtube.com') {
+    const id = url.pathname.startsWith('/embed/')
+      ? url.pathname.split('/embed/')[1]
+      : url.searchParams.get('v');
+    return id ? { provider: 'youtube', embedUrl: `https://www.youtube.com/embed/${id}` } : null;
+  }
+  if (host === 'youtu.be') {
+    const id = url.pathname.slice(1);
+    return id ? { provider: 'youtube', embedUrl: `https://www.youtube.com/embed/${id}` } : null;
+  }
+  if (host === 'vimeo.com') {
+    const id = url.pathname.split('/').filter(Boolean)[0];
+    return id && /^\d+$/.test(id) ? { provider: 'vimeo', embedUrl: `https://player.vimeo.com/video/${id}` } : null;
+  }
+  if (host === 'player.vimeo.com') {
+    return { provider: 'vimeo', embedUrl: src };
+  }
+  return null;
+}
+
 export default function VideoPlayer({ video, onClose }) {
   const { lang } = useLang();
   const tr = t[lang];
-  const [playing, setPlaying] = useState(false);
-  const [muted, setMuted] = useState(false);
-  const [progress, setProgress] = useState(0);
-  const [showControls, setShowControls] = useState(true);
   const [rating, setRating] = useState({ avg: video.rating_avg || 0, count: video.rating_count || 0 });
   const [hasRated, setHasRated] = useState(false);
-  const videoRef = useRef(null);
-  const controlsTimer = useRef(null);
+
+  const embed = getEmbedInfo(video.src);
 
   // Records one play per browser session per tutorial — same dedup pattern
   // used for article reads and the site-wide visitor counter.
@@ -42,48 +72,6 @@ export default function VideoPlayer({ video, onClose }) {
       console.error('Failed to submit rating:', err);
     }
   };
-
-  const togglePlay = () => {
-    if (!videoRef.current) return;
-    if (playing) {
-      videoRef.current.pause();
-    } else {
-      videoRef.current.play();
-    }
-    setPlaying(!playing);
-  };
-
-  const handleTimeUpdate = () => {
-    if (!videoRef.current) return;
-    const p = (videoRef.current.currentTime / videoRef.current.duration) * 100;
-    setProgress(isNaN(p) ? 0 : p);
-  };
-
-  const handleSeek = (e) => {
-    if (!videoRef.current) return;
-    const rect = e.currentTarget.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const ratio = x / rect.width;
-    videoRef.current.currentTime = ratio * videoRef.current.duration;
-  };
-
-  const handleMouseMove = () => {
-    setShowControls(true);
-    clearTimeout(controlsTimer.current);
-    controlsTimer.current = setTimeout(() => {
-      if (playing) setShowControls(false);
-    }, 3000);
-  };
-
-  const handleFullscreen = () => {
-    if (videoRef.current) {
-      if (videoRef.current.requestFullscreen) videoRef.current.requestFullscreen();
-    }
-  };
-
-  // Use a YouTube embed if the src is a YouTube URL, else use <video>
-  const isYoutube = video.src && video.src.includes('youtube.com');
-  const youtubeId = isYoutube ? video.src.split('v=')[1]?.split('&')[0] : null;
 
   return (
     <AnimatePresence>
@@ -115,85 +103,31 @@ export default function VideoPlayer({ video, onClose }) {
           </div>
 
           {/* Video */}
-          <div
-            className="relative aspect-video bg-black"
-            onMouseMove={handleMouseMove}
-          >
-            {isYoutube ? (
+          <div className="relative aspect-video bg-black">
+            {embed ? (
               <iframe
-                src={`https://www.youtube.com/embed/${youtubeId}?autoplay=1`}
+                src={`${embed.embedUrl}${embed.provider === 'youtube' ? '?autoplay=1' : '#autoplay=1'}`}
                 className="w-full h-full"
-                allow="autoplay; fullscreen"
+                allow="autoplay; fullscreen; picture-in-picture"
                 allowFullScreen
                 title={video.title}
               />
             ) : (
-              <>
-                {/* Placeholder video with poster image */}
-                <div className="relative w-full h-full">
-                  <img
-                    src={video.thumb}
-                    alt={video.title}
-                    className="w-full h-full object-cover"
-                  />
-                  <div className="absolute inset-0 bg-black/60 flex items-center justify-center">
-                    <div className="text-center text-white">
-                      <div className="w-20 h-20 rounded-full border-2 border-accent flex items-center justify-center mx-auto mb-4 bg-accent/20">
-                        <Play size={36} className="text-accent ml-1" />
-                      </div>
-                      <p className="font-body text-sm text-white/70">{tr.tutoriels_preview} {video.duration}</p>
+              <div className="relative w-full h-full">
+                {video.thumb ? (
+                  <img src={video.thumb} alt={video.title} className="w-full h-full object-cover" />
+                ) : (
+                  <div className="w-full h-full bg-gray-900" />
+                )}
+                <div className="absolute inset-0 bg-black/60 flex items-center justify-center">
+                  <div className="text-center text-white px-6">
+                    <div className="w-16 h-16 rounded-full border-2 border-white/30 flex items-center justify-center mx-auto mb-4">
+                      <Play size={26} className="text-white/50 ml-1" />
                     </div>
+                    <p className="font-body text-sm text-white/60 uppercase tracking-wider">{tr.tutoriels_unavailable}</p>
                   </div>
                 </div>
-
-                {/* Custom Controls overlay */}
-                <AnimatePresence>
-                  {showControls && (
-                    <motion.div
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      exit={{ opacity: 0 }}
-                      className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-4"
-                    >
-                      {/* Progress bar */}
-                      <div
-                        className="w-full h-1 bg-white/20 rounded-full cursor-pointer mb-3 group"
-                        onClick={handleSeek}
-                      >
-                        <div
-                          className="h-full bg-accent rounded-full relative"
-                          style={{ width: `${progress}%` }}
-                        >
-                          <div className="absolute right-0 top-1/2 -translate-y-1/2 w-3 h-3 bg-accent rounded-full opacity-0 group-hover:opacity-100 transition-opacity" />
-                        </div>
-                      </div>
-                      <div className="flex items-center justify-between">
-                        <div className="flex items-center gap-3">
-                          <button
-                            onClick={togglePlay}
-                            className="text-white hover:text-accent transition-colors"
-                          >
-                            {playing ? <Pause size={22} /> : <Play size={22} />}
-                          </button>
-                          <button
-                            onClick={() => setMuted(!muted)}
-                            className="text-white hover:text-accent transition-colors"
-                          >
-                            {muted ? <VolumeX size={20} /> : <Volume2 size={20} />}
-                          </button>
-                          <span className="font-body text-xs text-white/70">{video.duration}</span>
-                        </div>
-                        <button
-                          onClick={handleFullscreen}
-                          className="text-white hover:text-accent transition-colors"
-                        >
-                          <Maximize size={18} />
-                        </button>
-                      </div>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </>
+              </div>
             )}
           </div>
 

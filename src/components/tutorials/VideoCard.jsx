@@ -26,15 +26,18 @@ export default function VideoCard({ video, onClick, index }) {
       <div className="bg-white/5 border border-white/10 rounded-xl overflow-hidden hover:border-accent/40 transition-all duration-400 hover:-translate-y-1 hover:shadow-xl hover:shadow-accent/10">
         {/* Thumbnail */}
         <div className="relative aspect-video overflow-hidden bg-gray-900">
+          {video.thumb ? (
+            <img src={video.thumb} alt={video.title} className="w-full h-full object-cover" />
+          ) : (
+            <div className="absolute inset-0 flex items-center justify-center pt-16">
+              <p className="font-body text-xs text-white/40 uppercase tracking-wider">{tr.tutoriels_unavailable}</p>
+            </div>
+          )}
           {/* Play button */}
           <div className="absolute inset-0 flex items-center justify-center">
             <div className="w-14 h-14 rounded-full bg-accent/20 backdrop-blur-sm border-2 border-accent flex items-center justify-center group-hover:scale-110 group-hover:bg-accent/40 transition-all duration-300">
               <Play size={22} className="text-white ml-1" />
             </div>
-          </div>
-          {/* Not available text */}
-          <div className="absolute inset-0 flex items-center justify-center pt-16">
-            <p className="font-body text-xs text-white/40 uppercase tracking-wider">{tr.tutoriels_unavailable}</p>
           </div>
           {/* Duration badge */}
           <div className="absolute bottom-3 right-3 bg-black/70 backdrop-blur-sm rounded px-2 py-1">

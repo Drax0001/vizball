@@ -22,6 +22,13 @@ export default function FeaturedVideo({ video, onClick }) {
       <div className="relative rounded-2xl overflow-hidden border border-white/10 hover:border-accent/40 transition-all duration-500">
         {/* Thumbnail */}
         <div className="relative aspect-video overflow-hidden bg-gray-900">
+          {video.thumb ? (
+            <img src={video.thumb} alt={video.title} className="w-full h-full object-cover" />
+          ) : (
+            <div className="absolute inset-0 flex items-center justify-center pt-32">
+              <p className="font-body text-sm text-white/40 uppercase tracking-wider">{tr.tutoriels_unavailable}</p>
+            </div>
+          )}
           {/* Big play button */}
           <div className="absolute inset-0 flex items-center justify-center">
             <div className="relative">
@@ -31,10 +38,6 @@ export default function FeaturedVideo({ video, onClick }) {
               {/* Pulse rings */}
               <div className="absolute inset-0 rounded-full border-2 border-accent/30 animate-ping" />
             </div>
-          </div>
-          {/* Not available text */}
-          <div className="absolute inset-0 flex items-center justify-center pt-32">
-            <p className="font-body text-sm text-white/40 uppercase tracking-wider">{tr.tutoriels_unavailable}</p>
           </div>
 
           {/* Featured badge */}

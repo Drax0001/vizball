@@ -10,6 +10,7 @@ import { useLang } from '../lib/LanguageContext';
 import t from '../lib/translations';
 import { CATEGORY_LABELS, LEVEL_LABELS } from '../lib/tutorialLabels';
 import { api } from '../api/client';
+import terrainImage from '../assets/images/Terrain-simul.jpg.jpeg';
 
 const VIDEO_CATEGORIES = [
   { label: 'Tous', icon: Play },
@@ -356,7 +357,7 @@ export default function LeSport() {
 
           <AnimatedSection className="mt-12">
             <div className="relative rounded-lg overflow-hidden">
-              <div className="w-full h-64 md:h-96 bg-gray-900" />
+              <img src={terrainImage} alt={tr.sport_field_dims_official} className="w-full h-64 md:h-96 object-cover" />
 
               <div className="absolute inset-0 bg-primary/40" />
               <div className="absolute inset-0 flex items-center justify-center">

@@ -1660,7 +1660,8 @@ export default function AdminDashboard() {
                 </div>
                 <div>
                   <label className="text-white/40 block mb-1">{tr.admin_label_video_link}</label>
-                  <Input value={tutorialForm.src} onChange={e => setTutorialForm({...tutorialForm, src: e.target.value})} placeholder="https://..." className="bg-white/5 border-white/15 text-white" />
+                  <Input value={tutorialForm.src} onChange={e => setTutorialForm({...tutorialForm, src: e.target.value})} placeholder="https://www.youtube.com/watch?v=..." className="bg-white/5 border-white/15 text-white" />
+                  <p className="font-body text-xs text-white/30 mt-1.5">{tr.admin_video_link_hint}</p>
                 </div>
                 <div className="flex items-center gap-3">
                   <label className="flex items-center gap-3 cursor-pointer">
