@@ -8,6 +8,7 @@ import { useLang } from '../lib/LanguageContext';
 import t from '../lib/translations';
 import { api } from '../api/client';
 import Seo from '../components/Seo';
+import PageEyebrow from '../components/PageEyebrow';
 
 function AnimatedSection({ children, className = '' }) {
   const ref = useRef(null);
@@ -60,10 +61,7 @@ export default function Boutique() {
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-start justify-between flex-wrap gap-6">
             <motion.div initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7 }}>
-              <div className="inline-flex items-center gap-2 bg-accent/10 border border-accent/20 rounded-full px-4 py-2 mb-6">
-                <ShoppingBag size={14} className="text-accent" />
-                <span className="font-body text-xs font-bold uppercase tracking-wider text-accent">{tr.shop_badge}</span>
-              </div>
+              <PageEyebrow>{tr.shop_badge}</PageEyebrow>
               <h1 className="font-heading text-6xl sm:text-7xl md:text-8xl text-white leading-none mb-4">
                 {tr.shop_title}
               </h1>

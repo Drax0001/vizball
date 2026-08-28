@@ -12,6 +12,7 @@ import DocViewer from '../components/docs/DocViewer';
 import GouvernanceTeamSection from '../components/gouvernance/TeamSection';
 import ClubsMap from '../components/gouvernance/ClubsMap';
 import Seo from '../components/Seo';
+import PageEyebrow from '../components/PageEyebrow';
 import { api } from '../api/client';
 import { useLang } from '../lib/LanguageContext';
 import t from '../lib/translations';
@@ -189,10 +190,7 @@ export default function Gouvernance() {
 
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>
-            <div className="inline-flex items-center gap-2 bg-accent/10 border border-accent/20 rounded-full px-4 py-2 mb-6">
-              <Scale size={14} className="text-accent" />
-              <span className="font-body text-xs font-bold uppercase tracking-wider text-accent">{tr.gov_espace}</span>
-            </div>
+            <PageEyebrow>{tr.gov_espace}</PageEyebrow>
             <h1 className="font-heading text-6xl sm:text-7xl md:text-8xl text-white leading-none mb-6">
               {tr.gov_title}<br /><span className="text-[hsl(var(--background))]">{tr.gov_title2}</span>
             </h1>

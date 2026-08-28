@@ -3,6 +3,7 @@ import { motion, useInView } from 'framer-motion';
 import { Users } from 'lucide-react';
 import { useLang } from '../../lib/LanguageContext';
 import t from '../../lib/translations';
+import PageEyebrow from '../PageEyebrow';
 import { api } from '../../api/client';
 
 function MemberCard({ member, index }) {
@@ -68,10 +69,7 @@ export default function GouvernanceTeamSection() {
           transition={{ duration: 0.6 }}
           className="mb-12"
         >
-          <div className="inline-flex items-center gap-2 bg-accent/10 border border-accent/20 rounded-full px-4 py-2 mb-6">
-            <Users size={14} className="text-accent" />
-            <span className="font-body text-xs font-bold uppercase tracking-wider text-accent">{tr.gov_team_badge}</span>
-          </div>
+          <PageEyebrow>{tr.gov_team_badge}</PageEyebrow>
           <h2 className="font-heading text-5xl sm:text-6xl text-white leading-none">
             {tr.gov_team_title} <span className="text-[hsl(var(--background))]">{tr.gov_team_title2}</span>
           </h2>

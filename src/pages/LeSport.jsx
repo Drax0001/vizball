@@ -324,7 +324,7 @@ export default function LeSport() {
       {/* Zones du terrain */}
       <section className="py-24 bg-primary">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <AnimatedSection className="text-center mb-16">
+          <AnimatedSection className="mb-16">
             <span className="text-[hsl(var(--background))] font-subtitle text-sm uppercase tracking-widest">{tr.sport_field_title}</span>
             <h2 className="text-[hsl(var(--sidebar-ring))] mt-3 text-5xl font-heading sm:text-6xl">{tr.sport_zones_title}</h2>
           </AnimatedSection>
@@ -374,7 +374,7 @@ export default function LeSport() {
       {/* Postes des joueurs */}
       <section className="py-24 bg-background">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <AnimatedSection className="text-center mb-16">
+          <AnimatedSection className="mb-16">
             <span className="font-subtitle text-sm uppercase tracking-widest text-secondary">{tr.sport_positions_section_badge}</span>
             <h2 className="text-[hsl(var(--accent))] mt-3 text-5xl font-heading sm:text-6xl">{tr.sport_positions_title} {tr.sport_positions_title2}</h2>
           </AnimatedSection>
@@ -396,7 +396,7 @@ export default function LeSport() {
 
       {/* Avant la partie */}
       <section className="py-24 bg-background">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <AnimatedSection>
             <h2 className="text-[hsl(var(--chart-3))] mt-2 mb-8 text-4xl font-heading sm:text-5xl">{tr.sport_avant_partie_title}</h2>
             <p className="font-body text-muted-foreground mb-6">
@@ -418,7 +418,7 @@ export default function LeSport() {
 
       {/* Pendant la partie */}
       <section className="py-24 bg-muted">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <AnimatedSection>
             <h2 className="text-[hsl(var(--accent))] mt-2 mb-8 text-4xl font-heading sm:text-5xl">{tr.sport_pendant_partie_title}</h2>
           </AnimatedSection>
@@ -435,7 +435,7 @@ export default function LeSport() {
 
       {/* Fautes et Pénalités */}
       <section className="py-24 bg-primary">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <AnimatedSection>
             <h2 className="text-[hsl(var(--accent))] mt-2 mb-8 text-4xl font-heading sm:text-5xl">{tr.sport_fautes_title}</h2>
 
@@ -464,7 +464,7 @@ export default function LeSport() {
 
       {/* Le Corps Arbitral */}
       <section className="py-24 bg-background">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <AnimatedSection>
             <span className="font-subtitle text-sm uppercase tracking-widest text-secondary">{tr.sport_arbitral_badge}</span>
             <h2 className="text-[hsl(var(--chart-3))] mt-3 mb-8 text-4xl font-heading sm:text-5xl">{tr.sport_arbitral_title}</h2>

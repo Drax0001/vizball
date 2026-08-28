@@ -7,6 +7,7 @@ import Seo from '../components/Seo';
 import { useLang } from '../lib/LanguageContext';
 import t from '../lib/translations';
 import { api } from '../api/client';
+import PageEyebrow from '../components/PageEyebrow';
 
 const CATEGORIES = ['Tous', 'Événement', 'Tournoi', 'Portrait', 'Actualité', 'Communiqué'];
 const CATEGORY_LABELS = {
@@ -73,10 +74,7 @@ export default function Actualites() {
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-start justify-between flex-wrap gap-6">
             <motion.div initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }}>
-              <div className="inline-flex items-center gap-2 bg-accent/10 border border-accent/20 rounded-full px-4 py-2 mb-6">
-                <Newspaper size={14} className="text-accent" />
-                <span className="font-body text-xs font-bold uppercase tracking-wider text-accent">{tr.news_badge}</span>
-              </div>
+              <PageEyebrow>{tr.news_badge}</PageEyebrow>
               <h1 className="font-heading text-6xl sm:text-7xl md:text-8xl text-white leading-none mb-4">
                 {tr.news_title}<span className="text-[hsl(var(--background))]">{tr.news_title2}</span>
               </h1>

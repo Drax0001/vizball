@@ -7,6 +7,7 @@ import NewTopicModal from '../components/forum/NewTopicModal';
 import { useLang } from '../lib/LanguageContext';
 import tr from '../lib/translations';
 import { api } from '../api/client';
+import PageEyebrow from '../components/PageEyebrow';
 import Seo from '../components/Seo';
 
 const CATEGORIES_FR = ['Tous', 'Tactiques', 'Règles', 'Rencontres', 'Général', 'Équipement'];
@@ -98,10 +99,7 @@ export default function Forum() {
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-start justify-between flex-wrap gap-6">
             <motion.div initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }}>
-              <div className="inline-flex items-center gap-2 bg-accent/10 border border-accent/20 rounded-full px-4 py-2 mb-6">
-                <Users size={14} className="text-accent" />
-                <span className="font-body text-xs font-bold uppercase tracking-wider text-accent">{t.forum_badge}</span>
-              </div>
+              <PageEyebrow>{t.forum_badge}</PageEyebrow>
               <h1 className="font-heading text-6xl sm:text-7xl md:text-8xl text-white leading-none mb-4">
                 {t.forum_title.split(' ')[0]} <span className="text-[hsl(var(--background))]">{t.forum_title.split(' ').slice(1).join(' ')}</span>
               </h1>

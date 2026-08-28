@@ -4,6 +4,7 @@ import { Camera } from 'lucide-react';
 import MasonryGallery from '../components/gallery/MasonryGallery';
 import { useLang } from '../lib/LanguageContext';
 import t from '../lib/translations';
+import PageEyebrow from '../components/PageEyebrow';
 
 function AnimatedSection({ children, className = '' }) {
   const ref = useRef(null);
@@ -36,10 +37,7 @@ export default function Media() {
 
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>
-            <div className="inline-flex items-center gap-2 bg-accent/10 border border-accent/20 rounded-full px-4 py-2 mb-6">
-              <Camera size={14} className="text-accent" />
-              <span className="font-body text-xs font-bold uppercase tracking-wider text-accent">{tr.media_badge}</span>
-            </div>
+            <PageEyebrow>{tr.media_badge}</PageEyebrow>
             <h1 className="font-heading text-6xl sm:text-7xl md:text-8xl text-white leading-none mb-4">
               {tr.media_title}<br /><span className="text-[hsl(var(--background))]">{tr.media_title2}</span>
             </h1>
