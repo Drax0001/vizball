@@ -1,19 +1,6 @@
 import { Database } from 'bun:sqlite';
+import bcrypt from 'bcryptjs';
 import path from 'path';
-import {
-  seedUsers,
-  seedArticles,
-  seedProducts,
-  seedClubs,
-  seedEvents,
-  seedForumTopics,
-  seedForumReplies,
-  seedVisitorsCount,
-  seedTutorials,
-  seedGovernanceDocuments,
-  seedTeamMembers,
-  seedGalleryPhotos,
-} from './seedData';
 
 const DB_PATH = process.env.DB_PATH || path.join(__dirname, 'vizball.db');
 
@@ -215,54 +202,16 @@ function seedIfEmpty() {
   const { count } = db.query('SELECT COUNT(*) as count FROM users').get() as { count: number };
   if (count > 0) return;
 
-  const insertUser = db.prepare(
+  db.prepare(
     `INSERT INTO users (id, username, email, password_hash, role, created_at) VALUES (?, ?, ?, ?, ?, ?)`
+  ).run(
+    'admin-id-1',
+    'admin',
+    null,
+    bcrypt.hashSync('admin-test-2026', 10),
+    'admin',
+    new Date().toISOString()
   );
-  const insertArticle = db.prepare(
-    `INSERT INTO articles (id, title, category, status, cover_image, excerpt, content, author_name, published_at, featured) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`
-  );
-  const insertProduct = db.prepare(
-    `INSERT INTO products (id, name, category, price, description, image_url, in_stock) VALUES (?, ?, ?, ?, ?, ?, ?)`
-  );
-  const insertClub = db.prepare(
-    `INSERT INTO clubs (id, name, city, address, latitude, longitude, status, members) VALUES (?, ?, ?, ?, ?, ?, ?, ?)`
-  );
-  const insertEvent = db.prepare(
-    `INSERT INTO events (id, title, type, date, time, location, city, teams, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`
-  );
-  const insertTopic = db.prepare(
-    `INSERT INTO forum_topics (id, title, category, author_name, user_id, created_date, content, pinned, closed) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`
-  );
-  const insertReply = db.prepare(
-    `INSERT INTO forum_replies (id, topic_id, author_name, user_id, created_date, content) VALUES (?, ?, ?, ?, ?, ?)`
-  );
-  const insertTutorial = db.prepare(
-    `INSERT INTO tutorials (id, title, category, description, duration, views, level, featured, thumb, src) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`
-  );
-  const insertDoc = db.prepare(
-    `INSERT INTO governance_documents (id, pillar_id, pillar, title, category, description, content, status, pages, year, file_url) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`
-  );
-  const insertTeamMember = db.prepare(
-    `INSERT INTO team_members (id, name, role, bio, photo, display_order) VALUES (?, ?, ?, ?, ?, ?)`
-  );
-  const insertGalleryPhoto = db.prepare(
-    `INSERT INTO gallery_photos (id, image_url, category, caption, featured) VALUES (?, ?, ?, ?, ?)`
-  );
-
-  db.transaction(() => {
-    for (const u of seedUsers) insertUser.run(u.id, u.username, u.email, u.passwordHash, u.role, new Date().toISOString());
-    for (const a of seedArticles) insertArticle.run(a.id, a.title, a.category, a.status, a.cover_image, a.excerpt, a.content, a.author_name, a.published_at, a.featured ? 1 : 0);
-    for (const p of seedProducts) insertProduct.run(p.id, p.name, p.category, p.price, p.description, p.image_url, p.in_stock ? 1 : 0);
-    for (const c of seedClubs) insertClub.run(c.id, c.name, c.city, c.address, c.latitude, c.longitude, c.status, c.members);
-    for (const e of seedEvents) insertEvent.run(e.id, e.title, e.type, e.date, e.time, e.location, e.city, e.teams, e.status);
-    for (const t of seedForumTopics) insertTopic.run(t.id, t.title, t.category, t.author_name, t.user_id, t.created_date, t.content, t.pinned ? 1 : 0, t.closed ? 1 : 0);
-    for (const r of seedForumReplies) insertReply.run(r.id, r.topic_id, r.author_name, r.user_id, r.created_date, r.content);
-    for (const v of seedTutorials) insertTutorial.run(v.id, v.title, v.category, v.description, v.duration, v.views, v.level, v.featured ? 1 : 0, v.thumb, v.src);
-    for (const d of seedGovernanceDocuments) insertDoc.run(d.id, d.pillarId, d.pillar, d.title, d.category, d.description, JSON.stringify(d.content), d.status, d.pages, d.year, d.fileUrl);
-    for (const m of seedTeamMembers) insertTeamMember.run(m.id, m.name, m.role, m.bio, m.photo, m.displayOrder);
-    for (const g of seedGalleryPhotos) insertGalleryPhoto.run(g.id, g.imageUrl, g.category, g.caption, g.featured ? 1 : 0);
-    db.prepare(`INSERT INTO visitors (id, count) VALUES (1, ?)`).run(seedVisitorsCount);
-  })();
 }
 
 migrate();
@@ -272,4 +221,5 @@ ensureColumn('articles', 'rating_count', 'INTEGER NOT NULL DEFAULT 0');
 ensureColumn('tutorials', 'rating_sum', 'INTEGER NOT NULL DEFAULT 0');
 ensureColumn('tutorials', 'rating_count', 'INTEGER NOT NULL DEFAULT 0');
 migrateTutorialViewsColumn();
+db.prepare('INSERT OR IGNORE INTO visitors (id, count) VALUES (1, 0)').run();
 seedIfEmpty();
