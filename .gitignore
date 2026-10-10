@@ -5,8 +5,6 @@
 
 .claude/
 
-CODEBASE_INDEX.md
-DEPLOYMENT.md
 # Logs
 /logs
 *.log
@@ -36,6 +34,8 @@ dist-ssr
 .vite
 
 GAME_DESIGN.md
+CODEBASE_INDEX.md
+DEPLOYMENT.md
 
 # Backend runtime data (auto-created; schema/seed lives in server/db.ts + server/seedData.ts)
 server/*.db

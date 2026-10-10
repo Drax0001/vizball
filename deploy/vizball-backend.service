@@ -10,9 +10,9 @@ After=network.target
 
 [Service]
 Type=simple
-User=deploy
+User=berthold
 WorkingDirectory=/var/www/vizball/server
-ExecStart=/home/deploy/.bun/bin/bun run index.ts
+ExecStart=/home/berthold/.bun/bin/bun run index.ts
 Restart=on-failure
 RestartSec=5
 EnvironmentFile=/var/www/vizball/server/.env
