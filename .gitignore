@@ -35,6 +35,8 @@ dist-ssr
 .env
 .vite
 
+GAME_DESIGN.md
+
 # Backend runtime data (auto-created; schema/seed lives in server/db.ts + server/seedData.ts)
 server/*.db
 server/*.db-shm
