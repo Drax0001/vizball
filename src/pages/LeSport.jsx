@@ -357,6 +357,8 @@ export default function LeSport() {
 
           <AnimatedSection className="mt-12">
             <div className="relative rounded-lg overflow-hidden">
+              {/* Container dimensions: 100% width, 256px (mobile) to 384px (desktop) height */}
+              {/* Recommended image aspect ratio: ~16:9 or wider for best fit */}
               <img src={terrainImage} alt={tr.sport_field_dims_official} className="w-full h-64 md:h-96 object-cover" />
 
               <div className="absolute inset-0 bg-primary/40" />

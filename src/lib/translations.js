@@ -4,13 +4,13 @@ const t = {
     nav_home: "Accueil",
     nav_sport: "Le Sport",
     nav_tutorials: "Tutoriels",
+    nav_game: "Jeu vidéo",
     nav_rules: "Règles",
     nav_news: "Actualités",
     nav_forum: "Forum",
     nav_shop: "Boutique",
     nav_governance: "Gouvernance",
     nav_contact: "Contact",
-    nav_game: "Le jeu",
 
     // Hero
     hero_badge: "Sport Collectif Innovant",
@@ -751,13 +751,13 @@ const t = {
     nav_home: "Home",
     nav_sport: "The Sport",
     nav_tutorials: "Tutorials",
+    nav_game: "Video game",
     nav_rules: "Rules",
     nav_news: "News",
     nav_forum: "Forum",
     nav_shop: "Shop",
     nav_governance: "Governance",
     nav_contact: "Contact",
-    nav_game: "The game",
 
     // Hero
     hero_badge: "Innovative Team Sport",

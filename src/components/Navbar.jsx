@@ -20,8 +20,8 @@ export default function Navbar() {
   const NAV_LINKS = [
     { label: tr.nav_home, path: "/" },
     { label: tr.nav_sport, path: "/le-sport" },
-    { label: tr.nav_game, external: true, url: "https://game.vizball.org" },
     { label: tr.nav_tutorials, path: "/tutoriels" },
+    { label: tr.nav_game, external: true, url: "https://game.vizball.org" },
     { label: tr.nav_news, path: "/actualites" },
     { label: tr.nav_forum, path: "/forum" },
     { label: tr.nav_shop, path: "/boutique" },
