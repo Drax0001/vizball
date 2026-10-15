@@ -10,6 +10,7 @@ const t = {
     nav_shop: "Boutique",
     nav_governance: "Gouvernance",
     nav_contact: "Contact",
+    nav_game: "Le jeu",
 
     // Hero
     hero_badge: "Sport Collectif Innovant",
@@ -756,6 +757,7 @@ const t = {
     nav_shop: "Shop",
     nav_governance: "Governance",
     nav_contact: "Contact",
+    nav_game: "The game",
 
     // Hero
     hero_badge: "Innovative Team Sport",

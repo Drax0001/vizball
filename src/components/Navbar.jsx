@@ -20,6 +20,7 @@ export default function Navbar() {
   const NAV_LINKS = [
     { label: tr.nav_home, path: "/" },
     { label: tr.nav_sport, path: "/le-sport" },
+    { label: tr.nav_game, external: true, url: "https://game.vizball.org" },
     { label: tr.nav_tutorials, path: "/tutoriels" },
     { label: tr.nav_news, path: "/actualites" },
     { label: tr.nav_forum, path: "/forum" },
@@ -72,17 +73,29 @@ export default function Navbar() {
 
             <div className="hidden lg:flex items-center gap-1 xl:gap-2">
               {NAV_LINKS.map((link) => (
-                <Link
-                  key={link.path}
-                  to={link.path}
-                  className={`px-1.5 xl:px-2 py-2 text-base font-semibold uppercase tracking-wider rounded-sm transition-all duration-300 hover:text-accent whitespace-nowrap ${
-                    isActiveLink(link.path)
-                      ? "text-accent"
-                      : "text-white/90"
-                  }`}
-                >
-                  {link.label}
-                </Link>
+                link.external ? (
+                  <a
+                    key={link.url}
+                    href={link.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="px-1.5 xl:px-2 py-2 text-base font-semibold uppercase tracking-wider rounded-sm transition-all duration-300 hover:text-accent whitespace-nowrap text-white/90"
+                  >
+                    {link.label}
+                  </a>
+                ) : (
+                  <Link
+                    key={link.path}
+                    to={link.path}
+                    className={`px-1.5 xl:px-2 py-2 text-base font-semibold uppercase tracking-wider rounded-sm transition-all duration-300 hover:text-accent whitespace-nowrap ${
+                      isActiveLink(link.path)
+                        ? "text-accent"
+                        : "text-white/90"
+                    }`}
+                  >
+                    {link.label}
+                  </Link>
+                )
               ))}
               <div className="ml-1 pl-2 border-l border-white/20 flex items-center gap-2">
                 {isAuthenticated ? (
@@ -147,17 +160,29 @@ export default function Navbar() {
           >
             <div className="px-4 py-6 space-y-1">
               {NAV_LINKS.map((link) => (
-                <Link
-                  key={link.path}
-                  to={link.path}
-                  className={`block px-4 py-3 font-body text-sm font-semibold uppercase tracking-wider transition-colors rounded ${
-                    isActiveLink(link.path)
-                      ? "text-accent bg-white/5"
-                      : "text-white/90 hover:text-accent hover:bg-white/5"
-                  }`}
-                >
-                  {link.label}
-                </Link>
+                link.external ? (
+                  <a
+                    key={link.url}
+                    href={link.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="block px-4 py-3 font-body text-sm font-semibold uppercase tracking-wider transition-colors rounded text-white/90 hover:text-accent hover:bg-white/5"
+                  >
+                    {link.label}
+                  </a>
+                ) : (
+                  <Link
+                    key={link.path}
+                    to={link.path}
+                    className={`block px-4 py-3 font-body text-sm font-semibold uppercase tracking-wider transition-colors rounded ${
+                      isActiveLink(link.path)
+                        ? "text-accent bg-white/5"
+                        : "text-white/90 hover:text-accent hover:bg-white/5"
+                    }`}
+                  >
+                    {link.label}
+                  </Link>
+                )
               ))}
               {isAuthenticated ? (
                 <button
