@@ -7,10 +7,11 @@ import t from '../../lib/translations';
 import heroImage1Eng from '../../assets/images/vizball--4-eng.jpg';
 import heroImage2Fr from '../../assets/images/vizball--2-fr.jpg';
 import heroImage3Fr from '../../assets/images/vizball--3-fr.jpg';
+import heroImage7Fr from '../../assets/images/vizball--7-fr.jpg';
 
 // Language-specific images
 const HERO_IMAGES = {
-  fr: [heroImage2Fr, heroImage3Fr, heroImage2Fr],
+  fr: [heroImage2Fr, heroImage3Fr, heroImage7Fr],
   en: [heroImage1Eng, heroImage1Eng, heroImage1Eng] // Using general images for English (add English versions when available)
 };
 
