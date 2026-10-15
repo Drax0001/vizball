@@ -2,14 +2,24 @@ import React, { useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
 import { useLang } from '../../lib/LanguageContext';
 import t from '../../lib/translations';
+import galleryImage1Eng from '../../assets/images/vizball--4-eng.jpg';
+import galleryImage2Eng from '../../assets/images/vizball--5-eng.jpg';
+import galleryImage3Eng from '../../assets/images/vizball--6-eng.jpg';
+import galleryImage4Fr from '../../assets/images/vizball--7-fr.jpg';
 
-const images = [
-{ src: '', alt: 'Vizball athlete', span: 'row-span-2' },
-{ src: '', alt: 'Action on the field', span: '' },
-{ src: '', alt: 'Young players', span: '' },
-{ src: '', alt: 'Female athlete', span: 'row-span-2' },
-{ src: '', alt: 'Stadium', span: '' },
-{ src: '', alt: 'Aerial view', span: '' }];
+// Language-specific images
+const GALLERY_IMAGES = {
+  fr: [galleryImage1Eng, galleryImage1Eng, galleryImage1Eng, galleryImage4Fr],
+  en: [galleryImage1Eng, galleryImage2Eng, galleryImage3Eng, galleryImage4Fr]
+};
+
+const getGalleryImages = (lang) => [
+{ src: GALLERY_IMAGES[lang][0], alt: 'Vizball athlete', span: 'row-span-2' },
+{ src: GALLERY_IMAGES[lang][1], alt: 'Action on the field', span: '' },
+{ src: GALLERY_IMAGES[lang][2], alt: 'Young players', span: '' },
+{ src: GALLERY_IMAGES[lang][3], alt: 'Female athlete', span: 'row-span-2' },
+{ src: GALLERY_IMAGES[lang][0], alt: 'Stadium', span: '' },
+{ src: GALLERY_IMAGES[lang][1], alt: 'Aerial view', span: '' }];
 
 
 export default function GallerySection() {
@@ -17,6 +27,7 @@ export default function GallerySection() {
   const isInView = useInView(ref, { once: true, margin: '-50px' });
   const { lang } = useLang();
   const tr = t[lang];
+  const images = getGalleryImages(lang);
 
   return (
     <section ref={ref} className="py-24 bg-muted">
@@ -40,9 +51,9 @@ export default function GallerySection() {
             animate={isInView ? { opacity: 1, scale: 1 } : {}}
             transition={{ delay: i * 0.1 }}
             className={`${img.span} rounded-lg overflow-hidden group cursor-pointer`}>
-            
-              <div className="w-full h-full bg-gray-900 group-hover:scale-110 transition-transform duration-700" />
-            
+
+              <img src={img.src} alt={img.alt} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
+
             </motion.div>
           )}
         </div>

@@ -4,6 +4,15 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronLeft, ChevronRight, Play } from 'lucide-react';
 import { useLang } from '../../lib/LanguageContext';
 import t from '../../lib/translations';
+import heroImage1Eng from '../../assets/images/vizball--4-eng.jpg';
+import heroImage2Fr from '../../assets/images/vizball--2-fr.jpg';
+import heroImage3Fr from '../../assets/images/vizball--3-fr.jpg';
+
+// Language-specific images
+const HERO_IMAGES = {
+  fr: [heroImage2Fr, heroImage3Fr, heroImage2Fr],
+  en: [heroImage1Eng, heroImage1Eng, heroImage1Eng] // Using general images for English (add English versions when available)
+};
 
 const HERO_SLIDES = [
   {
@@ -11,21 +20,24 @@ const HERO_SLIDES = [
     title: () => 'VIZBALL',
     subtitle: tr => tr.hero_subtitle,
     ctaDiscover: tr => tr.hero_cta_discover,
-    ctaRules: tr => tr.hero_cta_rules
+    ctaRules: tr => tr.hero_cta_rules,
+    image: (lang) => HERO_IMAGES[lang][0]
   },
   {
     badge: tr => tr.hero_slide2_badge,
     title: tr => tr.hero_slide2_title,
     subtitle: tr => tr.hero_slide2_subtitle,
     ctaDiscover: tr => tr.hero_cta_discover,
-    ctaRules: tr => tr.hero_cta_rules
+    ctaRules: tr => tr.hero_cta_rules,
+    image: (lang) => HERO_IMAGES[lang][1]
   },
   {
     badge: tr => tr.hero_slide3_badge,
     title: tr => tr.hero_slide3_title,
     subtitle: tr => tr.hero_slide3_subtitle,
     ctaDiscover: tr => tr.hero_cta_discover,
-    ctaRules: tr => tr.hero_cta_rules
+    ctaRules: tr => tr.hero_cta_rules,
+    image: (lang) => HERO_IMAGES[lang][2]
   }
 ];
 
@@ -74,18 +86,12 @@ export default function HeroSection() {
             className="absolute inset-0"
           >
             <div className="w-full h-full bg-gradient-to-br from-gray-800 via-gray-900 to-black">
-              <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_50%,rgba(255,255,255,0.05),transparent_50%)]" />
-              <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_30%,rgba(255,255,255,0.03),transparent_50%)]" />
-              <div className="absolute inset-0 flex items-center justify-center">
-                <div className="text-white/10 font-heading text-9xl md:text-[12rem] font-bold tracking-wider">
-                  IMAGE
-                </div>
-              </div>
+              <img src={slide.image(lang)} alt={slide.badge(tr)} className="w-full h-full object-cover" />
+              <div className="absolute inset-0 bg-gradient-to-r from-primary/90 via-primary/60 to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t from-primary/80 via-transparent to-primary/30" />
             </div>
           </motion.div>
         </AnimatePresence>
-        <div className="absolute inset-0 bg-gradient-to-r from-primary/90 via-primary/60 to-transparent" />
-        <div className="absolute inset-0 bg-gradient-to-t from-primary/80 via-transparent to-primary/30" />
       </div>
 
       <div className="relative z-10 h-full flex items-center">

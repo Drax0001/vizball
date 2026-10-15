@@ -4,6 +4,13 @@ import { motion, useInView } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import { useLang } from "../../lib/LanguageContext";
 import t from "../../lib/translations";
+import aboutImage from "../../assets/images/vizaball-demo-session.png";
+
+// Language-specific images (when available)
+const ABOUT_IMAGES = {
+  fr: aboutImage,
+  en: aboutImage
+};
 
 function renderBold(text) {
   return text.split("**").map((part, i) =>
@@ -22,6 +29,7 @@ export default function AboutSection() {
   const isInView = useInView(ref, { once: true, margin: "-100px" });
   const { lang } = useLang();
   const tr = t[lang];
+  const currentAboutImage = ABOUT_IMAGES[lang];
 
   return (
     <section ref={ref} className="py-24 bg-background relative overflow-hidden">
@@ -37,7 +45,7 @@ export default function AboutSection() {
             className="relative"
           >
             <div className="relative rounded-lg overflow-hidden">
-              <div className="w-full h-[500px] bg-gray-900" />
+              <img src={currentAboutImage} alt="Vizball demo session" className="w-full h-[500px] object-cover" />
 
               <div className="absolute inset-0 bg-gradient-to-t from-primary/40 to-transparent" />
             </div>

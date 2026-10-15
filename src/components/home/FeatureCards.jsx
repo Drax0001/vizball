@@ -4,6 +4,15 @@ import { motion, useInView } from 'framer-motion';
 import { BookOpen, Shield, Users, ChevronRight } from 'lucide-react';
 import { useLang } from '../../lib/LanguageContext';
 import t from '../../lib/translations';
+import featureImage1Eng from '../../assets/images/vizball--4-eng.jpg';
+import featureImage2Eng from '../../assets/images/vizball--5-eng.jpg';
+import featureImage3Eng from '../../assets/images/vizball--6-eng.jpg';
+
+// Language-specific images
+const FEATURE_IMAGES = {
+  fr: [featureImage1Eng, featureImage1Eng, featureImage1Eng],
+  en: [featureImage1Eng, featureImage2Eng, featureImage3Eng]
+};
 
 export default function FeatureCards() {
   const ref = useRef(null);
@@ -18,7 +27,7 @@ export default function FeatureCards() {
     desc: tr.features_rules_desc,
     cta: tr.features_rules_cta,
     link: '/le-sport',
-    img: ''
+    img: FEATURE_IMAGES[lang][0]
   },
   {
     icon: Shield,
@@ -26,7 +35,7 @@ export default function FeatureCards() {
     desc: tr.features_association_desc,
     cta: tr.features_association_cta,
     link: '/gouvernance',
-    img: ''
+    img: FEATURE_IMAGES[lang][1]
   },
   {
     icon: Users,
@@ -34,7 +43,7 @@ export default function FeatureCards() {
     desc: tr.features_register_desc,
     cta: tr.features_register_cta,
     link: '/contact',
-    img: ''
+    img: FEATURE_IMAGES[lang][2]
   }];
 
 
@@ -61,7 +70,7 @@ export default function FeatureCards() {
               <Link to={feature.link} className="group block">
                 <div className="relative rounded-lg overflow-hidden bg-white/5 border border-white/10 hover:border-accent/40 transition-all duration-500">
                   <div className="h-52 overflow-hidden">
-                    <div className="w-full h-full bg-gray-900 group-hover:scale-110 transition-transform duration-700" />
+                    <img src={feature.img} alt={feature.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
                     <div className="absolute inset-0 bg-gradient-to-t from-primary via-primary/30 to-transparent" />
                   </div>
                   <div className="relative p-6">
