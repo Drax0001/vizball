@@ -4,7 +4,7 @@ import { motion, useInView } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import { useLang } from "../../lib/LanguageContext";
 import t from "../../lib/translations";
-import aboutImage from "../../assets/images/court-vizball.png";
+import aboutImage from "../../assets/images/court-vizball.webp";
 
 // Language-specific images (when available)
 const ABOUT_IMAGES = {

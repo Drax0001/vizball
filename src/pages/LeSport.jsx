@@ -10,8 +10,8 @@ import { useLang } from '../lib/LanguageContext';
 import t from '../lib/translations';
 import { CATEGORY_LABELS, LEVEL_LABELS } from '../lib/tutorialLabels';
 import { api } from '../api/client';
-import sportUniqueImage from '../assets/images/vizball-players-sitting-on-pitch.png';
-import terrainImage from '../assets/images/community-vizball.jpeg';
+import sportUniqueImage from '../assets/images/vizball-players-sitting-on-pitch.webp';
+import terrainImage from '../assets/images/community-vizball.webp';
 
 const VIDEO_CATEGORIES = [
   { label: 'Tous', icon: Play },

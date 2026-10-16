@@ -4,9 +4,9 @@ import { motion, useInView } from 'framer-motion';
 import { BookOpen, Shield, Users, ChevronRight } from 'lucide-react';
 import { useLang } from '../../lib/LanguageContext';
 import t from '../../lib/translations';
-import featureCommunity from '../../assets/images/community-vizball.jpeg';
-import featureThrone from '../../assets/images/vizball-throne.png';
-import featureBallToLeg from '../../assets/images/ball-to-the-leg.png';
+import featureCommunity from '../../assets/images/community-vizball.webp';
+import featureThrone from '../../assets/images/vizball-throne.webp';
+import featureBallToLeg from '../../assets/images/ball-to-the-leg.webp';
 
 // Shared feature images (same for every language)
 const FEATURE_IMAGES = {

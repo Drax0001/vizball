@@ -2,11 +2,11 @@ import React, { useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
 import { useLang } from '../../lib/LanguageContext';
 import t from '../../lib/translations';
-import galleryThrone from '../../assets/images/vizball-throne.png';
-import galleryCourt from '../../assets/images/court-vizball.png';
-import galleryCommunity from '../../assets/images/community-vizball.jpeg';
-import galleryBallToLeg from '../../assets/images/ball-to-the-leg.png';
-import gallerySitting from '../../assets/images/vizball-players-sitting-on-pitch.png';
+import galleryThrone from '../../assets/images/vizball-throne.webp';
+import galleryCourt from '../../assets/images/court-vizball.webp';
+import galleryCommunity from '../../assets/images/community-vizball.webp';
+import galleryBallToLeg from '../../assets/images/ball-to-the-leg.webp';
+import gallerySitting from '../../assets/images/vizball-players-sitting-on-pitch.webp';
 
 // Shared gallery images (same for every language)
 const GALLERY_IMAGES = {

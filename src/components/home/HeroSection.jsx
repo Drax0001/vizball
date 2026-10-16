@@ -4,9 +4,9 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronLeft, ChevronRight, Play } from 'lucide-react';
 import { useLang } from '../../lib/LanguageContext';
 import t from '../../lib/translations';
-import heroThrone from '../../assets/images/vizball-throne.png';
-import heroBallToLeg from '../../assets/images/ball-to-the-leg.png';
-import heroCommunity from '../../assets/images/community-vizball.jpeg';
+import heroThrone from '../../assets/images/vizball-throne.webp';
+import heroBallToLeg from '../../assets/images/ball-to-the-leg.webp';
+import heroCommunity from '../../assets/images/community-vizball.webp';
 
 // Shared hero images (same for every language)
 const HERO_IMAGES = {
