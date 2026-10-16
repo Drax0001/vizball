@@ -2,24 +2,25 @@ import React, { useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
 import { useLang } from '../../lib/LanguageContext';
 import t from '../../lib/translations';
-import galleryImage1Eng from '../../assets/images/vizball--4-eng.jpg';
-import galleryImage2Eng from '../../assets/images/vizball--5-eng.jpg';
-import galleryImage3Eng from '../../assets/images/vizball--6-eng.jpg';
-import galleryImage4Fr from '../../assets/images/vizball--7-fr.jpg';
+import galleryThrone from '../../assets/images/vizball-throne.png';
+import galleryCourt from '../../assets/images/court-vizball.png';
+import galleryCommunity from '../../assets/images/community-vizball.jpeg';
+import galleryBallToLeg from '../../assets/images/ball-to-the-leg.png';
+import gallerySitting from '../../assets/images/vizball-players-sitting-on-pitch.png';
 
-// Language-specific images
+// Shared gallery images (same for every language)
 const GALLERY_IMAGES = {
-  fr: [galleryImage1Eng, galleryImage1Eng, galleryImage1Eng, galleryImage4Fr],
-  en: [galleryImage1Eng, galleryImage2Eng, galleryImage3Eng, galleryImage4Fr]
+  fr: [galleryThrone, galleryCourt, galleryCommunity, galleryBallToLeg, gallerySitting],
+  en: [galleryThrone, galleryCourt, galleryCommunity, galleryBallToLeg, gallerySitting]
 };
 
 const getGalleryImages = (lang) => [
-{ src: GALLERY_IMAGES[lang][0], alt: 'Vizball athlete', span: 'row-span-2' },
-{ src: GALLERY_IMAGES[lang][1], alt: 'Action on the field', span: '' },
-{ src: GALLERY_IMAGES[lang][2], alt: 'Young players', span: '' },
-{ src: GALLERY_IMAGES[lang][3], alt: 'Female athlete', span: 'row-span-2' },
-{ src: GALLERY_IMAGES[lang][0], alt: 'Stadium', span: '' },
-{ src: GALLERY_IMAGES[lang][1], alt: 'Aerial view', span: '' }];
+{ src: GALLERY_IMAGES[lang][0], alt: 'Vizball players', span: 'row-span-2' },
+{ src: GALLERY_IMAGES[lang][1], alt: 'Vizball arena', span: '' },
+{ src: GALLERY_IMAGES[lang][2], alt: 'Vizball community', span: '' },
+{ src: GALLERY_IMAGES[lang][3], alt: 'Ball at the leg', span: 'row-span-2' },
+{ src: GALLERY_IMAGES[lang][4], alt: 'Players on the pitch', span: '' },
+{ src: GALLERY_IMAGES[lang][1], alt: 'Vizball court', span: '' }];
 
 
 export default function GallerySection() {

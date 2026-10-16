@@ -10,7 +10,8 @@ import { useLang } from '../lib/LanguageContext';
 import t from '../lib/translations';
 import { CATEGORY_LABELS, LEVEL_LABELS } from '../lib/tutorialLabels';
 import { api } from '../api/client';
-import terrainImage from '../assets/images/Terrain-simul.jpg.jpeg';
+import sportUniqueImage from '../assets/images/vizball-players-sitting-on-pitch.png';
+import terrainImage from '../assets/images/community-vizball.jpeg';
 
 const VIDEO_CATEGORIES = [
   { label: 'Tous', icon: Play },
@@ -309,7 +310,10 @@ export default function LeSport() {
                 </div>
               </div>
               <div className="relative">
-                <div className="rounded-lg w-full h-[450px] bg-gray-900" />
+                <img
+                  src={sportUniqueImage}
+                  alt={lang === 'en' ? 'A unique sport' : 'Un sport unique'}
+                  className="rounded-lg w-full h-[450px] object-cover" />
 
                 <div className="absolute -bottom-4 -left-4 bg-primary text-white p-5 rounded-lg">
                   <span className="font-heading text-3xl text-accent">{tr.sport_field_dims}</span>

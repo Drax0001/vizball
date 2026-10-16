@@ -4,15 +4,14 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronLeft, ChevronRight, Play } from 'lucide-react';
 import { useLang } from '../../lib/LanguageContext';
 import t from '../../lib/translations';
-import heroImage1Eng from '../../assets/images/vizball--4-eng.jpg';
-import heroImage2Fr from '../../assets/images/vizball--2-fr.jpg';
-import heroImage3Fr from '../../assets/images/vizball--3-fr.jpg';
-import heroImage7Fr from '../../assets/images/vizball--7-fr.jpg';
+import heroThrone from '../../assets/images/vizball-throne.png';
+import heroBallToLeg from '../../assets/images/ball-to-the-leg.png';
+import heroCommunity from '../../assets/images/community-vizball.jpeg';
 
-// Language-specific images
+// Shared hero images (same for every language)
 const HERO_IMAGES = {
-  fr: [heroImage2Fr, heroImage3Fr, heroImage7Fr],
-  en: [heroImage1Eng, heroImage1Eng, heroImage1Eng] // Using general images for English (add English versions when available)
+  fr: [heroThrone, heroBallToLeg, heroCommunity],
+  en: [heroThrone, heroBallToLeg, heroCommunity]
 };
 
 const HERO_SLIDES = [

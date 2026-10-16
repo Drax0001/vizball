@@ -4,14 +4,14 @@ import { motion, useInView } from 'framer-motion';
 import { BookOpen, Shield, Users, ChevronRight } from 'lucide-react';
 import { useLang } from '../../lib/LanguageContext';
 import t from '../../lib/translations';
-import featureImage1Eng from '../../assets/images/vizball--4-eng.jpg';
-import featureImage2Eng from '../../assets/images/vizball--5-eng.jpg';
-import featureImage3Eng from '../../assets/images/vizball--6-eng.jpg';
+import featureCommunity from '../../assets/images/community-vizball.jpeg';
+import featureThrone from '../../assets/images/vizball-throne.png';
+import featureBallToLeg from '../../assets/images/ball-to-the-leg.png';
 
-// Language-specific images
+// Shared feature images (same for every language)
 const FEATURE_IMAGES = {
-  fr: [featureImage1Eng, featureImage1Eng, featureImage1Eng],
-  en: [featureImage1Eng, featureImage2Eng, featureImage3Eng]
+  fr: [featureCommunity, featureThrone, featureBallToLeg],
+  en: [featureCommunity, featureThrone, featureBallToLeg]
 };
 
 export default function FeatureCards() {
