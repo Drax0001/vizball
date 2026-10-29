@@ -63,6 +63,7 @@ const t = {
     gallery_badge: "En Images",
     gallery_title_1: "LA",
     gallery_title_2: "GALERIE",
+    gallery_view_all: "Voir toutes les photos",
 
     // CTA
     cta_title_1: "PRÊT À",
@@ -808,6 +809,7 @@ const t = {
     gallery_badge: "In Pictures",
     gallery_title_1: "THE",
     gallery_title_2: "GALLERY",
+    gallery_view_all: "View all photos",
 
     // CTA
     cta_title_1: "READY TO",

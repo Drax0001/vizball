@@ -1,5 +1,7 @@
 import React, { useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
+import { Link } from 'react-router-dom';
+import { ArrowRight } from 'lucide-react';
 import { useLang } from '../../lib/LanguageContext';
 import t from '../../lib/translations';
 import galleryThrone from '../../assets/images/vizball-throne.webp';
@@ -7,14 +9,11 @@ import galleryCourt from '../../assets/images/court-vizball.webp';
 import galleryCommunity from '../../assets/images/community-vizball.webp';
 import galleryBallToLeg from '../../assets/images/ball-to-the-leg.webp';
 import gallerySitting from '../../assets/images/vizball-players-sitting-on-pitch.webp';
-import galleryHistory1 from '../../assets/images/magnific__4-hommes-de-race-noire-de-la-trentaine-sur-un-terr__52507.webp';
-import galleryHistory2 from '../../assets/images/magnific__intgrer-la-date-de-2007-en-3d-de-couleur-grise-ave__38506.webp';
-import galleryHistory3 from '../../assets/images/magnific__la-vue-est-un-peu-eloigneles-3-garcons-ont-des-tai__61809.webp';
 
 // Shared gallery images (same for every language)
 const GALLERY_IMAGES = {
-  fr: [galleryThrone, galleryCourt, galleryCommunity, galleryBallToLeg, gallerySitting, galleryHistory1, galleryHistory2, galleryHistory3],
-  en: [galleryThrone, galleryCourt, galleryCommunity, galleryBallToLeg, gallerySitting, galleryHistory1, galleryHistory2, galleryHistory3]
+  fr: [galleryThrone, galleryCourt, galleryCommunity, galleryBallToLeg, gallerySitting],
+  en: [galleryThrone, galleryCourt, galleryCommunity, galleryBallToLeg, gallerySitting]
 };
 
 const getGalleryImages = (lang) => [
@@ -23,10 +22,7 @@ const getGalleryImages = (lang) => [
 { src: GALLERY_IMAGES[lang][2], alt: 'Vizball community', span: '' },
 { src: GALLERY_IMAGES[lang][3], alt: 'Ball at the leg', span: 'row-span-2' },
 { src: GALLERY_IMAGES[lang][4], alt: 'Players on the pitch', span: '' },
-{ src: GALLERY_IMAGES[lang][1], alt: 'Vizball court', span: '' },
-{ src: GALLERY_IMAGES[lang][5], alt: 'Historical photo 1', span: '' },
-{ src: GALLERY_IMAGES[lang][6], alt: 'Historical photo 2', span: '' },
-{ src: GALLERY_IMAGES[lang][7], alt: 'Historical photo 3', span: '' }];
+{ src: GALLERY_IMAGES[lang][1], alt: 'Vizball court', span: '' }];
 
 
 export default function GallerySection() {
@@ -64,6 +60,24 @@ export default function GallerySection() {
             </motion.div>
           )}
         </div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ delay: 0.6 }}
+          className="text-center mt-12"
+        >
+          <Link
+            to="/media"
+            className="inline-flex items-center gap-2 font-body font-bold text-sm uppercase tracking-wider text-accent hover:text-secondary transition-colors"
+          >
+            {tr.gallery_view_all || "Voir toutes les photos"}
+            <ArrowRight
+              size={16}
+              className="group-hover:translate-x-1 transition-transform"
+            />
+          </Link>
+        </motion.div>
       </div>
     </section>);
 
