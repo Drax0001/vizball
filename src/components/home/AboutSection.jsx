@@ -5,9 +5,6 @@ import { ArrowRight } from "lucide-react";
 import { useLang } from "../../lib/LanguageContext";
 import t from "../../lib/translations";
 import aboutImage from "../../assets/images/court-vizball.webp";
-import historyImage1 from "../../assets/images/magnific__4-hommes-de-race-noire-de-la-trentaine-sur-un-terr__52507.webp";
-import historyImage2 from "../../assets/images/magnific__intgrer-la-date-de-2007-en-3d-de-couleur-grise-ave__38506.webp";
-import historyImage3 from "../../assets/images/magnific__la-vue-est-un-peu-eloigneles-3-garcons-ont-des-tai__61809.webp";
 
 // Language-specific images (when available)
 const ABOUT_IMAGES = {
@@ -109,42 +106,6 @@ export default function AboutSection() {
               />
             </Link>
           </motion.div>
-        </div>
-      </div>
-
-      {/* History Gallery Section */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-24">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8, delay: 0.4 }}
-          className="text-center mb-12"
-        >
-          <h3 className="text-foreground text-3xl font-heading sm:text-4xl mb-4">
-            {tr.about_history_title || "Notre Histoire"}
-          </h3>
-          <p className="text-muted-foreground font-body max-w-2xl mx-auto">
-            {tr.about_history_desc || "Retour sur les moments forts de Vizball depuis 2007"}
-          </p>
-        </motion.div>
-
-        <div className="grid md:grid-cols-3 gap-6">
-          {[historyImage1, historyImage2, historyImage3].map((img, i) => (
-            <motion.div
-              key={i}
-              initial={{ opacity: 0, y: 30 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.8, delay: 0.5 + i * 0.1 }}
-              className="relative rounded-lg overflow-hidden group"
-            >
-              <img
-                src={img}
-                alt={`Historical photo ${i + 1}`}
-                className="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-105"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-primary/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-            </motion.div>
-          ))}
         </div>
       </div>
     </section>

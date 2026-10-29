@@ -41,8 +41,6 @@ const t = {
     about_fact_7:
       "**Permutation** des positions des 2 équipes après chaque manche",
     about_author: "AUTEUR : MIAFFO NKENGNI Yannick Joël",
-    about_history_title: "Notre Histoire",
-    about_history_desc: "Retour sur les moments forts de Vizball depuis 2007",
 
     // Features
     features_badge: "Explorer",
@@ -788,8 +786,6 @@ const t = {
     about_fact_6: "A team of **4 players** against a team of **5 players**",
     about_fact_7: "**Swap** of positions between the 2 teams after each period",
     about_author: "AUTHOR: MIAFFO NKENGNI Yannick Joël",
-    about_history_title: "Our History",
-    about_history_desc: "Looking back at Vizball's highlights since 2007",
 
     // Features
     features_badge: "Explore",
