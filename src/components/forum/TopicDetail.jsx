@@ -13,9 +13,9 @@ import TranslateButton from '../TranslateButton';
 const categoryColors = {
   'Tactiques':  'bg-secondary/20 text-secondary border-secondary/30',
   'Règles':     'bg-accent/20 text-accent border-accent/30',
-  'Rencontres': 'bg-white/10 text-white/80 border-white/20',
+  'Rencontres': 'bg-white/10 text-chalk/80 border-white/20',
   'Général':    'bg-accent/15 text-accent/80 border-accent/20',
-  'Équipement': 'bg-white/10 text-white/60 border-white/15',
+  'Équipement': 'bg-white/10 text-chalk/60 border-white/15',
 };
 
 function ReplyBubble({ reply, index, dateLocale }) {
@@ -29,12 +29,12 @@ function ReplyBubble({ reply, index, dateLocale }) {
       </div>
       <div className="flex-1 bg-white/5 border border-white/10 rounded-xl p-4">
         <div className="flex items-center justify-between mb-2 flex-wrap gap-1">
-          <span className="font-body text-sm font-bold text-white">{reply.author_name}</span>
-          <span className="font-body text-xs text-white/30">
+          <span className="font-body text-sm font-bold text-chalk">{reply.author_name}</span>
+          <span className="font-body text-xs text-chalk/30">
             {format(new Date(reply.created_date), 'd MMM yyyy · HH:mm', { locale: dateLocale })}
           </span>
         </div>
-        <p className="font-body text-sm text-white/70 leading-relaxed whitespace-pre-wrap">{displayContent}</p>
+        <p className="font-body text-sm text-chalk/70 leading-relaxed whitespace-pre-wrap">{displayContent}</p>
         <div className="mt-2">
           <TranslateButton contentType="forum_reply" contentId={reply.id} fields={{ content: reply.content }} onResult={setTranslated} compact />
         </div>
@@ -91,7 +91,7 @@ export default function TopicDetail({ topic, onBack }) {
   return (
     <div>
       <div className="flex items-start justify-between gap-4 mb-8 flex-wrap">
-        <button onClick={onBack} className="inline-flex items-center gap-2 font-body text-sm text-white/40 hover:text-white transition-colors group">
+        <button onClick={onBack} className="inline-flex items-center gap-2 font-body text-sm text-chalk/40 hover:text-chalk transition-colors group">
           <ArrowLeft size={15} className="group-hover:-translate-x-0.5 transition-transform" /> {t.forum_back}
         </button>
       </div>
@@ -103,22 +103,22 @@ export default function TopicDetail({ topic, onBack }) {
               {translateCategory(topic.category, lang)}
             </span>
             {topic.pinned && <span className="flex items-center gap-1 text-accent text-xs font-body"><Pin size={11} /> {t.forum_pinned}</span>}
-            {topic.closed && <span className="flex items-center gap-1 text-white/40 text-xs font-body"><Lock size={11} /> {t.forum_closed}</span>}
-            {topic.city && <span className="flex items-center gap-1 text-white/40 text-xs font-body"><MapPin size={11} /> {topic.city}</span>}
+            {topic.closed && <span className="flex items-center gap-1 text-chalk/40 text-xs font-body"><Lock size={11} /> {t.forum_closed}</span>}
+            {topic.city && <span className="flex items-center gap-1 text-chalk/40 text-xs font-body"><MapPin size={11} /> {topic.city}</span>}
           </div>
-          <h1 className="font-heading text-3xl text-white mb-4">{displayTopicTitle}</h1>
+          <h1 className="display text-[clamp(2.2rem,4.5vw,4rem)] text-chalk mb-4">{displayTopicTitle}</h1>
           <div className="flex items-center gap-4">
             <div className="w-10 h-10 rounded-full bg-accent/20 border border-accent/30 flex items-center justify-center font-heading text-accent text-lg shrink-0">
               {(topic.author_name || 'A')[0].toUpperCase()}
             </div>
             <div>
-              <p className="font-body text-sm font-bold text-white">{topic.author_name || t.forum_anonymous}</p>
-              <p className="font-body text-xs text-white/30">{format(new Date(topic.created_date), 'd MMMM yyyy', { locale: dateLocale })}</p>
+              <p className="font-body text-sm font-bold text-chalk">{topic.author_name || t.forum_anonymous}</p>
+              <p className="font-body text-xs text-chalk/30">{format(new Date(topic.created_date), 'd MMMM yyyy', { locale: dateLocale })}</p>
             </div>
           </div>
         </div>
         <div className="p-6">
-          <p className="font-body text-sm text-white/70 leading-relaxed whitespace-pre-wrap">{displayTopicContent}</p>
+          <p className="font-body text-sm text-chalk/70 leading-relaxed whitespace-pre-wrap">{displayTopicContent}</p>
           <div className="mt-3">
             <TranslateButton
               contentType="forum_topic"
@@ -131,14 +131,14 @@ export default function TopicDetail({ topic, onBack }) {
       </div>
 
       <div className="mb-8">
-        <h3 className="font-heading text-xl text-white mb-5 flex items-center gap-2">
+        <h3 className="font-heading text-xl text-chalk mb-5 flex items-center gap-2">
           <MessageCircle size={18} className="text-accent" />
           {replies.length} {t.forum_replies}
         </h3>
         {loading ? (
           <div className="flex justify-center py-10"><div className="w-6 h-6 border-2 border-accent/30 border-t-accent rounded-full animate-spin" /></div>
         ) : replies.length === 0 ? (
-          <p className="font-body text-sm text-white/30 text-center py-8">{t.forum_no_replies}</p>
+          <p className="font-body text-sm text-chalk/30 text-center py-8">{t.forum_no_replies}</p>
         ) : (
           <div className="space-y-4">
             {replies.map((r, i) => <ReplyBubble key={r.id} reply={r} index={i} dateLocale={dateLocale} />)}
@@ -148,16 +148,16 @@ export default function TopicDetail({ topic, onBack }) {
 
       {!topic.closed ? (
         <div className="bg-white/5 border border-white/10 rounded-2xl p-6">
-          <h4 className="font-heading text-lg text-white mb-5">{t.forum_your_reply}</h4>
+          <h4 className="font-heading text-lg text-chalk mb-5">{t.forum_your_reply}</h4>
           <form onSubmit={handleReply} className="space-y-4">
             <div>
-              <label className="font-body text-xs font-bold uppercase tracking-wider text-white/40 block mb-2">{t.forum_topic_content}</label>
+              <label className="font-body text-xs font-bold uppercase tracking-wider text-chalk/40 block mb-2">{t.forum_topic_content}</label>
               <Textarea required value={form.content} onChange={e => setForm(f => ({ ...f, content: e.target.value }))}
-                placeholder={t.forum_reply_placeholder} rows={4} className="bg-white/5 border-white/15 text-white placeholder-white/20 focus:border-accent/50" />
+                placeholder={t.forum_reply_placeholder} rows={4} className="bg-white/5 border-white/15 text-chalk placeholder-chalk/20 focus:border-accent/50" />
             </div>
             <div className="flex justify-end">
               <button type="submit" disabled={sending}
-                className="flex items-center gap-2 bg-accent hover:bg-accent/90 text-primary font-body text-sm font-bold px-6 py-2.5 rounded-lg transition-all disabled:opacity-40">
+                className="flex items-center gap-2 h-12 rounded-full bg-accent px-6 font-heading text-sm font-bold uppercase tracking-[0.06em] text-night transition-colors duration-300 hover:bg-chalk disabled:opacity-40">
                 <Send size={14} /> {sending ? '...' : t.forum_reply_submit}
               </button>
             </div>
@@ -165,8 +165,8 @@ export default function TopicDetail({ topic, onBack }) {
         </div>
       ) : (
         <div className="text-center py-8 border border-white/10 rounded-2xl">
-          <Lock size={24} className="text-white/20 mx-auto mb-2" />
-          <p className="font-body text-sm text-white/30">{t.forum_closed_no_replies}</p>
+          <Lock size={24} className="text-chalk/20 mx-auto mb-2" />
+          <p className="font-body text-sm text-chalk/30">{t.forum_closed_no_replies}</p>
         </div>
       )}
     </div>

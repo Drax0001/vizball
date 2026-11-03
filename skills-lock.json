@@ -7,6 +7,12 @@
       "skillPath": "skills/frontend-ui-engineering/SKILL.md",
       "computedHash": "3a5d4a84e52710f2d724ff68813fba0d61db4f2a232a9d0b0050a8fec08b3e82"
     },
+    "impeccable": {
+      "source": "pbakaus/impeccable",
+      "sourceType": "github",
+      "skillPath": ".agents/skills/impeccable/SKILL.md",
+      "computedHash": "eef936aef13445db0b0580af1aca1bea7c3ac562ce88d456d41b9ed03550d5ad"
+    },
     "react-19": {
       "source": "gentleman-programming/gentleman-skills",
       "sourceType": "github",

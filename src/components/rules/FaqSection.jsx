@@ -95,16 +95,15 @@ export default function FaqSection() {
   const tr = t[lang];
 
   return (
-    <section className="py-24 bg-background">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section className="bg-background py-24 md:py-32">
+      <div className="shell">
         <motion.div
           ref={ref}
           initial={{ opacity: 0, y: 40 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.7 }}
         >
-          <span className="font-subtitle text-sm uppercase tracking-widest text-secondary">{tr.faq_badge}</span>
-          <h2 className="text-[hsl(var(--chart-3))] mt-3 mb-3 text-4xl font-heading sm:text-5xl">{tr.faq_title}</h2>
+          <h2 className="display mb-10 text-[clamp(2.4rem,5.5vw,5rem)]">{tr.faq_title}</h2>
           <p className="font-body text-muted-foreground mb-10">
             {tr.faq_subtitle}
           </p>

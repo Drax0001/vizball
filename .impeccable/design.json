@@ -1,0 +1,468 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-11-03T00:00:00Z",
+  "title": "Design System: Vizball",
+  "extensions": {
+    "colorMeta": {
+      "pitch": {
+        "role": "primary",
+        "displayName": "Deep Pitch Green",
+        "canonical": "hsl(153 50% 16%)",
+        "hex": "#143D2B",
+        "cssVar": "--pitch",
+        "tonalRamp": [
+          "hsl(153 40% 8%)",
+          "hsl(153 50% 16%)",
+          "hsl(153 45% 25%)",
+          "hsl(153 40% 35%)",
+          "hsl(153 35% 45%)",
+          "hsl(153 30% 60%)",
+          "hsl(153 25% 78%)",
+          "hsl(153 20% 94%)"
+        ]
+      },
+      "night": {
+        "role": "primary",
+        "displayName": "Night Pitch",
+        "canonical": "hsl(153 52% 9%)",
+        "hex": "#0B2318",
+        "cssVar": "--night",
+        "tonalRamp": [
+          "hsl(153 52% 5%)",
+          "hsl(153 52% 9%)",
+          "hsl(153 48% 12%)",
+          "hsl(153 44% 18%)",
+          "hsl(153 38% 28%)",
+          "hsl(153 30% 42%)",
+          "hsl(153 22% 65%)",
+          "hsl(153 15% 92%)"
+        ]
+      },
+      "night-2": {
+        "role": "primary",
+        "displayName": "Night Pitch Lift",
+        "canonical": "hsl(153 48% 12%)",
+        "hex": "#102D20",
+        "cssVar": "--night-2",
+        "tonalRamp": [
+          "hsl(153 48% 6%)",
+          "hsl(153 48% 12%)",
+          "hsl(153 44% 20%)",
+          "hsl(153 40% 30%)",
+          "hsl(153 34% 42%)",
+          "hsl(153 28% 56%)",
+          "hsl(153 22% 74%)",
+          "hsl(153 15% 93%)"
+        ]
+      },
+      "chalk": {
+        "role": "neutral",
+        "displayName": "Chalk",
+        "canonical": "hsl(48 80% 95%)",
+        "hex": "#FCF8E8",
+        "cssVar": "--chalk",
+        "tonalRamp": [
+          "hsl(48 15% 15%)",
+          "hsl(48 20% 28%)",
+          "hsl(48 28% 42%)",
+          "hsl(48 38% 56%)",
+          "hsl(48 50% 70%)",
+          "hsl(48 65% 82%)",
+          "hsl(48 75% 90%)",
+          "hsl(48 80% 95%)"
+        ]
+      },
+      "gold": {
+        "role": "secondary",
+        "displayName": "Scoring Gold",
+        "canonical": "hsl(43 75% 49%)",
+        "hex": "#DBA61F",
+        "cssVar": "--accent",
+        "tonalRamp": [
+          "hsl(43 60% 15%)",
+          "hsl(43 68% 25%)",
+          "hsl(43 72% 35%)",
+          "hsl(43 75% 49%)",
+          "hsl(43 75% 58%)",
+          "hsl(43 72% 68%)",
+          "hsl(43 70% 82%)",
+          "hsl(43 65% 94%)"
+        ]
+      },
+      "brand-red": {
+        "role": "tertiary",
+        "displayName": "Brand Red",
+        "canonical": "hsl(0 100% 40%)",
+        "hex": "#CC0000",
+        "cssVar": "--brand-red",
+        "tonalRamp": [
+          "hsl(0 80% 15%)",
+          "hsl(0 90% 25%)",
+          "hsl(0 100% 32%)",
+          "hsl(0 100% 40%)",
+          "hsl(0 85% 52%)",
+          "hsl(0 80% 65%)",
+          "hsl(0 75% 80%)",
+          "hsl(0 70% 94%)"
+        ]
+      },
+      "field-green": {
+        "role": "tertiary",
+        "displayName": "Field Green",
+        "canonical": "hsl(152 40% 55%)",
+        "hex": "#5EBA8F",
+        "cssVar": "--secondary",
+        "tonalRamp": [
+          "hsl(152 35% 15%)",
+          "hsl(152 38% 25%)",
+          "hsl(152 40% 35%)",
+          "hsl(152 40% 45%)",
+          "hsl(152 40% 55%)",
+          "hsl(152 38% 67%)",
+          "hsl(152 35% 80%)",
+          "hsl(152 30% 94%)"
+        ]
+      },
+      "paper": {
+        "role": "neutral",
+        "displayName": "Warm Paper",
+        "canonical": "hsl(48 50% 97%)",
+        "hex": "#FBFAF4",
+        "cssVar": "--background",
+        "tonalRamp": [
+          "hsl(48 10% 15%)",
+          "hsl(48 12% 28%)",
+          "hsl(48 15% 42%)",
+          "hsl(48 20% 56%)",
+          "hsl(48 28% 70%)",
+          "hsl(48 35% 84%)",
+          "hsl(48 45% 92%)",
+          "hsl(48 50% 97%)"
+        ]
+      },
+      "ink": {
+        "role": "neutral",
+        "displayName": "Night Ink",
+        "canonical": "hsl(153 40% 10%)",
+        "hex": "#0F241B",
+        "cssVar": "--foreground",
+        "tonalRamp": [
+          "hsl(153 40% 6%)",
+          "hsl(153 40% 10%)",
+          "hsl(153 30% 20%)",
+          "hsl(153 22% 32%)",
+          "hsl(153 16% 45%)",
+          "hsl(153 12% 60%)",
+          "hsl(153 10% 78%)",
+          "hsl(153 8% 94%)"
+        ]
+      },
+      "muted-paper": {
+        "role": "neutral",
+        "displayName": "Muted Paper",
+        "canonical": "hsl(48 35% 92%)",
+        "hex": "#F2EFE3",
+        "cssVar": "--muted",
+        "tonalRamp": [
+          "hsl(48 10% 15%)",
+          "hsl(48 12% 28%)",
+          "hsl(48 15% 42%)",
+          "hsl(48 20% 56%)",
+          "hsl(48 25% 70%)",
+          "hsl(48 30% 82%)",
+          "hsl(48 35% 92%)",
+          "hsl(48 40% 97%)"
+        ]
+      },
+      "muted-ink": {
+        "role": "neutral",
+        "displayName": "Muted Ink",
+        "canonical": "hsl(153 14% 34%)",
+        "hex": "#4B6358",
+        "cssVar": "--muted-foreground",
+        "tonalRamp": [
+          "hsl(153 14% 12%)",
+          "hsl(153 14% 22%)",
+          "hsl(153 14% 34%)",
+          "hsl(153 12% 45%)",
+          "hsl(153 10% 57%)",
+          "hsl(153 9% 70%)",
+          "hsl(153 8% 83%)",
+          "hsl(153 6% 95%)"
+        ]
+      },
+      "hairline": {
+        "role": "neutral",
+        "displayName": "Hairline",
+        "canonical": "hsl(150 18% 84%)",
+        "hex": "#CFDED6",
+        "cssVar": "--border",
+        "tonalRamp": [
+          "hsl(150 12% 15%)",
+          "hsl(150 13% 28%)",
+          "hsl(150 14% 42%)",
+          "hsl(150 15% 56%)",
+          "hsl(150 16% 70%)",
+          "hsl(150 18% 84%)",
+          "hsl(150 18% 91%)",
+          "hsl(150 15% 96%)"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display (Fester Heavy)",
+        "purpose": "Page titles, the VIZBALL wordmark, the closing CTA and menu destinations. Uppercase via the display class."
+      },
+      "headline": {
+        "displayName": "Headline (Fester Heavy)",
+        "purpose": "Section headings and match-sheet values. Uppercase, tabular figures for numbers."
+      },
+      "title": {
+        "displayName": "Title (Fester Bold)",
+        "purpose": "Widget titles, footer and menu-side links, card titles."
+      },
+      "voice": {
+        "displayName": "Voice (Fester Bold Italic)",
+        "purpose": "Slogans only, set in gold. Font-style italic."
+      },
+      "body": {
+        "displayName": "Body (Fester Regular)",
+        "purpose": "Leads and reading text; notes drop to 0.9375rem."
+      },
+      "label": {
+        "displayName": "Label (Fester Bold)",
+        "purpose": "Uppercase keys inside components. Never an eyebrow above a heading."
+      },
+      "button": {
+        "displayName": "Button (Fester Bold)",
+        "purpose": "Pill action labels, uppercase."
+      }
+    },
+    "shadows": [],
+    "elevation": {
+      "model": "flat",
+      "separation": [
+        {
+          "name": "hairline-dark",
+          "value": "1px solid hsl(var(--chalk) / 0.1)",
+          "purpose": "Solid navbar bottom edge and footer rule on night."
+        },
+        {
+          "name": "ring-panel",
+          "value": "inset 0 0 0 1px hsl(var(--chalk) / 0.15)",
+          "purpose": "Floating info panels on the pitch."
+        },
+        {
+          "name": "rule-paper",
+          "value": "1px solid hsl(var(--night) / 0.15)",
+          "purpose": "Ruled rows on paper."
+        }
+      ]
+    },
+    "motion": [
+      {
+        "name": "ease-out-expo",
+        "value": "cubic-bezier(0.16, 1, 0.3, 1)",
+        "purpose": "Entrances, reveals, hover fills, underline draws."
+      },
+      {
+        "name": "ease-in-out-quart",
+        "value": "cubic-bezier(0.76, 0, 0.24, 1)",
+        "purpose": "Field line draw-on, loader lift, route sheet, menu circle."
+      },
+      {
+        "name": "dur-fast",
+        "value": "0.35s",
+        "purpose": "Small state changes."
+      },
+      {
+        "name": "dur-base",
+        "value": "0.7s",
+        "purpose": "Standard transitions; hover fills run at 0.5s."
+      },
+      {
+        "name": "dur-slow",
+        "value": "1.1s",
+        "purpose": "Display word reveals (1s per word, 60ms stagger)."
+      },
+      {
+        "name": "dur-draw",
+        "value": "1.6s",
+        "purpose": "Chalk line draw-on, 70ms stagger per line."
+      },
+      {
+        "name": "route-sheet",
+        "value": "0.6s cover, 0.8s lift, night with 2px gold edge",
+        "purpose": "Page transition between routes."
+      },
+      {
+        "name": "loader",
+        "value": "1.9s gold flood, founding year counts 1990 to 2007, once per session",
+        "purpose": "First-visit intro."
+      },
+      {
+        "name": "magnetic",
+        "value": "spring stiffness 220, damping 18, mass 0.4, strength 0.28",
+        "purpose": "Pill actions drift toward a fine pointer."
+      },
+      {
+        "name": "smooth-scroll",
+        "value": "Lenis lerp 0.1",
+        "purpose": "Inertial page scroll; off under reduced motion and on admin."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "sm",
+        "value": "640px"
+      },
+      {
+        "name": "md",
+        "value": "768px",
+        "note": "Field switches from portrait (below) to landscape."
+      },
+      {
+        "name": "lg",
+        "value": "1024px"
+      },
+      {
+        "name": "xl",
+        "value": "1280px"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Red Pill Action",
+      "kind": "button",
+      "refersTo": "cta-red",
+      "description": "The primary action of a view. Gold fill rises on hover, arrow disc turns.",
+      "html": "<a class=\"ds-cta ds-cta-red\" href=\"#\"><span class=\"ds-cta-label\">Découvrir le sport</span><span class=\"ds-cta-disc\"><svg width=\"15\" height=\"15\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.25\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M5 12h14\"/><path d=\"m12 5 7 7-7 7\"/></svg></span></a>",
+      "css": ".ds-cta { position: relative; isolation: isolate; overflow: hidden; display: inline-flex; align-items: center; justify-content: space-between; gap: 16px; height: 48px; padding: 0 8px 0 24px; border-radius: 9999px; font-family: Fester, sans-serif; font-weight: 700; font-size: 0.95rem; letter-spacing: 0.06em; text-transform: uppercase; text-decoration: none; white-space: nowrap; transition: color 0.5s cubic-bezier(0.16, 1, 0.3, 1); } .ds-cta::before { content: ''; position: absolute; inset: 0; z-index: -1; border-radius: 9999px; transform: translateY(101%); transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1); } .ds-cta:hover::before, .ds-cta:focus-visible::before { transform: translateY(0); } .ds-cta:focus-visible { outline: 2px solid hsl(43 75% 49%); outline-offset: 3px; } .ds-cta-label { position: relative; } .ds-cta-disc { display: grid; place-items: center; width: 32px; height: 32px; border-radius: 9999px; background: color-mix(in srgb, currentColor 16%, transparent); transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1); } .ds-cta:hover .ds-cta-disc { transform: rotate(-45deg); } .ds-cta-red { background: hsl(0 100% 40%); color: #fff; } .ds-cta-red::before { background: hsl(43 75% 49%); } .ds-cta-red:hover, .ds-cta-red:focus-visible { color: hsl(153 52% 9%); }"
+    },
+    {
+      "name": "Gold Pill Action",
+      "kind": "button",
+      "refersTo": "cta-gold",
+      "description": "Secondary action on dark grounds. Chalk fill rises on hover.",
+      "html": "<a class=\"ds-cta-g\" href=\"#\"><span>En savoir plus</span><span class=\"ds-cta-g-disc\"><svg width=\"15\" height=\"15\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.25\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M5 12h14\"/><path d=\"m12 5 7 7-7 7\"/></svg></span></a>",
+      "css": ".ds-cta-g { position: relative; isolation: isolate; overflow: hidden; display: inline-flex; align-items: center; gap: 16px; height: 48px; padding: 0 8px 0 24px; border-radius: 9999px; background: hsl(43 75% 49%); color: hsl(153 52% 9%); font-family: Fester, sans-serif; font-weight: 700; font-size: 0.95rem; letter-spacing: 0.06em; text-transform: uppercase; text-decoration: none; } .ds-cta-g::before { content: ''; position: absolute; inset: 0; z-index: -1; border-radius: 9999px; background: hsl(48 80% 95%); transform: translateY(101%); transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1); } .ds-cta-g:hover::before, .ds-cta-g:focus-visible::before { transform: translateY(0); } .ds-cta-g:focus-visible { outline: 2px solid hsl(43 75% 49%); outline-offset: 3px; } .ds-cta-g-disc { display: grid; place-items: center; width: 32px; height: 32px; border-radius: 9999px; background: color-mix(in srgb, currentColor 16%, transparent); transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1); } .ds-cta-g:hover .ds-cta-g-disc { transform: rotate(-45deg); }"
+    },
+    {
+      "name": "Ghost Pill Action",
+      "kind": "button",
+      "refersTo": "cta-ghost",
+      "description": "Tertiary action on dark grounds: chalk inset ring, chalk fill rises on hover.",
+      "html": "<div style=\"background:hsl(153 52% 9%);padding:24px\"><a class=\"ds-cta-ghost\" href=\"#\">L'Association</a></div>",
+      "css": ".ds-cta-ghost { position: relative; isolation: isolate; overflow: hidden; display: inline-flex; align-items: center; height: 48px; padding: 0 24px; border-radius: 9999px; color: hsl(48 80% 95%); box-shadow: inset 0 0 0 1px hsl(48 80% 95% / 0.35); font-family: Fester, sans-serif; font-weight: 700; font-size: 0.95rem; letter-spacing: 0.06em; text-transform: uppercase; text-decoration: none; transition: color 0.5s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.5s cubic-bezier(0.16, 1, 0.3, 1); } .ds-cta-ghost::before { content: ''; position: absolute; inset: 0; z-index: -1; border-radius: 9999px; background: hsl(48 80% 95%); transform: translateY(101%); transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1); } .ds-cta-ghost:hover, .ds-cta-ghost:focus-visible { color: hsl(153 52% 9%); box-shadow: inset 0 0 0 1px hsl(48 80% 95%); } .ds-cta-ghost:hover::before, .ds-cta-ghost:focus-visible::before { transform: translateY(0); } .ds-cta-ghost:focus-visible { outline: 2px solid hsl(43 75% 49%); outline-offset: 3px; }"
+    },
+    {
+      "name": "Night Pill Action",
+      "kind": "button",
+      "refersTo": "cta-night",
+      "description": "Primary action on gold or paper grounds (large size). Gold fill rises on hover.",
+      "html": "<div style=\"background:hsl(43 75% 49%);padding:24px\"><a class=\"ds-cta-night\" href=\"#\">Nous contacter</a></div>",
+      "css": ".ds-cta-night { position: relative; isolation: isolate; overflow: hidden; display: inline-flex; align-items: center; height: 56px; padding: 0 28px; border-radius: 9999px; background: hsl(153 52% 9%); color: hsl(48 80% 95%); font-family: Fester, sans-serif; font-weight: 700; font-size: 1rem; letter-spacing: 0.06em; text-transform: uppercase; text-decoration: none; transition: color 0.5s cubic-bezier(0.16, 1, 0.3, 1); } .ds-cta-night::before { content: ''; position: absolute; inset: 0; z-index: -1; border-radius: 9999px; background: hsl(43 75% 49%); transform: translateY(101%); transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1); } .ds-cta-night:hover, .ds-cta-night:focus-visible { color: hsl(153 52% 9%); } .ds-cta-night:hover::before, .ds-cta-night:focus-visible::before { transform: translateY(0); } .ds-cta-night:focus-visible { outline: 2px solid hsl(153 52% 9%); outline-offset: 3px; }"
+    },
+    {
+      "name": "Text Field",
+      "kind": "input",
+      "refersTo": "input",
+      "description": "Form field on paper with a label-style key above it; gold stroke and ring on focus.",
+      "html": "<label class=\"ds-field\"><span class=\"ds-field-label\">Adresse e-mail</span><input class=\"ds-input\" type=\"email\" placeholder=\"vous@exemple.cm\"></label>",
+      "css": ".ds-field { display: block; } .ds-field-label { display: block; margin-bottom: 8px; font-family: Fester, sans-serif; font-weight: 700; font-size: 0.75rem; letter-spacing: 0.14em; text-transform: uppercase; color: hsl(153 52% 9% / 0.65); } .ds-input { display: flex; width: 100%; height: 44px; padding: 8px 16px; border-radius: 10px; border: 1px solid hsl(150 18% 80%); background: hsl(48 50% 97%); color: hsl(153 40% 10%); font-family: Fester, sans-serif; font-size: 1rem; caret-color: hsl(43 75% 49%); transition: border-color 0.3s, box-shadow 0.3s; } .ds-input::placeholder { color: hsl(153 14% 34% / 0.8); } .ds-input:focus-visible { outline: none; border-color: hsl(43 75% 49%); box-shadow: 0 0 0 2px hsl(43 75% 49% / 0.3); }"
+    },
+    {
+      "name": "Top Bar",
+      "kind": "nav",
+      "refersTo": "menu-button",
+      "description": "Solid-state navbar: logo, four primary links with drawn underline, chalk menu pill.",
+      "html": "<header class=\"ds-nav\"><span class=\"ds-nav-logo\">VIZBALL</span><nav class=\"ds-nav-links\"><a href=\"#\" class=\"ds-nav-link is-active\">Le Sport</a><a href=\"#\" class=\"ds-nav-link\">Tutoriels</a><a href=\"#\" class=\"ds-nav-link\">Actualités</a><a href=\"#\" class=\"ds-nav-link\">Boutique</a></nav><button class=\"ds-nav-menu\" type=\"button\">Menu<span class=\"ds-nav-burger\"><i></i><i></i></span></button></header>",
+      "css": ".ds-nav { display: flex; align-items: center; justify-content: space-between; gap: 24px; height: 72px; padding: 0 24px; background: hsl(153 52% 9%); border-bottom: 1px solid hsl(48 80% 95% / 0.1); } .ds-nav-logo { font-family: Fester, sans-serif; font-weight: 900; font-size: 1.4rem; color: hsl(48 80% 95%); } .ds-nav-links { display: flex; gap: 36px; } .ds-nav-link { padding: 4px 0; font-family: Fester, sans-serif; font-weight: 700; font-size: 0.95rem; letter-spacing: 0.08em; text-transform: uppercase; text-decoration: none; color: hsl(48 80% 95% / 0.85); background-image: linear-gradient(currentColor, currentColor); background-size: 0% 1px; background-repeat: no-repeat; background-position: 0 100%; transition: background-size 0.5s cubic-bezier(0.16, 1, 0.3, 1), color 0.3s; } .ds-nav-link:hover, .ds-nav-link:focus-visible { color: hsl(48 80% 95%); background-size: 100% 1px; } .ds-nav-link.is-active { color: hsl(43 75% 49%); } .ds-nav-menu { display: inline-flex; align-items: center; gap: 12px; height: 40px; padding: 0 12px 0 16px; border: 0; border-radius: 9999px; background: hsl(48 80% 95%); color: hsl(153 52% 9%); font-family: Fester, sans-serif; font-weight: 700; font-size: 0.875rem; letter-spacing: 0.1em; text-transform: uppercase; cursor: pointer; transition: background 0.5s; } .ds-nav-menu:hover { background: hsl(43 75% 49%); } .ds-nav-menu:focus-visible { outline: 2px solid hsl(43 75% 49%); outline-offset: 3px; } .ds-nav-burger { position: relative; display: block; width: 20px; height: 12px; } .ds-nav-burger i { position: absolute; left: 0; height: 2px; border-radius: 2px; background: currentColor; } .ds-nav-burger i:first-child { top: 0; width: 100%; } .ds-nav-burger i:last-child { bottom: 0; width: 60%; }"
+    },
+    {
+      "name": "Match Sheet Row",
+      "kind": "custom",
+      "description": "Ruled row on paper: label key, display value, note. Gold rule draws across on hover and the value turns gold.",
+      "html": "<dl class=\"ds-sheet\"><div class=\"ds-sheet-row\"><dt class=\"ds-sheet-k\">Fondé en</dt><dd class=\"ds-sheet-v\">2007</dd><dd class=\"ds-sheet-n\">Au Cameroun, par MIAFFO NKENGNI Yannick Joël.</dd></div><div class=\"ds-sheet-row\"><dt class=\"ds-sheet-k\">Joueurs</dt><dd class=\"ds-sheet-v\">4 v 5</dd><dd class=\"ds-sheet-n\">Un match asymétrique ; les rôles s'inversent à chaque période.</dd></div></dl>",
+      "css": ".ds-sheet { margin: 0; border-bottom: 1px solid hsl(153 52% 9% / 0.15); background: hsl(48 50% 97%); } .ds-sheet-row { position: relative; display: grid; grid-template-columns: minmax(0, 8rem) minmax(0, 1fr) minmax(0, 14rem); align-items: baseline; gap: 24px; padding: 24px 0; border-top: 1px solid hsl(153 52% 9% / 0.15); } .ds-sheet-row::before { content: ''; position: absolute; left: 0; right: 0; top: -1px; height: 2px; background: hsl(43 75% 49%); transform: scaleX(0); transform-origin: left; transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1); } .ds-sheet-row:hover::before { transform: scaleX(1); } .ds-sheet-k { font-family: Fester, sans-serif; font-weight: 700; font-size: 0.75rem; letter-spacing: 0.14em; text-transform: uppercase; color: hsl(153 52% 9% / 0.55); } .ds-sheet-v { margin: 0; font-family: Fester, sans-serif; font-weight: 900; font-size: 4rem; line-height: 0.86; letter-spacing: -0.02em; text-transform: uppercase; font-variant-numeric: tabular-nums; color: hsl(153 50% 16%); transition: color 0.5s; } .ds-sheet-row:hover .ds-sheet-v { color: hsl(43 75% 49%); } .ds-sheet-n { margin: 0; font-family: Fester, sans-serif; font-size: 0.9375rem; line-height: 1.4; color: hsl(153 52% 9% / 0.7); }"
+    },
+    {
+      "name": "Field Lines",
+      "kind": "custom",
+      "description": "The official 48 x 24 m field in chalk: outline, midline, zone lines, great circle with central and peripheral circles, gold backstop and supports, red claque point.",
+      "html": "<div class=\"ds-field-wrap\"><svg class=\"ds-field-svg\" viewBox=\"-0.6 -0.6 49.2 25.2\" fill=\"none\"><rect x=\"24\" y=\"0\" width=\"8\" height=\"24\" fill=\"hsl(43 75% 49%)\" opacity=\"0.075\"/><rect x=\"32\" y=\"0\" width=\"8\" height=\"24\" fill=\"hsl(43 75% 49%)\" opacity=\"0.05\"/><rect x=\"40\" y=\"0\" width=\"8\" height=\"24\" fill=\"hsl(43 75% 49%)\" opacity=\"0.025\"/><g stroke=\"currentColor\" stroke-width=\"0.07\" stroke-linecap=\"round\"><rect x=\"0\" y=\"0\" width=\"48\" height=\"24\"/><line x1=\"24\" y1=\"0\" x2=\"24\" y2=\"24\"/><line x1=\"32\" y1=\"0\" x2=\"32\" y2=\"24\" stroke-opacity=\"0.55\"/><line x1=\"40\" y1=\"0\" x2=\"40\" y2=\"24\" stroke-opacity=\"0.55\"/><circle cx=\"12\" cy=\"12\" r=\"9\"/><circle cx=\"12\" cy=\"12\" r=\"1.5\"/><circle cx=\"12\" cy=\"3\" r=\"1.5\"/><circle cx=\"4.21\" cy=\"16.5\" r=\"1.5\"/><circle cx=\"19.79\" cy=\"16.5\" r=\"1.5\"/></g><line x1=\"48\" y1=\"10.5\" x2=\"48\" y2=\"13.5\" stroke=\"hsl(43 75% 49%)\" stroke-width=\"0.42\" stroke-linecap=\"round\"/><circle cx=\"40\" cy=\"12\" r=\"0.26\" fill=\"hsl(0 100% 40%)\"/><circle cx=\"4.21\" cy=\"7.5\" r=\"0.32\" fill=\"hsl(43 75% 49%)\"/><circle cx=\"19.79\" cy=\"7.5\" r=\"0.32\" fill=\"hsl(43 75% 49%)\"/><circle cx=\"12\" cy=\"21\" r=\"0.32\" fill=\"hsl(43 75% 49%)\"/></svg></div>",
+      "css": ".ds-field-wrap { background: hsl(153 52% 9%); padding: 24px; border-radius: 14px; } .ds-field-svg { display: block; width: 100%; height: auto; color: hsl(48 80% 95% / 0.6); }"
+    },
+    {
+      "name": "Info Panel",
+      "kind": "card",
+      "refersTo": "info-panel",
+      "description": "The hero's next-match widget: night at 80% with an inset chalk ring, label head with red live dot, title, gold date.",
+      "html": "<div style=\"background:hsl(153 50% 16%);padding:24px\"><aside class=\"ds-panel\"><p class=\"ds-panel-head\"><span class=\"ds-panel-dot\"></span>Prochain match</p><p class=\"ds-panel-title\">Tournoi inter-écoles</p><p class=\"ds-panel-date\">14 novembre 2026 · Yaoundé</p></aside></div>",
+      "css": ".ds-panel { width: 256px; padding: 20px; border-radius: 14px; background: hsl(153 52% 9% / 0.8); box-shadow: inset 0 0 0 1px hsl(48 80% 95% / 0.15); } .ds-panel-head { display: flex; align-items: center; gap: 8px; margin: 0; font-family: Fester, sans-serif; font-weight: 700; font-size: 0.75rem; letter-spacing: 0.14em; text-transform: uppercase; color: hsl(48 80% 95% / 0.6); } .ds-panel-dot { width: 6px; height: 6px; border-radius: 9999px; background: hsl(0 100% 40%); } .ds-panel-title { margin: 12px 0 0; font-family: Fester, sans-serif; font-weight: 700; font-size: 1.25rem; line-height: 1.25; color: hsl(48 80% 95%); } .ds-panel-date { margin: 8px 0 0; font-family: Fester, sans-serif; font-size: 0.9375rem; color: hsl(43 75% 49%); }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Page Is the Pitch",
+    "overview": "The official 48 × 24 m Vizball field (outer line, midline, the Z3/Z2/Z1 zone lines, the great circle with its central and three peripheral circles, the gold backstop plate and the red claque point) is the site's architecture and its only motif. It is drawn as chalk hairlines on deep pitch green, it draws itself in on mount or on scroll, and the real play loop runs on it with dots for players and balls. Every page stands on this same field: the home hero fills the viewport with it, inner-page heroes carry it as a top-left band that fades out before the title, auth pages carry it upright beside the form, the menu overlay and the footer carry it as a faint watermark, and the loader draws it in chalk on brand red.\n\nThe world alternates two grounds. Dark sections (night and pitch green, chalk type) carry the field, the story and the action; light sections (warm paper, night-green ink) carry reading and lists, set as ruled rows like a referee's match sheet. Gold marks scoring, emphasis and the team of four; brand red is the team of five, the primary action, the slogan band and the loader; the logo's green, red and gold recur as a tricolour stripe on the solid navbar, the footer and the page-transition sheets. Type is a single family, Fester, in three voices: Heavy uppercase display, Bold Italic spoken lines, Regular body.\n\nMotion is part of the identity, not decoration: chalk-line draw-on, display words rising out of masks, manifesto words lighting from dim to full, a red-flood loader once per session, a night-green sheet that wipes between routes, inertial scroll, and magnetic pill actions. All of it switches off under `prefers-reduced-motion`. The system refuses the federation default: photo carousels, stat bars and grids of equal icon cards.",
+    "keyCharacteristics": [
+      "The official field, drawn to scale from shared geometry, is the recurring structure on every page.",
+      "Two grounds only: dark pitch for field and action, warm paper for reading; no grey middle.",
+      "One family (Fester) in three voices; display is always Heavy and uppercase.",
+      "Pill controls, 14px media corners, circles and straight lines; nothing else.",
+      "Flat surfaces: depth comes from ground changes, hairlines and motion, never shadows.",
+      "Motion grammar is shared (two curves, four durations) and fully disabled under reduced motion."
+    ],
+    "rules": [
+      {
+        "name": "The Red Team Rule",
+        "body": "Red is a full brand colour with structural jobs: the team of five wherever the field plays, the ground of the slogan band and loader, and the primary action. It is never text on the dark greens; there it is a fill carrying chalk.",
+        "section": "colors"
+      },
+      {
+        "name": "The Chalk Opacity Rule",
+        "body": "On dark grounds there is one ink, chalk, and hierarchy comes from its opacity steps, not from new greys.",
+        "section": "colors"
+      },
+      {
+        "name": "The Gold Means Score Rule",
+        "body": "Gold is for scoring, emphasis and the active state. A gold word in a heading is the word that scores.",
+        "section": "colors"
+      },
+      {
+        "name": "The No Eyebrow Rule",
+        "body": "The label style lives inside components (a key, a column head, a field label). It is never set as a kicker above a heading.",
+        "section": "typography"
+      },
+      {
+        "name": "The Display Is Heavy Rule",
+        "body": "Any heading at display or headline scale is Fester 900 uppercase at 0.86 leading; accent comes from colour (gold words), never from a second family or weight.",
+        "section": "typography"
+      },
+      {
+        "name": "The Flat Pitch Rule",
+        "body": "Nothing casts a shadow. If an element needs to separate from its ground, give it an inset hairline ring or change the ground.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "**Do** put the official field, drawn from the shared geometry, on every new page hero, and keep its lines clear of type with a mask or a band.",
+      "**Do** set display headings in Fester 900 uppercase at 0.86 leading and mark the scoring word in gold.",
+      "**Do** use one brand-red pill for the primary action of a view; every other action is gold, chalk, night or ghost.",
+      "**Do** build lists as ruled rows on paper (hairlines at 15%, label key, display value, note) instead of card grids.",
+      "**Do** use the shared motion vocabulary: out-expo `cubic-bezier(0.16, 1, 0.3, 1)` and in-out-quart `cubic-bezier(0.76, 0, 0.24, 1)`, durations 0.35, 0.7, 1.1 and 1.6s.",
+      "**Do** honour `prefers-reduced-motion`: no draw-on, reveals, parallax, magnetism, loader or smooth scroll.",
+      "**Do** use only real facts, rules, the real field and real photos as proof."
+    ],
+    "donts": [
+      "**Don't** set a label above a heading as an eyebrow or kicker.",
+      "**Don't** add box shadows; separate with grounds, hairlines or inset rings.",
+      "**Don't** introduce a second typeface or a non-pill button shape.",
+      "**Don't** use brand red as a section ground or for more than one action per view.",
+      "**Don't** build grids of equal icon-heading-text cards, photo carousels or stat bars.",
+      "**Don't** invent player counts, testimonials, sponsor logos or results."
+    ]
+  }
+}

@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { Users } from 'lucide-react';
 import { useLang } from '../lib/LanguageContext';
 import { api } from '../api/client';
 
@@ -31,11 +30,14 @@ export default function VisitorCounter() {
   if (count === null || count === 0) return null;
 
   return (
-    <div className="flex items-center gap-2 text-white/40">
-      <Users size={13} className="text-brand-red" />
-      <span className="font-body text-xs">
-        {count.toLocaleString()} {lang === 'en' ? 'visitor' : 'visiteur'}{count > 1 ? 's' : ''}
+    <p className="flex items-center gap-2.5">
+      <span className="relative flex h-2 w-2" aria-hidden="true">
+        <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-brand-red opacity-60 motion-reduce:hidden" />
+        <span className="relative inline-flex h-2 w-2 rounded-full bg-brand-red" />
       </span>
-    </div>
+      <span className="tabular">
+        {count.toLocaleString(lang === 'en' ? 'en-US' : 'fr-FR')} {lang === 'en' ? 'visitor' : 'visiteur'}{count > 1 ? 's' : ''}
+      </span>
+    </p>
   );
 }

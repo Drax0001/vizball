@@ -1,36 +1,31 @@
 import React from 'react';
 import { useLang } from '../lib/LanguageContext';
 
-export default function LanguageSwitcher({ className = '' }) {
+const OPTIONS = [
+  { code: 'fr', label: 'FR', title: 'Français' },
+  { code: 'en', label: 'EN', title: 'English' },
+];
+
+export default function LanguageSwitcher({ className = '', tone = 'chalk' }) {
   const { lang, setLang } = useLang();
+  const ring = tone === 'chalk' ? 'ring-chalk/25' : 'ring-night/20';
+  const active = tone === 'chalk' ? 'bg-chalk text-night' : 'bg-night text-chalk';
+  const idle = tone === 'chalk' ? 'text-chalk/70 hover:text-chalk' : 'text-night/60 hover:text-night';
 
   return (
-    <div className={`flex items-center gap-1 ${className}`}>
-      <button
-        onClick={() => setLang('fr')}
-        title="Français"
-        className={`flex items-center gap-1.5 px-2 py-1 rounded transition-all font-body text-xs font-bold uppercase tracking-wider ${
-        lang === 'fr' ?
-        'bg-white/15 text-white' :
-        'text-white/40 hover:text-white/80 hover:bg-white/5'}`
-        }>
-        
-        
-        <span>FR</span>
-      </button>
-      <div className="w-px h-4 bg-white/20" />
-      <button
-        onClick={() => setLang('en')}
-        title="English"
-        className={`flex items-center gap-1.5 px-2 py-1 rounded transition-all font-body text-xs font-bold uppercase tracking-wider ${
-        lang === 'en' ?
-        'bg-white/15 text-white' :
-        'text-white/40 hover:text-white/80 hover:bg-white/5'}`
-        }>
-        
-        
-        <span>ENG</span>
-      </button>
-    </div>);
-
+    <div className={`inline-flex items-center rounded-full p-1 ring-1 ring-inset ${ring} ${className}`} role="group" aria-label="Langue / Language">
+      {OPTIONS.map((o) => (
+        <button
+          key={o.code}
+          type="button"
+          onClick={() => setLang(o.code)}
+          title={o.title}
+          aria-pressed={lang === o.code}
+          className={`h-8 min-w-[2.5rem] rounded-full px-2.5 font-heading text-xs font-bold tracking-[0.12em] transition-colors duration-300 ${lang === o.code ? active : idle}`}
+        >
+          {o.label}
+        </button>
+      ))}
+    </div>
+  );
 }

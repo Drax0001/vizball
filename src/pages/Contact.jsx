@@ -1,13 +1,14 @@
 import React, { useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
 import { Mail, MapPin, Globe, Send } from "lucide-react";
-import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useLang } from "../lib/LanguageContext";
 import t from "../lib/translations";
 import { api } from "../api/client";
 import Seo from "../components/Seo";
+import PageHero from "../components/site/PageHero";
+import Cta from "../components/site/Cta";
 
 function AnimatedSection({ children, className = "" }) {
   const ref = useRef(null);
@@ -62,53 +63,26 @@ export default function Contact() {
   return (
     <div>
       <Seo title={tr.contact_title + tr.contact_title2} description={tr.contact_intro} canonicalPath="/contact" />
-      {/* Hero */}
-      <section className="relative h-[40vh] min-h-[300px] overflow-hidden">
-        <div className="w-full h-full bg-gray-900" />
-
-        <div className="absolute inset-0 bg-gradient-to-r from-primary/90 via-primary/70 to-primary/40" />
-        <div className="absolute inset-x-0 top-[100px] bottom-0 flex items-center">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8 }}
-            >
-              <span className="font-subtitle text-sm uppercase tracking-widest text-accent hidden">
-                {tr.contact_badge}
-              </span>
-              <h1 className="font-heading text-6xl sm:text-7xl md:text-8xl text-white mt-2">
-                {tr.contact_title}
-                <span className="text-[hsl(var(--background))]">
-                  {tr.contact_title2}
-                </span>
-              </h1>
-            </motion.div>
-          </div>
-        </div>
-      </section>
+      <PageHero title={`${tr.contact_title}${tr.contact_title2}`.trim()} accent={[1]} subtitle={tr.contact_intro} crop="duel" />
 
       {/* Contact Section */}
-      <section className="py-24 bg-background">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="bg-background py-20 md:py-32">
+        <div className="shell">
           <div className="grid lg:grid-cols-5 gap-16">
             {/* Info */}
             <div className="lg:col-span-2">
               <AnimatedSection>
-                <p className="font-body text-muted-foreground leading-relaxed mb-8">
-                  {tr.contact_intro}
-                </p>
-                <div className="space-y-6">
+                <div className="divide-y divide-night/15 border-y border-night/15">
                   {contactInfo.map((info, i) => (
-                    <div key={i} className="flex items-start gap-4">
-                      <div className="w-12 h-12 rounded-lg bg-accent/10 flex items-center justify-center shrink-0">
-                        <info.icon size={20} className="text-accent" />
+                    <div key={i} className="flex items-start gap-4 py-6">
+                      <div className="grid h-12 w-12 shrink-0 place-items-center rounded-full bg-night text-accent">
+                        <info.icon size={19} />
                       </div>
                       <div>
                         <p className="font-body text-xs font-bold uppercase tracking-wider text-muted-foreground">
                           {info.label}
                         </p>
-                        <p className="font-body text-foreground font-medium mt-1">
+                        <p className="mt-1 font-heading text-xl font-bold text-night">
                           {info.value}
                         </p>
                       </div>
@@ -122,21 +96,21 @@ export default function Contact() {
             <div className="lg:col-span-3">
               <AnimatedSection>
                 {sent ? (
-                  <div className="bg-secondary/10 border border-secondary/30 rounded-lg p-12 text-center">
+                  <div className="pitch rounded-[14px] p-12 text-center">
                     <div className="w-16 h-16 rounded-full bg-accent/20 flex items-center justify-center mx-auto mb-6">
                       <Send size={28} className="text-accent" />
                     </div>
-                    <h3 className="font-heading text-3xl text-foreground mb-2">
+                    <h3 className="display mb-3 text-4xl">
                       {tr.contact_sent_title}
                     </h3>
-                    <p className="font-body text-muted-foreground">
+                    <p className="text-chalk/75">
                       {tr.contact_sent_desc}
                     </p>
                   </div>
                 ) : (
                   <form
                     onSubmit={handleSubmit}
-                    className="bg-card border border-border rounded-lg p-8 space-y-6"
+                    className="space-y-6 rounded-[14px] bg-card p-6 ring-1 ring-night/10 md:p-10"
                   >
                     <div className="grid sm:grid-cols-2 gap-4">
                       <div>
@@ -150,7 +124,7 @@ export default function Contact() {
                           }
                           placeholder={tr.contact_name_placeholder}
                           required
-                          className="bg-muted border-border"
+                          
                         />
                       </div>
                       <div>
@@ -165,7 +139,7 @@ export default function Contact() {
                           }
                           placeholder={tr.contact_email_placeholder}
                           required
-                          className="bg-muted border-border"
+                          
                         />
                       </div>
                     </div>
@@ -180,7 +154,7 @@ export default function Contact() {
                         }
                         placeholder={tr.contact_subject_placeholder}
                         required
-                        className="bg-muted border-border"
+                        
                       />
                     </div>
                     <div>
@@ -195,18 +169,13 @@ export default function Contact() {
                         placeholder={tr.contact_message_placeholder}
                         rows={6}
                         required
-                        className="bg-muted border-border"
+                        
                       />
                     </div>
-                    <Button
-                      type="submit"
-                      disabled={sending}
-                      className="w-full bg-accent hover:bg-accent/90 text-primary font-body font-bold uppercase tracking-wider py-6 disabled:opacity-60"
-                    >
-                      <Send size={16} className="mr-2" />
+                    <Cta type="submit" tone="night" size="lg" magnetic={false} disabled={sending} className="w-full">
                       {sending ? tr.contact_sending : tr.contact_send}
-                    </Button>
-                    {sendError && <p className="font-body text-sm text-red-500">{sendError}</p>}
+                    </Cta>
+                    {sendError && <p className="font-body text-sm text-brand-red">{sendError}</p>}
                   </form>
                 )}
               </AnimatedSection>

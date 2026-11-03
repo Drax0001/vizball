@@ -1,0 +1,32 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Le Terrain sketch</title>
+<style>
+@font-face{font-family:Fester;src:url('../../../src/assets/fonts/Fester Heavy.otf');font-weight:900}
+@font-face{font-family:Fester;src:url('../../../src/assets/fonts/Fester Bold.otf');font-weight:700}
+*{margin:0;box-sizing:border-box}
+body{width:1440px;height:900px;background:#0E2E20;color:#FCF8E8;font-family:Fester,Arial Black,sans-serif;overflow:hidden;position:relative}
+.nav{position:absolute;top:0;left:0;right:0;height:84px;display:flex;align-items:center;justify-content:space-between;padding:0 48px;z-index:3}
+.logo{font-weight:900;font-size:28px;letter-spacing:.04em}
+.links{display:flex;gap:28px;font-size:15px;font-weight:700;text-transform:uppercase;opacity:.8}
+.cta-s{background:#DBA520;color:#0E2E20;padding:12px 22px;border-radius:999px;font-weight:700;font-size:15px}
+svg.field{position:absolute;inset:110px 48px 120px 48px;width:1344px;height:670px}
+h1{position:absolute;left:44px;bottom:118px;font-size:300px;line-height:.78;font-weight:900;letter-spacing:-.02em;z-index:2}
+h1 span{color:#DBA520}
+.sub{position:absolute;left:52px;bottom:52px;font-size:24px;max-width:620px;font-weight:700;z-index:2}
+.cta{position:absolute;right:48px;bottom:44px;background:#CC0000;color:#fff;padding:22px 34px;border-radius:999px;font-size:24px;font-weight:700;z-index:2}
+.widget{position:absolute;right:48px;top:120px;border:1px solid rgba(252,248,232,.3);padding:18px 22px;border-radius:14px;width:280px;z-index:2;background:rgba(14,46,32,.6)}
+.widget b{display:block;font-size:30px;color:#DBA520}
+.widget i{font-size:14px;opacity:.7;font-style:normal;text-transform:uppercase;letter-spacing:.1em}
+</style></head><body>
+<div class="nav"><div class="logo">VIZBALL</div><div class="links"><span>Le sport</span><span>Tutoriels</span><span>Actualités</span><span>Boutique</span><span>Gouvernance</span></div><div class="cta-s">Jouer</div></div>
+<svg class="field" viewBox="0 0 48 24" preserveAspectRatio="none" fill="none" stroke="#FCF8E8" stroke-width=".06" opacity=".55">
+<rect x=".1" y=".1" width="47.8" height="23.8"/><line x1="24" y1="0" x2="24" y2="24"/><line x1="32" y1="0" x2="32" y2="24" stroke-dasharray=".4 .3"/><line x1="40" y1="0" x2="40" y2="24" stroke-dasharray=".4 .3"/>
+<ellipse cx="12" cy="12" rx="9" ry="9"/><circle cx="12" cy="12" r="1.5"/><circle cx="12" cy="3" r="1.5"/><circle cx="4.2" cy="16.5" r="1.5"/><circle cx="19.8" cy="16.5" r="1.5"/>
+<line x1="47.9" y1="10.5" x2="47.9" y2="13.5" stroke="#DBA520" stroke-width=".4"/><circle cx="40" cy="12" r=".25" fill="#CC0000" stroke="none"/>
+<rect x="24" y="0" width="8" height="24" fill="#DBA520" opacity=".08" stroke="none"/>
+</svg>
+<div class="widget"><i>Prochain match</i><b>Yaoundé · 14 déc.</b><i>Zone de duel · Z3 = 3 pts</i></div>
+<h1>VIZ<span>BALL</span></h1>
+<p class="sub">Le sport collectif né au Cameroun en 2007. 4 contre 5, 12 ballons, deux zones.</p>
+<div class="cta">Découvrir le sport →</div>
+</body></html>

@@ -9,16 +9,29 @@ module.exports = {
         body: ['var(--font-body)'],
       },
       fontSize: {
-        sm: ['0.9375rem', { lineHeight: '1.25rem' }],
+        sm: ['0.9375rem', { lineHeight: '1.4rem' }],
+      },
+      maxWidth: {
+        shell: 'var(--shell)',
+      },
+      transitionTimingFunction: {
+        'out-expo': 'cubic-bezier(0.16, 1, 0.3, 1)',
+        'in-out-quart': 'cubic-bezier(0.76, 0, 0.24, 1)',
       },
   		borderRadius: {
   			lg: 'var(--radius)',
-  			md: 'calc(var(--radius) - 2px)',
-  			sm: 'calc(var(--radius) - 4px)'
+  			md: 'calc(var(--radius) - 4px)',
+  			sm: 'calc(var(--radius) - 8px)'
   		},
   		colors: {
   			background: 'hsl(var(--background))',
   			foreground: 'hsl(var(--foreground))',
+        night: {
+          DEFAULT: 'hsl(var(--night))',
+          2: 'hsl(var(--night-2))',
+        },
+        pitch: 'hsl(var(--pitch))',
+        chalk: 'hsl(var(--chalk))',
   			card: {
   				DEFAULT: 'hsl(var(--card))',
   				foreground: 'hsl(var(--card-foreground))'
@@ -81,7 +94,8 @@ module.exports = {
   		},
   		animation: {
   			'accordion-down': 'accordion-down 0.2s ease-out',
-  			'accordion-up': 'accordion-up 0.2s ease-out'
+  			'accordion-up': 'accordion-up 0.2s ease-out',
+        marquee: 'marquee var(--marquee-duration, 40s) linear infinite',
   		}
   	}
   },

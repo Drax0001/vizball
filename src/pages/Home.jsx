@@ -1,10 +1,12 @@
 import React from 'react';
 import HeroSection from '../components/home/HeroSection';
-import AboutSection from '../components/home/AboutSection';
-import FeatureCards from '../components/home/FeatureCards';
+import SloganBand from '../components/home/SloganBand';
+import Manifesto from '../components/home/Manifesto';
+import PlayLoop from '../components/home/PlayLoop';
+import MatchSheet from '../components/home/MatchSheet';
 import GallerySection from '../components/home/GallerySection';
+import Explore from '../components/home/Explore';
 import CTASection from '../components/home/CTASection';
-import TestimonialsSection from '../components/home/TestimonialsSection';
 import Seo from '../components/Seo';
 import { useLang } from '../lib/LanguageContext';
 import t from '../lib/translations';
@@ -31,10 +33,12 @@ export default function Home() {
         jsonLd={ORGANIZATION_JSON_LD}
       />
       <HeroSection />
-      <AboutSection />
-      <FeatureCards />
+      <SloganBand />
+      <Manifesto />
+      <PlayLoop />
+      <MatchSheet />
       <GallerySection />
-      <TestimonialsSection />
+      <Explore />
       <CTASection />
     </div>
   );

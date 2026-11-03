@@ -2,17 +2,16 @@ import React, { useState, useRef, useEffect } from 'react';
 import { motion, useInView } from 'framer-motion';
 import {
   Scale, BookOpen, Shield, TrendingUp,
-  FileText, ScrollText, Award, Handshake,
+  FileText, Award, Handshake,
   Users, Gavel, ClipboardList, BarChart3,
-  Heart, Star, Globe, Briefcase,
-  ChevronDown, Search, Download } from
+  Heart, Globe, Briefcase, Search, Download } from
 'lucide-react';
 import DocCard from '../components/docs/DocCard';
 import DocViewer from '../components/docs/DocViewer';
 import GouvernanceTeamSection from '../components/gouvernance/TeamSection';
 import ClubsMap from '../components/gouvernance/ClubsMap';
 import Seo from '../components/Seo';
-import PageEyebrow from '../components/PageEyebrow';
+import PageHero from '../components/site/PageHero';
 import { api } from '../api/client';
 import { useLang } from '../lib/LanguageContext';
 import t from '../lib/translations';
@@ -69,7 +68,7 @@ const PILLARS = [
   subtitle: { fr: 'Crédibilité Bailleurs', en: 'Funder Credibility' },
   color: 'from-white/10 to-white/3',
   borderColor: 'border-white/20',
-  iconColor: 'text-white/80',
+  iconColor: 'text-chalk/80',
   bgIcon: 'bg-white/10',
   desc: { fr: 'Documents de responsabilité sociale indispensables pour les bailleurs de fonds et partenaires institutionnels.', en: 'Social responsibility documents essential for funders and institutional partners.' }
 },
@@ -107,11 +106,12 @@ const organes = [
 
 // ─── Composants utilitaires ────────────────────────────────────────────────
 
-function AnimatedSection({ children, className = '' }) {
+function AnimatedSection({ children, className = '', as = 'div' }) {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: '-60px' });
+  const Comp = motion[as];
   return (
-    <motion.div
+    <Comp
       ref={ref}
       initial={{ opacity: 0, y: 30 }}
       animate={isInView ? { opacity: 1, y: 0 } : {}}
@@ -119,23 +119,23 @@ function AnimatedSection({ children, className = '' }) {
       className={className}>
       
       {children}
-    </motion.div>);
+    </Comp>);
 
 }
 
 function PillarHeader({ pillar, count, lang }) {
   return (
-    <div className={`flex items-center gap-4 p-6 rounded-xl bg-gradient-to-br ${pillar.color} border ${pillar.borderColor} mb-6`}>
+    <div className={`flex items-center gap-4 border-b border-chalk/15 pb-6 mb-6`}>
       <div className={`w-14 h-14 rounded-xl ${pillar.bgIcon} flex items-center justify-center shrink-0`}>
         <pillar.icon size={26} className={pillar.iconColor} />
       </div>
       <div className="flex-1 min-w-0">
         <div className="flex items-center gap-3 flex-wrap">
           <span className={`font-subtitle text-xs uppercase tracking-widest ${pillar.iconColor}`}>{pillar.label[lang]}</span>
-          <span className="font-body text-xs text-white/30 bg-white/5 border border-white/10 px-2 py-0.5 rounded-full">{count} documents</span>
+          <span className="font-body text-xs text-chalk/30 bg-white/5 border border-white/10 px-2 py-0.5 rounded-full">{count} documents</span>
         </div>
-        <h3 className="font-heading text-3xl text-white mt-0.5">{pillar.title[lang]}</h3>
-        <p className="font-body text-xs text-white/50 uppercase tracking-wider">{pillar.subtitle[lang]}</p>
+        <h3 className="font-heading text-3xl text-chalk mt-0.5">{pillar.title[lang]}</h3>
+        <p className="font-body text-xs text-chalk/50 uppercase tracking-wider">{pillar.subtitle[lang]}</p>
       </div>
     </div>);
 
@@ -179,48 +179,13 @@ export default function Gouvernance() {
   return (
     <div className="min-h-screen bg-primary">
       <Seo title={tr.gov_title + ' ' + tr.gov_title2} description={tr.gov_subtitle} canonicalPath="/gouvernance" />
-      {/* ── Hero ── */}
-      <section className="relative overflow-hidden pt-32 pb-20">
-        {/* BG pattern */}
-        <div className="absolute inset-0 opacity-5"
-        style={{ backgroundImage: 'radial-gradient(circle at 1px 1px, hsl(43,75%,49%) 1px, transparent 0)', backgroundSize: '40px 40px' }} />
-        
-        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-accent/5 rounded-full blur-3xl" />
-        <div className="absolute bottom-0 left-0 w-[300px] h-[300px] bg-secondary/5 rounded-full blur-3xl" />
-
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>
-            <PageEyebrow>{tr.gov_espace}</PageEyebrow>
-            <h1 className="font-heading text-6xl sm:text-7xl md:text-8xl text-white leading-none mb-6">
-              {tr.gov_title}<br /><span className="text-[hsl(var(--background))]">{tr.gov_title2}</span>
-            </h1>
-            <p className="font-body text-lg text-white/60 max-w-2xl leading-relaxed mb-10">
-              {tr.gov_subtitle}
-            </p>
-
-            {/* Quick stats */}
-            <div className="flex flex-wrap gap-6">
-              {[
-              { value: `${documents.length}`, label: tr.gov_stat_documents },
-              { value: `${totalAvailable}`, label: tr.gov_stat_available },
-              { value: '4', label: tr.gov_stat_pillars }].
-              map((s, i) =>
-              <div key={i} className="text-center">
-                  <span className="font-heading text-4xl text-accent">{s.value}</span>
-                  <p className="font-body text-xs text-white/40 uppercase tracking-wider mt-0.5">{s.label}</p>
-                </div>
-              )}
-            </div>
-          </motion.div>
-        </div>
-      </section>
+      <PageHero title={`${tr.gov_title} ${tr.gov_title2}`} accent={[2]} subtitle={tr.gov_subtitle} crop="circle" />
 
       {/* ── Association: Préambule ── */}
-      <section className="py-24 bg-background">
-        <div className="mx-auto px-4 max-w-7xl sm:px-6 lg:px-8">
+      <section className="bg-background py-24 md:py-32">
+        <div className="shell">
           <AnimatedSection>
-            <span className="font-subtitle text-sm uppercase tracking-widest text-secondary">{tr.assoc_preamble_badge}</span>
-            <h2 className="text-[hsl(var(--accent))] mt-3 mb-8 text-4xl font-heading sm:text-5xl">{tr.assoc_history_title} {tr.assoc_history_title2}</h2>
+            <h2 className="display mb-10 text-[clamp(2.4rem,5.5vw,5rem)]">{tr.assoc_history_title} {tr.assoc_history_title2}</h2>
             <div className="max-w-4xl space-y-4 font-body text-muted-foreground leading-relaxed">
               <p>
                 {tr.assoc_history_p1}
@@ -232,32 +197,29 @@ export default function Gouvernance() {
       </section>
 
       {/* ── Association: Missions ── */}
-      <section className="py-24 bg-primary">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="pitch-2 py-24 md:py-32">
+        <div className="shell">
           <AnimatedSection className="mb-16">
-            <h2 className="text-[hsl(var(--accent))] mt-3 text-4xl font-heading sm:text-5xl">{tr.assoc_objectives_title}</h2>
+            <h2 className="display mb-10 text-[clamp(2.4rem,5.5vw,5rem)]">{tr.assoc_objectives_title}</h2>
           </AnimatedSection>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <ul className="border-b border-chalk/15">
             {missions.map((m, i) =>
-            <AnimatedSection key={i}>
-                <div className="bg-white/5 border border-white/10 rounded-lg p-6 h-full hover:border-accent/30 transition-colors">
-                  <m.icon size={28} className="text-accent mb-4" />
-                  <h3 className="font-heading text-xl text-white mb-2">{m.title[lang]}</h3>
-                  <p className="font-body text-sm text-white/60 leading-relaxed">{m.desc[lang]}</p>
-                </div>
+            <AnimatedSection as="li" key={i} className="group grid items-baseline gap-x-10 gap-y-3 border-t border-chalk/15 py-7 md:grid-cols-[auto_minmax(0,1fr)_minmax(0,1fr)] md:py-9">
+                <m.icon size={26} className="text-accent" aria-hidden="true" />
+                <h3 className="display text-[clamp(1.8rem,3.4vw,3rem)] transition-colors duration-500 group-hover:text-accent">{m.title[lang]}</h3>
+                <p className="max-w-md leading-relaxed text-chalk/75">{m.desc[lang]}</p>
               </AnimatedSection>
             )}
-          </div>
+          </ul>
         </div>
       </section>
 
       {/* ── Association: Organes de gouvernance ── */}
-      <section className="py-24 bg-muted">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="bg-muted py-24 md:py-32">
+        <div className="shell">
           <AnimatedSection>
-            <span className="font-subtitle text-sm uppercase tracking-widest text-secondary">{tr.assoc_structure_badge}</span>
-            <h2 className="text-[hsl(var(--sidebar-ring))] mt-3 mb-8 text-4xl font-heading sm:text-5xl">{tr.assoc_governance_title} {tr.assoc_governance_title2}</h2>
+            <h2 className="display mb-10 text-[clamp(2.4rem,5.5vw,5rem)]">{tr.assoc_governance_title} {tr.assoc_governance_title2}</h2>
           </AnimatedSection>
 
           <div className="max-w-4xl space-y-4">
@@ -282,8 +244,8 @@ export default function Gouvernance() {
       <ClubsMap />
 
       {/* ── Sticky Filter Bar ── */}
-      <div className="sticky top-20 z-30 bg-primary/95 backdrop-blur-md border-y border-white/10">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+      <div className="sticky top-0 z-30 border-y border-chalk/10 bg-pitch">
+        <div className="shell py-4">
           <div className="flex flex-col sm:flex-row gap-3 items-start sm:items-center justify-between">
             {/* Pillar tabs */}
             <div className="flex flex-wrap gap-2">
@@ -292,7 +254,7 @@ export default function Gouvernance() {
                 className={`px-4 py-2 rounded-full font-body text-xs font-bold uppercase tracking-wider border transition-all ${
                 activePillar === 'tous' ?
                 'bg-accent text-primary border-accent' :
-                'bg-white/5 text-white/60 border-white/10 hover:border-white/30 hover:text-white'}`
+                'bg-white/5 text-chalk/60 border-white/10 hover:border-white/30 hover:text-chalk'}`
                 }>
 
                 {tr.gov_pillar_all}
@@ -304,7 +266,7 @@ export default function Gouvernance() {
                 className={`flex items-center gap-1.5 px-4 py-2 rounded-full font-body text-xs font-bold uppercase tracking-wider border transition-all ${
                 activePillar === p.id ?
                 'bg-accent text-primary border-accent' :
-                'bg-white/5 text-white/60 border-white/10 hover:border-white/30 hover:text-white'}`
+                'bg-white/5 text-chalk/60 border-white/10 hover:border-white/30 hover:text-chalk'}`
                 }>
 
                   <p.icon size={12} />
@@ -315,13 +277,13 @@ export default function Gouvernance() {
 
             {/* Search */}
             <div className="relative w-full sm:w-64">
-              <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-white/30" />
+              <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-chalk/30" />
               <input
                 type="text"
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
                 placeholder={tr.gov_search}
-                className="w-full bg-white/5 border border-white/10 rounded-full pl-8 pr-4 py-2 font-body text-xs text-white placeholder-white/30 focus:outline-none focus:border-accent/50 transition-colors" />
+                className="w-full bg-white/5 border border-white/10 rounded-full pl-8 pr-4 py-2 font-body text-xs text-chalk placeholder-chalk/30 focus:outline-none focus:border-accent/50 transition-colors" />
 
             </div>
           </div>
@@ -329,24 +291,24 @@ export default function Gouvernance() {
       </div>
 
       {/* ── Content ── */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+      <div className="shell py-16">
         {/* Result count */}
         <div className="mb-8 flex items-center justify-between">
-          <p className="font-body text-sm text-white/30">
+          <p className="font-body text-sm text-chalk/30">
             <span className="text-accent font-bold">{filteredDocs.length}</span> {tr.gov_displayed}
           </p>
           <div className="flex items-center gap-3">
             <div className="flex items-center gap-1.5">
               <span className="w-2 h-2 rounded-full bg-secondary" />
-              <span className="font-body text-xs text-white/40">{tr.gov_legend_available}</span>
+              <span className="font-body text-xs text-chalk/40">{tr.gov_legend_available}</span>
             </div>
             <div className="flex items-center gap-1.5">
               <span className="w-2 h-2 rounded-full bg-accent" />
-              <span className="font-body text-xs text-white/40">{tr.gov_legend_soon}</span>
+              <span className="font-body text-xs text-chalk/40">{tr.gov_legend_soon}</span>
             </div>
             <div className="flex items-center gap-1.5">
               <span className="w-2 h-2 rounded-full bg-white/20" />
-              <span className="font-body text-xs text-white/40">{tr.gov_legend_request}</span>
+              <span className="font-body text-xs text-chalk/40">{tr.gov_legend_request}</span>
             </div>
           </div>
         </div>
@@ -364,7 +326,7 @@ export default function Gouvernance() {
               <AnimatedSection key={pillar.id}>
                   {/* Pillar description */}
                   <PillarHeader pillar={pillar} count={docs.length} lang={lang} />
-                  <p className="font-body text-sm text-white/50 leading-relaxed mb-6 max-w-3xl">{pillar.desc[lang]}</p>
+                  <p className="font-body text-sm text-chalk/50 leading-relaxed mb-6 max-w-3xl">{pillar.desc[lang]}</p>
                   <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
                     {docs.map((doc, i) =>
                   <DocCard key={doc.id} doc={doc} index={i} onClick={setSelectedDoc} />
@@ -376,9 +338,9 @@ export default function Gouvernance() {
           </div> :
         filteredDocs.length === 0 ?
         <div className="text-center py-24">
-            <FileText size={48} className="text-white/15 mx-auto mb-4" />
-            <p className="font-heading text-2xl text-white/25">{tr.gov_no_results}</p>
-            <p className="font-body text-sm text-white/20 mt-2">{tr.gov_no_results_desc}</p>
+            <FileText size={48} className="text-chalk/15 mx-auto mb-4" />
+            <p className="font-heading text-2xl text-chalk/25">{tr.gov_no_results}</p>
+            <p className="font-body text-sm text-chalk/20 mt-2">{tr.gov_no_results_desc}</p>
           </div> :
 
         <AnimatedSection>
@@ -399,16 +361,16 @@ export default function Gouvernance() {
 
         {/* CTA bottom */}
         <AnimatedSection className="mt-20">
-          <div className="relative rounded-2xl overflow-hidden border border-accent/20 bg-gradient-to-br from-accent/10 to-secondary/5 p-10 text-center">
+          <div className="relative rounded-[14px] overflow-hidden bg-night p-10 text-center ring-1 ring-inset ring-chalk/10">
             <div className="absolute top-0 right-0 w-64 h-64 bg-accent/5 rounded-full blur-3xl" />
             <Globe size={36} className="text-[hsl(var(--background))] mb-4 mx-auto lucide lucide-globe" />
             <h3 className="text-[hsl(var(--accent))] mb-3 text-4xl font-heading">{tr.gov_cta_title}</h3>
-            <p className="font-body text-sm text-white/50 max-w-md mx-auto mb-6 leading-relaxed">
+            <p className="font-body text-sm text-chalk/50 max-w-md mx-auto mb-6 leading-relaxed">
               {tr.gov_cta_desc}
             </p>
             <a
               href="/contact"
-              className="inline-flex items-center gap-2 bg-accent hover:bg-accent/90 text-primary font-body font-bold text-sm uppercase tracking-wider px-8 py-3.5 rounded-lg transition-all">
+              className="inline-flex items-center gap-2 h-12 bg-accent px-8 font-heading font-bold text-sm uppercase tracking-[0.06em] text-night rounded-full transition-colors duration-300 hover:bg-chalk">
 
               <Download size={16} /> {tr.gov_cta_button}
             </a>

@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { useAuth } from '@/lib/AuthContext';
 import { useLang } from '@/lib/LanguageContext';
 import t from '@/lib/translations';
 import { api } from '@/api/client';
 import Seo from '@/components/Seo';
+import AuthShell, { Field } from '@/components/site/AuthShell';
+import Cta from '@/components/site/Cta';
 
 export default function Register() {
   const { lang } = useLang();
@@ -36,41 +37,38 @@ export default function Register() {
   };
 
   return (
-    <div className="min-h-screen pt-32 pb-20 flex items-center justify-center bg-background px-4">
+    <>
       <Seo title={tr.register_title} canonicalPath="/register" noindex />
-      <div className="max-w-md w-full p-8 bg-white rounded-lg shadow-lg border border-slate-100">
-        <h1 className="font-heading text-3xl text-primary mb-2">{tr.register_title}</h1>
-        <p className="text-sm text-slate-500 mb-8">{tr.register_subtitle}</p>
+      <AuthShell
+        title={tr.register_title}
+        subtitle={tr.register_subtitle}
+        footer={
+          <p>
+            {tr.register_have_account}{' '}
+            <Link to="/login" className="font-bold text-night underline decoration-accent decoration-2 underline-offset-4 hover:text-pitch">
+              {tr.register_login_link}
+            </Link>
+          </p>
+        }
+      >
+        <form onSubmit={handleSubmit} className="space-y-5">
+          <Field label={tr.register_username}>
+            <Input value={username} onChange={(e) => setUsername(e.target.value)} required autoFocus autoComplete="username" />
+          </Field>
+          <Field label={tr.register_email}>
+            <Input type="email" value={email} onChange={(e) => setEmail(e.target.value)} autoComplete="email" />
+          </Field>
+          <Field label={tr.register_password} hint={tr.register_password_hint}>
+            <Input type="password" value={password} onChange={(e) => setPassword(e.target.value)} required minLength={6} autoComplete="new-password" />
+          </Field>
 
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1">{tr.register_username}</label>
-            <Input value={username} onChange={(e) => setUsername(e.target.value)} required autoFocus />
-          </div>
-          <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1">{tr.register_email}</label>
-            <Input type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
-          </div>
-          <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1">{tr.register_password}</label>
-            <Input type="password" value={password} onChange={(e) => setPassword(e.target.value)} required minLength={6} />
-            <p className="text-xs text-slate-400 mt-1">{tr.register_password_hint}</p>
-          </div>
+          {error && <p role="alert" className="text-sm font-bold text-brand-red">{error}</p>}
 
-          {error && <p className="text-sm text-destructive">{error}</p>}
-
-          <Button type="submit" disabled={submitting} className="w-full">
+          <Cta type="submit" tone="night" size="lg" magnetic={false} disabled={submitting} className="w-full">
             {submitting ? tr.register_submitting : tr.register_submit}
-          </Button>
+          </Cta>
         </form>
-
-        <p className="text-sm text-slate-500 mt-6 text-center">
-          {tr.register_have_account}{' '}
-          <Link to="/login" className="text-accent font-medium hover:underline">
-            {tr.register_login_link}
-          </Link>
-        </p>
-      </div>
-    </div>
+      </AuthShell>
+    </>
   );
 }

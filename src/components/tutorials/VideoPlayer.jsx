@@ -92,11 +92,11 @@ export default function VideoPlayer({ video, onClose }) {
           <div className="flex items-start justify-between p-4 border-b border-white/10">
             <div>
               <span className="font-body text-xs font-bold uppercase tracking-wider text-accent">{video.category}</span>
-              <h3 className="font-heading text-xl text-white mt-1">{video.title}</h3>
+              <h3 className="font-heading text-xl text-chalk mt-1">{video.title}</h3>
             </div>
             <button
               onClick={onClose}
-              className="p-2 hover:bg-white/10 rounded-lg transition-colors text-white/70 hover:text-white"
+              className="p-2 hover:bg-white/10 rounded-lg transition-colors text-chalk/70 hover:text-chalk"
             >
               <X size={20} />
             </button>
@@ -117,14 +117,14 @@ export default function VideoPlayer({ video, onClose }) {
                 {video.thumb ? (
                   <img src={video.thumb} alt={video.title} className="w-full h-full object-cover" />
                 ) : (
-                  <div className="w-full h-full bg-gray-900" />
+                  <div className="w-full h-full bg-night" />
                 )}
                 <div className="absolute inset-0 bg-black/60 flex items-center justify-center">
-                  <div className="text-center text-white px-6">
+                  <div className="text-center text-chalk px-6">
                     <div className="w-16 h-16 rounded-full border-2 border-white/30 flex items-center justify-center mx-auto mb-4">
-                      <Play size={26} className="text-white/50 ml-1" />
+                      <Play size={26} className="text-chalk/50 ml-1" />
                     </div>
-                    <p className="font-body text-sm text-white/60 uppercase tracking-wider">{tr.tutoriels_unavailable}</p>
+                    <p className="font-body text-sm text-chalk/60 uppercase tracking-wider">{tr.tutoriels_unavailable}</p>
                   </div>
                 </div>
               </div>
@@ -133,16 +133,16 @@ export default function VideoPlayer({ video, onClose }) {
 
           {/* Info */}
           <div className="p-4 flex flex-wrap items-center gap-6">
-            <div className="flex items-center gap-2 text-white/50 font-body text-xs">
+            <div className="flex items-center gap-2 text-chalk/50 font-body text-xs">
               <Clock size={14} />
               <span>{video.duration}</span>
             </div>
-            <div className="flex items-center gap-2 text-white/50 font-body text-xs">
+            <div className="flex items-center gap-2 text-chalk/50 font-body text-xs">
               <Eye size={14} />
               <span>{(video.views || 0).toLocaleString(lang === 'en' ? 'en-US' : 'fr-FR')} {tr.tutoriels_views}</span>
             </div>
             <StarRating value={rating.avg} count={rating.count} interactive={!hasRated} onRate={handleRate} size={14} />
-            <p className="font-body text-sm text-white/60 leading-relaxed ml-auto text-right max-w-md">{video.desc}</p>
+            <p className="font-body text-sm text-chalk/60 leading-relaxed ml-auto text-right max-w-md">{video.desc}</p>
           </div>
         </motion.div>
       </motion.div>

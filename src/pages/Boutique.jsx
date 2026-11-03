@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { motion, useInView } from 'framer-motion';
-import { ShoppingBag, Filter, Search } from 'lucide-react';
+import { ShoppingBag, Search } from 'lucide-react';
 import { CATEGORIES, CATEGORY_LABELS } from '../lib/shopData';
 import ProductCard from '../components/shop/ProductCard';
 import CartIcon from '../components/shop/CartIcon';
@@ -8,7 +8,9 @@ import { useLang } from '../lib/LanguageContext';
 import t from '../lib/translations';
 import { api } from '../api/client';
 import Seo from '../components/Seo';
-import PageEyebrow from '../components/PageEyebrow';
+import PageHero from '../components/site/PageHero';
+import shopImage from '../assets/images/ball-to-the-leg.webp';
+import { Award, Package, Handshake, Wallet } from 'lucide-react';
 
 function AnimatedSection({ children, className = '' }) {
   const ref = useRef(null);
@@ -53,42 +55,23 @@ export default function Boutique() {
   return (
     <div className="min-h-screen bg-primary">
       <Seo title={tr.shop_title} description={tr.shop_subtitle} canonicalPath="/boutique" />
-      {/* Hero */}
-      <section className="relative overflow-hidden pt-32 pb-16">
-        <div className="absolute inset-0 opacity-5" style={{ backgroundImage: 'radial-gradient(circle at 1px 1px, hsl(43,75%,49%) 1px, transparent 0)', backgroundSize: '40px 40px' }} />
-        <div className="absolute top-0 right-0 w-96 h-96 bg-accent/5 rounded-full blur-3xl" />
-
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-start justify-between flex-wrap gap-6">
-            <motion.div initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7 }}>
-              <PageEyebrow>{tr.shop_badge}</PageEyebrow>
-              <h1 className="font-heading text-6xl sm:text-7xl md:text-8xl text-white leading-none mb-4">
-                {tr.shop_title}
-              </h1>
-              <p className="font-body text-lg text-white/60 max-w-xl leading-relaxed">
-                {tr.shop_subtitle}
-              </p>
-            </motion.div>
-            <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.3 }}>
-              <CartIcon />
-            </motion.div>
-          </div>
-        </div>
-      </section>
+      <PageHero title={tr.shop_title} subtitle={tr.shop_subtitle} image={shopImage} imageAlt={tr.gallery_cap_4} crop="duel">
+        <CartIcon />
+      </PageHero>
 
       {/* Info banner */}
-      <div className="border-y border-white/10 bg-white/3">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-          <div className="flex flex-wrap items-center justify-center gap-8 text-center">
+      <div className="border-y border-chalk/10 bg-night">
+        <div className="shell py-4">
+          <div className="flex flex-wrap items-center gap-x-8 gap-y-3 md:justify-center">
             {[
-            { icon: '🏅', text: tr.shop_info_official },
-            { icon: '📦', text: tr.shop_info_delivery },
-            { icon: '🤝', text: tr.shop_info_order },
-            { icon: '⚽', text: tr.shop_info_payment }].
+            { icon: Award, text: tr.shop_info_official },
+            { icon: Package, text: tr.shop_info_delivery },
+            { icon: Handshake, text: tr.shop_info_order },
+            { icon: Wallet, text: tr.shop_info_payment }].
             map((item, i) =>
             <div key={i} className="flex items-center gap-2">
-                <span>{item.icon}</span>
-                <span className="font-body text-xs text-white/50">{item.text}</span>
+                <item.icon size={16} className="text-accent" aria-hidden="true" />
+                <span className="text-sm text-chalk/70">{item.text}</span>
               </div>
             )}
           </div>
@@ -96,8 +79,8 @@ export default function Boutique() {
       </div>
 
       {/* Filters */}
-      <div className="sticky top-20 z-30 bg-primary/95 backdrop-blur-md border-b border-white/10">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+      <div className="sticky top-0 z-30 border-b border-chalk/10 bg-pitch">
+        <div className="shell py-4">
           <div className="flex flex-col sm:flex-row gap-3 items-start sm:items-center justify-between">
             <div className="flex flex-wrap gap-2">
               {CATEGORIES.map((cat) =>
@@ -107,7 +90,7 @@ export default function Boutique() {
                 className={`px-4 py-2 rounded-full font-body text-xs font-bold uppercase tracking-wider border transition-all ${
                 activeCategory === cat ?
                 'bg-accent text-primary border-accent' :
-                'bg-white/5 text-white/60 border-white/10 hover:border-white/30 hover:text-white'}`
+                'bg-white/5 text-chalk/60 border-white/10 hover:border-white/30 hover:text-chalk'}`
                 }>
 
                   {CATEGORY_LABELS[cat][lang]}
@@ -115,13 +98,13 @@ export default function Boutique() {
               )}
             </div>
             <div className="relative w-full sm:w-56">
-              <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-white/30" />
+              <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-chalk/30" />
               <input
                 type="text"
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
                 placeholder={tr.shop_search}
-                className="w-full bg-white/5 border border-white/10 rounded-full pl-8 pr-4 py-2 font-body text-xs text-white placeholder-white/30 focus:outline-none focus:border-accent/50 transition-colors" />
+                className="w-full bg-white/5 border border-white/10 rounded-full pl-8 pr-4 py-2 font-body text-xs text-chalk placeholder-chalk/30 focus:outline-none focus:border-accent/50 transition-colors" />
 
             </div>
           </div>
@@ -129,9 +112,9 @@ export default function Boutique() {
       </div>
 
       {/* Products grid */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14">
+      <div className="shell py-14">
         <AnimatedSection className="mb-6">
-          <p className="font-body text-sm text-white/30">
+          <p className="font-body text-sm text-chalk/30">
             <span className="text-accent font-bold">{filtered.length}</span> {tr.shop_products}
           </p>
         </AnimatedSection>
@@ -142,8 +125,8 @@ export default function Boutique() {
           </div>
         ) : filtered.length === 0 ? (
           <div className="text-center py-24">
-            <ShoppingBag size={48} className="text-white/15 mx-auto mb-4" />
-            <p className="font-heading text-2xl text-white/25">{tr.shop_no_results}</p>
+            <ShoppingBag size={48} className="text-chalk/15 mx-auto mb-4" />
+            <p className="font-heading text-2xl text-chalk/25">{tr.shop_no_results}</p>
           </div>
         ) : (
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -155,12 +138,12 @@ export default function Boutique() {
 
         {/* CTA */}
         <AnimatedSection className="mt-20">
-          <div className="relative rounded-2xl overflow-hidden border border-accent/20 bg-gradient-to-br from-accent/10 to-secondary/5 p-10 text-center">
+          <div className="relative rounded-[14px] overflow-hidden bg-night p-10 text-center ring-1 ring-inset ring-chalk/10">
             <h3 className="text-[hsl(var(--accent))] mb-3 text-4xl font-heading">{tr.shop_quote}</h3>
-            <p className="font-body text-sm text-white/50 max-w-md mx-auto mb-6 leading-relaxed">
+            <p className="font-body text-sm text-chalk/50 max-w-md mx-auto mb-6 leading-relaxed">
               {tr.shop_quote_desc}
             </p>
-            <a href="/contact" className="inline-flex items-center gap-2 bg-accent hover:bg-accent/90 text-primary font-body font-bold text-sm uppercase tracking-wider px-8 py-3.5 rounded-lg transition-all">
+            <a href="/contact" className="inline-flex items-center gap-2 h-12 bg-accent px-8 font-heading font-bold text-sm uppercase tracking-[0.06em] text-night rounded-full transition-colors duration-300 hover:bg-chalk">
               {tr.shop_quote_cta}
             </a>
           </div>

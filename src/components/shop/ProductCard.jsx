@@ -10,7 +10,7 @@ import t from '../../lib/translations';
 const badgeColors = {
   Officiel: 'bg-secondary/20 text-secondary border-secondary/30',
   Nouveau: 'bg-accent/20 text-accent border-accent/30',
-  Pack: 'bg-white/10 text-white/70 border-white/20',
+  Pack: 'bg-white/10 text-chalk/70 border-white/20',
   Pro: 'bg-accent/30 text-accent border-accent/40',
   Club: 'bg-secondary/30 text-secondary border-secondary/40'
 };
@@ -59,14 +59,14 @@ export default function ProductCard({ product, index }) {
 
           {/* Info */}
           <div className="p-5">
-            <p className="font-body text-xs text-white/40 uppercase tracking-wider mb-1">{product.category}</p>
-            <h3 className="font-heading text-xl text-white group-hover:text-accent transition-colors leading-tight mb-3">
+            <p className="font-body text-xs text-chalk/40 uppercase tracking-wider mb-1">{product.category}</p>
+            <h3 className="font-heading text-xl text-chalk group-hover:text-accent transition-colors leading-tight mb-3">
               {product.name}
             </h3>
-            <p className="font-body text-xs text-white/50 leading-relaxed line-clamp-2 mb-4">{product.desc}</p>
+            <p className="font-body text-xs text-chalk/50 leading-relaxed line-clamp-2 mb-4">{product.desc}</p>
             <div className="flex items-center justify-between">
               <span className="font-heading text-2xl text-accent">{formatPrice(product.price, lang)}</span>
-              <div className="flex items-center gap-1 font-body text-xs text-white/40 group-hover:text-accent transition-colors">
+              <div className="flex items-center gap-1 font-body text-xs text-chalk/40 group-hover:text-accent transition-colors">
                 {tr.shop_see} <ArrowRight size={13} className="group-hover:translate-x-0.5 transition-transform" />
               </div>
             </div>

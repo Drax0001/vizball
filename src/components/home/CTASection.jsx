@@ -1,53 +1,48 @@
 import React, { useRef } from 'react';
-import { Link } from 'react-router-dom';
-import { motion, useInView } from 'framer-motion';
-import { ArrowRight } from 'lucide-react';
+import { motion, useScroll, useTransform, useReducedMotion } from 'framer-motion';
 import { useLang } from '../../lib/LanguageContext';
 import t from '../../lib/translations';
+import FieldLines from '../field/FieldLines';
+import { RevealText } from '../motion/Reveal';
+import Cta from '../site/Cta';
+
+// The close: a gold field, the duel end of the pitch rising behind the
+// question, two actions.
+// Keep the field to the right, clear of the headline and copy.
+const FADE = 'linear-gradient(to right, transparent 25%, #000 65%)';
 
 export default function CTASection() {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: '-50px' });
   const { lang } = useLang();
   const tr = t[lang];
+  const ref = useRef(null);
+  const reduce = useReducedMotion();
+  const { scrollYProgress } = useScroll({ target: ref, offset: ['start end', 'end end'] });
+  const fieldX = useTransform(scrollYProgress, [0, 1], ['-18%', '0%']);
 
   return (
-    <section ref={ref} className="relative py-32 overflow-hidden">
-      <div className="absolute inset-0">
-        <div className="w-full h-full bg-gray-900" />
-        
-        <div className="absolute inset-0 bg-primary/85" />
-      </div>
+    <section ref={ref} className="relative isolate overflow-hidden bg-accent py-28 text-night md:py-44" aria-labelledby="cta-title">
+      <motion.div
+        className="pointer-events-none absolute inset-y-0 right-[-30%] -z-10 flex w-[130%] items-center opacity-25 md:right-[-8%] md:w-[90%]"
+        style={{ ...(reduce ? {} : { x: fieldX }), maskImage: FADE, WebkitMaskImage: FADE }}
+        aria-hidden="true"
+      >
+        <FieldLines className="w-full text-night" strokeWidth={0.1} />
+      </motion.div>
 
-      <div className="relative max-w-4xl mx-auto px-4 text-center">
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8 }}>
-          
-          <h2 className="text-[hsl(var(--accent))] mb-6 text-5xl font-heading sm:text-7xl">
-            {tr.cta_title_1} <span className="text-accent">{tr.cta_title_2}</span>
-          </h2>
-          <p className="font-body text-lg text-white/70 max-w-xl mx-auto mb-10 leading-relaxed">
-            {tr.cta_desc}
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link
-              to="/contact"
-              className="group inline-flex items-center justify-center gap-2 bg-accent hover:bg-accent/90 text-primary font-body font-bold text-sm uppercase tracking-wider px-10 py-4 rounded transition-all">
-              
-              {tr.cta_contact}
-              <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
-            </Link>
-            <Link
-              to="/gouvernance"
-              className="inline-flex items-center justify-center gap-2 border-2 border-white/30 hover:border-accent text-white hover:text-accent font-body font-bold text-sm uppercase tracking-wider px-10 py-4 rounded transition-all">
-
-              {tr.cta_association}
-            </Link>
+      <div className="shell">
+        <RevealText
+          id="cta-title"
+          text={`${tr.cta_title_1} ${tr.cta_title_2}`}
+          className="display max-w-[12ch] text-[clamp(3.5rem,11vw,11rem)]"
+        />
+        <div className="mt-10 flex flex-col gap-10 md:mt-14 md:flex-row md:items-end md:justify-between">
+          <p className="max-w-md text-lg leading-snug text-night/80 md:text-xl">{tr.cta_desc}</p>
+          <div className="flex flex-wrap gap-3">
+            <Cta to="/gouvernance" tone="ghostDark">{tr.cta_association}</Cta>
+            <Cta to="/contact" tone="night" size="lg">{tr.cta_contact}</Cta>
           </div>
-        </motion.div>
+        </div>
       </div>
-    </section>);
-
+    </section>
+  );
 }
