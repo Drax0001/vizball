@@ -4,6 +4,7 @@ import {
   Mail,
   MapPin,
   Globe,
+  ArrowUp,
   X as XIcon,
   Linkedin,
   Facebook,
@@ -13,6 +14,7 @@ import {
 import { useLang } from "../lib/LanguageContext";
 import t from "../lib/translations";
 import VisitorCounter from "./VisitorCounter";
+import vizballLogo from "../assets/images/LOGO-VIZBALL-ASSOCIATION-blanc.png";
 
 const SOCIAL_LINKS = [
   { icon: XIcon, label: "X (Twitter)", href: "#" },
@@ -26,175 +28,109 @@ const SOCIAL_LINKS = [
   { icon: Linkedin, label: "LinkedIn", href: "#" },
 ];
 
+function FooterColumn({ title, links }) {
+  return (
+    <div>
+      <h2 className="meta text-accent">{title}</h2>
+      <ul className="mt-5 space-y-3">
+        {links.map((l) => (
+          <li key={l.label}>
+            <Link to={l.to} className="text-white/75 transition-colors hover:text-white hover:underline hover:decoration-accent hover:underline-offset-4">
+              {l.label}
+            </Link>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
 export default function Footer() {
   const { lang } = useLang();
   const tr = t[lang];
 
   return (
     <footer className="bg-primary text-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-12">
-          <div className="md:col-span-1">
-            <h3 className="font-heading text-4xl tracking-wider text-accent mb-4">
-              VIZBALL
-            </h3>
-            <p className="font-body text-sm text-white/70 leading-relaxed">
-              {tr.footer_desc}
-            </p>
-          </div>
-
-          <div>
-            <h4 className="font-body text-sm font-bold uppercase tracking-wider text-accent mb-6">
-              {tr.footer_nav}
-            </h4>
-            <div className="space-y-3">
-              <Link
-                to="/"
-                className="block font-body text-sm text-white/70 hover:text-white transition-colors"
-              >
-                {tr.nav_home}
-              </Link>
-              <Link
-                to="/le-sport"
-                className="block font-body text-sm text-white/70 hover:text-white transition-colors"
-              >
-                {tr.nav_sport}
-              </Link>
-              <Link
-                to="/le-sport"
-                className="block font-body text-sm text-white/70 hover:text-white transition-colors"
-              >
-                {tr.footer_rules}
-              </Link>
-              <Link
-                to="/actualites"
-                className="block font-body text-sm text-white/70 hover:text-white transition-colors"
-              >
-                {tr.nav_news}
-              </Link>
-              <Link
-                to="/forum"
-                className="block font-body text-sm text-white/70 hover:text-white transition-colors"
-              >
-                {tr.nav_forum}
-              </Link>
-              <Link
-                to="/boutique"
-                className="block font-body text-sm text-white/70 hover:text-white transition-colors"
-              >
-                {tr.nav_shop}
-              </Link>
-              <Link
-                to="/gouvernance"
-                className="block font-body text-sm text-white/70 hover:text-white transition-colors"
-              >
-                {tr.nav_governance}
-              </Link>
-              <Link
-                to="/contact"
-                className="block font-body text-sm text-white/70 hover:text-white transition-colors"
-              >
-                {tr.nav_contact}
-              </Link>
-            </div>
-          </div>
-
-          <div>
-            <h4 className="font-body text-sm font-bold uppercase tracking-wider text-accent mb-6">
-              {tr.footer_sport}
-            </h4>
-            <div className="space-y-3">
-              <Link
-                to="/le-sport"
-                className="block font-body text-sm text-white/70 hover:text-white transition-colors"
-              >
-                {tr.footer_rules}
-              </Link>
-              <Link
-                to="/le-sport"
-                className="block font-body text-sm text-white/70 hover:text-white transition-colors"
-              >
-                {tr.footer_positions}
-              </Link>
-              <Link
-                to="/le-sport"
-                className="block font-body text-sm text-white/70 hover:text-white transition-colors"
-              >
-                {tr.footer_field}
-              </Link>
-              <Link
-                to="/gouvernance"
-                className="block font-body text-sm text-white/70 hover:text-white transition-colors"
-              >
-                {tr.footer_hcv}
-              </Link>
-            </div>
-          </div>
-
-          <div>
-            <h4 className="font-body text-sm font-bold uppercase tracking-wider text-accent mb-6">
-              {tr.footer_contact}
-            </h4>
-            <div className="space-y-4">
-              <div className="flex items-start gap-3">
-                <MapPin size={16} className="text-accent mt-1 shrink-0" />
-                <span className="font-body text-sm text-white/70">
-                  {tr.country_name}
-                </span>
-              </div>
-              <div className="flex items-start gap-3">
-                <Mail size={16} className="text-accent mt-1 shrink-0" />
-                <span className="font-body text-sm text-white/70">
-                  contact@vizball.org
-                </span>
-              </div>
-              <div className="flex items-start gap-3">
-                <Globe size={16} className="text-accent mt-1 shrink-0" />
-                <a
-                  href="https://vizball.org"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="font-body text-sm text-white/70 hover:text-white transition-colors"
-                >
-                  vizball.org
-                </a>
-              </div>
-            </div>
-
-            <div className="mt-6">
-              <span className="font-body text-xs text-white/40 uppercase tracking-wider block mb-3">
-                {tr.footer_follow_us}
-              </span>
-              <div className="flex items-center gap-3">
-                {SOCIAL_LINKS.map(({ icon: Icon, label, href }) => (
-                  <a
-                    key={label}
-                    href={href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label={label}
-                    className="p-2 rounded-lg border border-white/10 text-white/70 hover:text-white hover:border-white/30 transition-colors"
-                  >
-                    <Icon size={14} />
-                  </a>
-                ))}
-              </div>
-            </div>
-          </div>
+      <div className="shell grid gap-12 py-16 md:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1fr_1.3fr] lg:py-20">
+        <div className="max-w-sm">
+          <img src={vizballLogo} alt="Vizball Association" className="h-20 w-auto" loading="lazy" width="88" height="80" />
+          <p className="mt-6 text-sm leading-relaxed text-white/70">{tr.footer_desc}</p>
+          <p className="font-subtitle mt-5 text-accent">Justice - Volonté - Succès</p>
         </div>
 
-        <div className="mt-16 pt-8 border-t border-white/10 grid grid-cols-1 md:grid-cols-3 items-center gap-4">
-          <p className="font-body text-xs text-white/50 text-center md:text-left">
-            © {new Date().getFullYear()} Vizball Association. {tr.footer_rights}
-          </p>
+        <FooterColumn
+          title={tr.footer_nav}
+          links={[
+            { label: tr.nav_home, to: "/" },
+            { label: tr.nav_news, to: "/actualites" },
+            { label: tr.nav_forum, to: "/forum" },
+            { label: tr.nav_shop, to: "/boutique" },
+            { label: tr.nav_governance, to: "/gouvernance" },
+            { label: tr.nav_contact, to: "/contact" },
+          ]}
+        />
 
-          <div className="flex justify-center">
-            <VisitorCounter />
-          </div>
+        <FooterColumn
+          title={tr.footer_sport}
+          links={[
+            { label: tr.footer_rules, to: "/le-sport" },
+            { label: tr.footer_positions, to: "/le-sport" },
+            { label: tr.footer_field, to: "/le-sport" },
+            { label: tr.nav_tutorials, to: "/tutoriels" },
+            { label: tr.footer_hcv, to: "/gouvernance" },
+          ]}
+        />
 
-          <p className="font-body text-xs text-white/50 text-center md:text-right">
-            {tr.footer_created}
-          </p>
+        <div>
+          <h2 className="meta text-accent">{tr.footer_contact}</h2>
+          <ul className="mt-5 space-y-3 text-sm text-white/75">
+            <li className="flex items-center gap-3">
+              <MapPin size={16} className="shrink-0 text-accent" />
+              {tr.country_name}
+            </li>
+            <li className="flex items-center gap-3">
+              <Mail size={16} className="shrink-0 text-accent" />
+              <a href="mailto:contact@vizball.org" className="hover:text-white">contact@vizball.org</a>
+            </li>
+            <li className="flex items-center gap-3">
+              <Globe size={16} className="shrink-0 text-accent" />
+              <a href="https://vizball.org" target="_blank" rel="noopener noreferrer" className="hover:text-white">
+                vizball.org
+              </a>
+            </li>
+          </ul>
+          <h2 className="meta mt-8 text-accent">{tr.footer_follow_us}</h2>
+          <ul className="mt-4 flex flex-wrap gap-2">
+            {SOCIAL_LINKS.map(({ icon: Icon, label, href }) => (
+              <li key={label}>
+                <a
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={label}
+                  className="grid h-10 w-10 place-items-center rounded-full bg-white/10 text-white/85 transition-colors hover:bg-accent hover:text-primary"
+                >
+                  <Icon size={16} />
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+
+      <div className="bg-[hsl(var(--brand-red))]">
+        <div className="shell flex flex-col gap-3 py-4 text-sm text-white/90 md:flex-row md:items-center md:justify-between">
+          <p>© {new Date().getFullYear()} Vizball Association. {tr.footer_rights}</p>
+          <VisitorCounter />
+          <p className="hidden lg:block">{tr.footer_created}</p>
+          <button
+            type="button"
+            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+            className="inline-flex items-center gap-2 self-start font-heading text-sm font-bold uppercase tracking-wider transition-colors hover:text-accent md:self-auto"
+          >
+            {tr.footer_back_top}
+            <ArrowUp size={15} />
+          </button>
         </div>
       </div>
     </footer>

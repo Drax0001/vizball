@@ -103,8 +103,7 @@ export default function FaqSection() {
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.7 }}
         >
-          <span className="font-subtitle text-sm uppercase tracking-widest text-secondary">{tr.faq_badge}</span>
-          <h2 className="text-[hsl(var(--chart-3))] mt-3 mb-3 text-4xl font-heading sm:text-5xl">{tr.faq_title}</h2>
+          <h2 className="section-title mb-10 text-primary">{tr.faq_title}</h2>
           <p className="font-body text-muted-foreground mb-10">
             {tr.faq_subtitle}
           </p>

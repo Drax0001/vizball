@@ -7,7 +7,8 @@ import Seo from '../components/Seo';
 import { useLang } from '../lib/LanguageContext';
 import t from '../lib/translations';
 import { api } from '../api/client';
-import PageEyebrow from '../components/PageEyebrow';
+import PageHeader from '../components/PageHeader';
+import headerImage from '../assets/images/vizball-players-sitting-on-pitch.webp';
 
 const CATEGORIES = ['Tous', 'Événement', 'Tournoi', 'Portrait', 'Actualité', 'Communiqué'];
 const CATEGORY_LABELS = {
@@ -67,24 +68,7 @@ export default function Actualites() {
   return (
     <div className="min-h-screen bg-primary">
       <Seo title={tr.news_title + tr.news_title2} description={tr.news_subtitle} canonicalPath="/actualites" />
-      {/* Hero */}
-      <section className="relative overflow-hidden pt-32 pb-16">
-        <div className="absolute inset-0 opacity-5" style={{ backgroundImage: 'radial-gradient(circle at 1px 1px, hsl(43,75%,49%) 1px, transparent 0)', backgroundSize: '40px 40px' }} />
-        <div className="absolute top-0 right-0 w-96 h-96 bg-accent/5 rounded-full blur-3xl" />
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-start justify-between flex-wrap gap-6">
-            <motion.div initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }}>
-              <PageEyebrow>{tr.news_badge}</PageEyebrow>
-              <h1 className="font-heading text-6xl sm:text-7xl md:text-8xl text-white leading-none mb-4">
-                {tr.news_title}<span className="text-[hsl(var(--background))]">{tr.news_title2}</span>
-              </h1>
-              <p className="font-body text-lg text-white/60 max-w-xl leading-relaxed">
-                {tr.news_subtitle}
-              </p>
-            </motion.div>
-          </div>
-        </div>
-      </section>
+      <PageHeader title={`${tr.news_title}${tr.news_title2}`.trim()} subtitle={tr.news_subtitle} image={headerImage} />
 
       {/* Filters */}
       <div className="sticky top-20 z-30 bg-primary/95 backdrop-blur-md border-y border-white/10">

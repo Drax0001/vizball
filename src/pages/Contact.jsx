@@ -8,6 +8,8 @@ import { useLang } from "../lib/LanguageContext";
 import t from "../lib/translations";
 import { api } from "../api/client";
 import Seo from "../components/Seo";
+import PageHeader from '../components/PageHeader';
+import headerImage from '../assets/images/vizball-throne.webp';
 
 function AnimatedSection({ children, className = "" }) {
   const ref = useRef(null);
@@ -62,31 +64,7 @@ export default function Contact() {
   return (
     <div>
       <Seo title={tr.contact_title + tr.contact_title2} description={tr.contact_intro} canonicalPath="/contact" />
-      {/* Hero */}
-      <section className="relative h-[40vh] min-h-[300px] overflow-hidden">
-        <div className="w-full h-full bg-gray-900" />
-
-        <div className="absolute inset-0 bg-gradient-to-r from-primary/90 via-primary/70 to-primary/40" />
-        <div className="absolute inset-x-0 top-[100px] bottom-0 flex items-center">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8 }}
-            >
-              <span className="font-subtitle text-sm uppercase tracking-widest text-accent hidden">
-                {tr.contact_badge}
-              </span>
-              <h1 className="font-heading text-6xl sm:text-7xl md:text-8xl text-white mt-2">
-                {tr.contact_title}
-                <span className="text-[hsl(var(--background))]">
-                  {tr.contact_title2}
-                </span>
-              </h1>
-            </motion.div>
-          </div>
-        </div>
-      </section>
+      <PageHeader title={`${tr.contact_title}${tr.contact_title2}`.trim()} image={headerImage} />
 
       {/* Contact Section */}
       <section className="py-24 bg-background">

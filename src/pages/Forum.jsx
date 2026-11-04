@@ -1,14 +1,15 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { motion, useInView, AnimatePresence } from 'framer-motion';
-import { Users, Plus, Search, MessageCircle, Zap, Shield, MapPin, Package } from 'lucide-react';
+import { Plus, Search, MessageCircle, Zap, Shield, MapPin, Package } from 'lucide-react';
 import TopicRow from '../components/forum/TopicRow';
 import TopicDetail from '../components/forum/TopicDetail';
 import NewTopicModal from '../components/forum/NewTopicModal';
 import { useLang } from '../lib/LanguageContext';
 import tr from '../lib/translations';
 import { api } from '../api/client';
-import PageEyebrow from '../components/PageEyebrow';
 import Seo from '../components/Seo';
+import PageHeader from '../components/PageHeader';
+import headerImage from '../assets/images/community-vizball.webp';
 
 const CATEGORIES_FR = ['Tous', 'Tactiques', 'Règles', 'Rencontres', 'Général', 'Équipement'];
 const CATEGORIES_EN = ['All', 'Tactics', 'Rules', 'Meetings', 'General', 'Equipment'];
@@ -92,27 +93,11 @@ export default function Forum() {
   return (
     <div className="min-h-screen bg-primary">
       <Seo title={t.forum_title} description={t.forum_subtitle} canonicalPath="/forum" />
-      {/* Hero */}
-      <section className="relative overflow-hidden pt-32 pb-16">
-        <div className="absolute inset-0 opacity-5" style={{ backgroundImage: 'radial-gradient(circle at 1px 1px, hsl(43,75%,49%) 1px, transparent 0)', backgroundSize: '40px 40px' }} />
-        <div className="absolute top-0 right-0 w-96 h-96 bg-accent/5 rounded-full blur-3xl" />
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-start justify-between flex-wrap gap-6">
-            <motion.div initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }}>
-              <PageEyebrow>{t.forum_badge}</PageEyebrow>
-              <h1 className="font-heading text-6xl sm:text-7xl md:text-8xl text-white leading-none mb-4">
-                {t.forum_title.split(' ')[0]} <span className="text-[hsl(var(--background))]">{t.forum_title.split(' ').slice(1).join(' ')}</span>
-              </h1>
-              <p className="font-body text-lg text-white/60 max-w-xl leading-relaxed">{t.forum_subtitle}</p>
-            </motion.div>
-            <motion.button initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.2 }}
-            onClick={() => setModalOpen(true)}
-            className="flex items-center gap-2 bg-accent hover:bg-accent/90 text-primary font-body font-bold text-sm uppercase tracking-wider px-6 py-3 rounded-lg transition-all">
-              <Plus size={16} /> {t.forum_new_topic}
-            </motion.button>
-          </div>
-        </div>
-      </section>
+      <PageHeader title={t.forum_title} subtitle={t.forum_subtitle} image={headerImage}>
+        <button onClick={() => setModalOpen(true)} className="btn btn-gold">
+          <Plus size={16} /> {t.forum_new_topic}
+        </button>
+      </PageHeader>
 
       {/* Category cards */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-2">

@@ -2,20 +2,20 @@ import React, { useState, useRef, useEffect } from 'react';
 import { motion, useInView } from 'framer-motion';
 import {
   Scale, BookOpen, Shield, TrendingUp,
-  FileText, ScrollText, Award, Handshake,
+  FileText, Award, Handshake,
   Users, Gavel, ClipboardList, BarChart3,
-  Heart, Star, Globe, Briefcase,
-  ChevronDown, Search, Download } from
+  Heart, Globe, Briefcase, Search, Download } from
 'lucide-react';
 import DocCard from '../components/docs/DocCard';
 import DocViewer from '../components/docs/DocViewer';
 import GouvernanceTeamSection from '../components/gouvernance/TeamSection';
 import ClubsMap from '../components/gouvernance/ClubsMap';
 import Seo from '../components/Seo';
-import PageEyebrow from '../components/PageEyebrow';
 import { api } from '../api/client';
 import { useLang } from '../lib/LanguageContext';
 import t from '../lib/translations';
+import PageHeader from '../components/PageHeader';
+import headerImage from '../assets/images/community-vizball.webp';
 
 // Document icons aren't stored server-side (React components don't serialize
 // through JSON) — matched back onto fetched documents by category instead.
@@ -179,48 +179,26 @@ export default function Gouvernance() {
   return (
     <div className="min-h-screen bg-primary">
       <Seo title={tr.gov_title + ' ' + tr.gov_title2} description={tr.gov_subtitle} canonicalPath="/gouvernance" />
-      {/* ── Hero ── */}
-      <section className="relative overflow-hidden pt-32 pb-20">
-        {/* BG pattern */}
-        <div className="absolute inset-0 opacity-5"
-        style={{ backgroundImage: 'radial-gradient(circle at 1px 1px, hsl(43,75%,49%) 1px, transparent 0)', backgroundSize: '40px 40px' }} />
-        
-        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-accent/5 rounded-full blur-3xl" />
-        <div className="absolute bottom-0 left-0 w-[300px] h-[300px] bg-secondary/5 rounded-full blur-3xl" />
-
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>
-            <PageEyebrow>{tr.gov_espace}</PageEyebrow>
-            <h1 className="font-heading text-6xl sm:text-7xl md:text-8xl text-white leading-none mb-6">
-              {tr.gov_title}<br /><span className="text-[hsl(var(--background))]">{tr.gov_title2}</span>
-            </h1>
-            <p className="font-body text-lg text-white/60 max-w-2xl leading-relaxed mb-10">
-              {tr.gov_subtitle}
-            </p>
-
-            {/* Quick stats */}
-            <div className="flex flex-wrap gap-6">
-              {[
-              { value: `${documents.length}`, label: tr.gov_stat_documents },
-              { value: `${totalAvailable}`, label: tr.gov_stat_available },
-              { value: '4', label: tr.gov_stat_pillars }].
-              map((s, i) =>
-              <div key={i} className="text-center">
-                  <span className="font-heading text-4xl text-accent">{s.value}</span>
-                  <p className="font-body text-xs text-white/40 uppercase tracking-wider mt-0.5">{s.label}</p>
-                </div>
-              )}
-            </div>
-          </motion.div>
-        </div>
-      </section>
+      <PageHeader title={`${tr.gov_title} ${tr.gov_title2}`} subtitle={tr.gov_subtitle} image={headerImage}>
+        <ul className="flex flex-wrap gap-8">
+          {[
+            { value: `${documents.length}`, label: tr.gov_stat_documents },
+            { value: `${totalAvailable}`, label: tr.gov_stat_available },
+            { value: '4', label: tr.gov_stat_pillars },
+          ].map((s) => (
+            <li key={s.label}>
+              <span className="block font-heading text-4xl font-black text-accent">{s.value}</span>
+              <span className="meta text-white/70">{s.label}</span>
+            </li>
+          ))}
+        </ul>
+      </PageHeader>
 
       {/* ── Association: Préambule ── */}
       <section className="py-24 bg-background">
         <div className="mx-auto px-4 max-w-7xl sm:px-6 lg:px-8">
           <AnimatedSection>
-            <span className="font-subtitle text-sm uppercase tracking-widest text-secondary">{tr.assoc_preamble_badge}</span>
-            <h2 className="text-[hsl(var(--accent))] mt-3 mb-8 text-4xl font-heading sm:text-5xl">{tr.assoc_history_title} {tr.assoc_history_title2}</h2>
+            <h2 className="section-title mb-10 text-primary">{tr.assoc_history_title} {tr.assoc_history_title2}</h2>
             <div className="max-w-4xl space-y-4 font-body text-muted-foreground leading-relaxed">
               <p>
                 {tr.assoc_history_p1}
@@ -235,7 +213,7 @@ export default function Gouvernance() {
       <section className="py-24 bg-primary">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <AnimatedSection className="mb-16">
-            <h2 className="text-[hsl(var(--accent))] mt-3 text-4xl font-heading sm:text-5xl">{tr.assoc_objectives_title}</h2>
+            <h2 className="section-title mb-10 text-white">{tr.assoc_objectives_title}</h2>
           </AnimatedSection>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -256,8 +234,7 @@ export default function Gouvernance() {
       <section className="py-24 bg-muted">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <AnimatedSection>
-            <span className="font-subtitle text-sm uppercase tracking-widest text-secondary">{tr.assoc_structure_badge}</span>
-            <h2 className="text-[hsl(var(--sidebar-ring))] mt-3 mb-8 text-4xl font-heading sm:text-5xl">{tr.assoc_governance_title} {tr.assoc_governance_title2}</h2>
+            <h2 className="section-title mb-10 text-primary">{tr.assoc_governance_title} {tr.assoc_governance_title2}</h2>
           </AnimatedSection>
 
           <div className="max-w-4xl space-y-4">

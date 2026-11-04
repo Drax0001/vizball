@@ -6,6 +6,7 @@ import { useAuth } from '@/lib/AuthContext';
 import { useLang } from '@/lib/LanguageContext';
 import t from '@/lib/translations';
 import Seo from '@/components/Seo';
+import PageHeader from '@/components/PageHeader';
 
 export default function Login() {
   const { lang } = useLang();
@@ -36,35 +37,36 @@ export default function Login() {
   };
 
   return (
-    <div className="min-h-screen pt-32 pb-20 flex items-center justify-center bg-background px-4">
+    <div className="min-h-screen bg-muted">
       <Seo title={tr.login_title} canonicalPath="/login" noindex />
-      <div className="max-w-md w-full p-8 bg-white rounded-lg shadow-lg border border-slate-100">
-        <h1 className="font-heading text-3xl text-primary mb-2">{tr.login_title}</h1>
-        <p className="text-sm text-slate-500 mb-8">{tr.login_subtitle}</p>
+      <PageHeader title={tr.login_title} subtitle={tr.login_subtitle} />
+      <div className="shell flex justify-center py-14 md:py-20">
+      <div className="w-full max-w-md rounded-lg bg-card p-8 shadow-lg ring-1 ring-border">
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1">{tr.login_username}</label>
+            <label className="meta mb-2 block text-primary">{tr.login_username}</label>
             <Input value={username} onChange={(e) => setUsername(e.target.value)} required autoFocus />
           </div>
           <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1">{tr.login_password}</label>
+            <label className="meta mb-2 block text-primary">{tr.login_password}</label>
             <Input type="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
           </div>
 
           {error && <p className="text-sm text-destructive">{error}</p>}
 
-          <Button type="submit" disabled={submitting} className="w-full">
+          <Button type="submit" disabled={submitting} className="btn btn-green h-auto w-full">
             {submitting ? tr.login_submitting : tr.login_submit}
           </Button>
         </form>
 
-        <p className="text-sm text-slate-500 mt-6 text-center">
+        <p className="text-sm text-muted-foreground mt-6 text-center">
           {tr.login_no_account}{' '}
-          <Link to="/register" className="text-accent font-medium hover:underline">
+          <Link to="/register" className="font-bold text-[hsl(var(--brand-red))] underline-offset-4 hover:underline">
             {tr.login_register_link}
           </Link>
         </p>
+      </div>
       </div>
     </div>
   );

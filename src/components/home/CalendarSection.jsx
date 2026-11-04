@@ -10,7 +10,7 @@ import { api } from '../../api/client';
 import TranslateButton from '../TranslateButton';
 
 const TYPE_CONFIG = {
-  'Rencontre': { icon: Swords, color: 'bg-blue-500/10 text-blue-400 border-blue-500/20', label: { fr: 'Rencontre', en: 'Match' } },
+  'Rencontre': { icon: Swords, color: 'bg-[hsl(var(--brand-red))]/15 text-white border-[hsl(var(--brand-red))]/40', label: { fr: 'Rencontre', en: 'Match' } },
   'Tournoi': { icon: Trophy, color: 'bg-accent/10 text-accent border-accent/20', label: { fr: 'Tournoi', en: 'Tournament' } },
   'Entraînement': { icon: Dumbbell, color: 'bg-secondary/10 text-secondary border-secondary/20', label: { fr: 'Entraînement', en: 'Training' } },
   'Autre': { icon: Calendar, color: 'bg-white/10 text-white/60 border-white/10', label: { fr: 'Autre', en: 'Other' } }
@@ -105,8 +105,8 @@ export default function CalendarSection() {
   }, []);
 
   return (
-    <section ref={ref} className="py-24 bg-primary">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section ref={ref} className="bg-primary py-20 md:py-28">
+      <div className="shell">
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
@@ -114,9 +114,8 @@ export default function CalendarSection() {
           className="flex flex-col sm:flex-row sm:items-end justify-between mb-12 gap-4">
           
           <div>
-            <span className="font-subtitle text-sm uppercase tracking-widest text-secondary">{tr.calendar_badge}</span>
-            <h2 className="font-heading text-5xl sm:text-6xl text-accent mt-2">{tr.calendar_title}<br /><span className="text-[hsl(var(--accent))]">{tr.calendar_title2}</span></h2>
-            <p className="font-body text-white/50 mt-3 text-sm max-w-md">
+            <h2 className="section-title text-white">{tr.calendar_title} <span className="text-accent">{tr.calendar_title2}</span></h2>
+            <p className="mt-5 max-w-md text-white/70">
               {tr.calendar_subtitle}
             </p>
           </div>
@@ -141,9 +140,9 @@ export default function CalendarSection() {
           animate={isInView ? { opacity: 1 } : {}}
           className="text-center py-16 border border-white/10 rounded-xl">
 
-            <Calendar size={48} className="text-white/20 mx-auto mb-4" />
-            <p className="font-heading text-2xl text-white/30">{tr.calendar_no_events}</p>
-            <p className="font-body text-sm text-white/20 mt-2">{tr.calendar_no_events_desc}</p>
+            <Calendar size={44} className="mx-auto mb-4 text-accent" />
+            <p className="font-heading text-2xl text-white/80">{tr.calendar_no_events}</p>
+            <p className="mt-2 text-white/60">{tr.calendar_no_events_desc}</p>
           </motion.div> :
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">

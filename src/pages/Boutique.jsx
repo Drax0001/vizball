@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { motion, useInView } from 'framer-motion';
-import { ShoppingBag, Filter, Search } from 'lucide-react';
+import { ShoppingBag, Search } from 'lucide-react';
 import { CATEGORIES, CATEGORY_LABELS } from '../lib/shopData';
 import ProductCard from '../components/shop/ProductCard';
 import CartIcon from '../components/shop/CartIcon';
@@ -8,7 +8,9 @@ import { useLang } from '../lib/LanguageContext';
 import t from '../lib/translations';
 import { api } from '../api/client';
 import Seo from '../components/Seo';
-import PageEyebrow from '../components/PageEyebrow';
+import PageHeader from '../components/PageHeader';
+import { Award, Package, Handshake, Wallet } from 'lucide-react';
+import headerImage from '../assets/images/vizball-throne.webp';
 
 function AnimatedSection({ children, className = '' }) {
   const ref = useRef(null);
@@ -53,42 +55,23 @@ export default function Boutique() {
   return (
     <div className="min-h-screen bg-primary">
       <Seo title={tr.shop_title} description={tr.shop_subtitle} canonicalPath="/boutique" />
-      {/* Hero */}
-      <section className="relative overflow-hidden pt-32 pb-16">
-        <div className="absolute inset-0 opacity-5" style={{ backgroundImage: 'radial-gradient(circle at 1px 1px, hsl(43,75%,49%) 1px, transparent 0)', backgroundSize: '40px 40px' }} />
-        <div className="absolute top-0 right-0 w-96 h-96 bg-accent/5 rounded-full blur-3xl" />
-
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-start justify-between flex-wrap gap-6">
-            <motion.div initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7 }}>
-              <PageEyebrow>{tr.shop_badge}</PageEyebrow>
-              <h1 className="font-heading text-6xl sm:text-7xl md:text-8xl text-white leading-none mb-4">
-                {tr.shop_title}
-              </h1>
-              <p className="font-body text-lg text-white/60 max-w-xl leading-relaxed">
-                {tr.shop_subtitle}
-              </p>
-            </motion.div>
-            <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.3 }}>
-              <CartIcon />
-            </motion.div>
-          </div>
-        </div>
-      </section>
+      <PageHeader title={tr.shop_title} subtitle={tr.shop_subtitle} image={headerImage}>
+        <CartIcon />
+      </PageHeader>
 
       {/* Info banner */}
       <div className="border-y border-white/10 bg-white/3">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
           <div className="flex flex-wrap items-center justify-center gap-8 text-center">
             {[
-            { icon: '🏅', text: tr.shop_info_official },
-            { icon: '📦', text: tr.shop_info_delivery },
-            { icon: '🤝', text: tr.shop_info_order },
-            { icon: '⚽', text: tr.shop_info_payment }].
+            { icon: Award, text: tr.shop_info_official },
+            { icon: Package, text: tr.shop_info_delivery },
+            { icon: Handshake, text: tr.shop_info_order },
+            { icon: Wallet, text: tr.shop_info_payment }].
             map((item, i) =>
             <div key={i} className="flex items-center gap-2">
-                <span>{item.icon}</span>
-                <span className="font-body text-xs text-white/50">{item.text}</span>
+                <item.icon size={16} className="text-accent" aria-hidden="true" />
+                <span className="text-sm text-white/75">{item.text}</span>
               </div>
             )}
           </div>

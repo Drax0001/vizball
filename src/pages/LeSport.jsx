@@ -12,6 +12,8 @@ import { CATEGORY_LABELS, LEVEL_LABELS } from '../lib/tutorialLabels';
 import { api } from '../api/client';
 import sportUniqueImage from '../assets/images/vizball-players-sitting-on-pitch.webp';
 import terrainImage from '../assets/images/community-vizball.webp';
+import PageHeader from '../components/PageHeader';
+import headerImage from '../assets/images/court-vizball.webp';
 
 const VIDEO_CATEGORIES = [
   { label: 'Tous', icon: Play },
@@ -194,8 +196,7 @@ function TutorielsSection() {
     <section className="py-24 bg-primary">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <AnimatedSection className="mb-12">
-          <span className="font-subtitle text-sm uppercase tracking-widest text-secondary">{tr.tutoriels_badge}</span>
-          <h2 className="text-accent mt-3 mb-3 text-4xl font-heading sm:text-5xl">{tr.tutoriels_title}{tr.tutoriels_title2}</h2>
+          <h2 className="section-title mb-10 text-white">{tr.tutoriels_title}{tr.tutoriels_title2}</h2>
           <p className="font-body text-white/60">{tr.tutoriels_subtitle}</p>
         </AnimatedSection>
 
@@ -260,23 +261,7 @@ export default function LeSport() {
   return (
     <div>
       <Seo title={tr.sport_title} description={tr.sport_subtitle} canonicalPath="/le-sport" />
-      {/* Hero */}
-      <section className="relative h-[60vh] min-h-[400px] overflow-hidden">
-        <div className="w-full h-full bg-gray-900" />
-
-        <div className="absolute inset-0 bg-gradient-to-r from-primary/90 via-primary/70 to-primary/40" />
-        <div className="absolute inset-0 flex items-center">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
-            <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>
-              <span className="font-subtitle text-sm uppercase tracking-widest text-accent">Vizball</span>
-              <h1 className="text-[hsl(var(--background))] mt-2 text-6xl font-heading sm:text-7xl md:text-8xl">{tr.sport_title}</h1>
-              <p className="font-body text-lg text-white/70 max-w-lg mt-4">
-                {tr.sport_subtitle}
-              </p>
-            </motion.div>
-          </div>
-        </div>
-      </section>
+      <PageHeader title={tr.sport_title} subtitle={tr.sport_subtitle} image={headerImage} />
 
       {/* Description */}
       <section className="py-24 bg-background">
@@ -284,8 +269,7 @@ export default function LeSport() {
           <AnimatedSection>
             <div className="grid lg:grid-cols-2 gap-16 items-center">
               <div>
-                <span className="font-subtitle text-sm uppercase tracking-widest text-secondary">{lang === 'en' ? 'Overview' : 'Présentation'}</span>
-                <h2 className="text-[hsl(var(--chart-3))] mt-3 mb-6 text-5xl font-heading">{lang === 'en' ? 'A UNIQUE SPORT' : 'UN SPORT UNIQUE'}</h2>
+                <h2 className="section-title mb-8 text-primary">{lang === 'en' ? 'A UNIQUE SPORT' : 'UN SPORT UNIQUE'}</h2>
                 <div className="space-y-4 font-body text-muted-foreground leading-relaxed">
                   <p>
                     {lang === 'en'
@@ -329,8 +313,7 @@ export default function LeSport() {
       <section className="py-24 bg-primary">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <AnimatedSection className="mb-16">
-            <span className="text-[hsl(var(--background))] font-subtitle text-sm uppercase tracking-widest">{tr.sport_field_title}</span>
-            <h2 className="text-[hsl(var(--sidebar-ring))] mt-3 text-5xl font-heading sm:text-6xl">{tr.sport_zones_title}</h2>
+            <h2 className="section-title mb-10 text-white">{tr.sport_zones_title}</h2>
           </AnimatedSection>
 
           <div className="grid md:grid-cols-2 gap-8">
@@ -381,8 +364,7 @@ export default function LeSport() {
       <section className="py-24 bg-background">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <AnimatedSection className="mb-16">
-            <span className="font-subtitle text-sm uppercase tracking-widest text-secondary">{tr.sport_positions_section_badge}</span>
-            <h2 className="text-[hsl(var(--accent))] mt-3 text-5xl font-heading sm:text-6xl">{tr.sport_positions_title} {tr.sport_positions_title2}</h2>
+            <h2 className="section-title mb-10 text-primary">{tr.sport_positions_title} {tr.sport_positions_title2}</h2>
           </AnimatedSection>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -404,7 +386,7 @@ export default function LeSport() {
       <section className="py-24 bg-background">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <AnimatedSection>
-            <h2 className="text-[hsl(var(--chart-3))] mt-2 mb-8 text-4xl font-heading sm:text-5xl">{tr.sport_avant_partie_title}</h2>
+            <h2 className="section-title mb-10 text-primary">{tr.sport_avant_partie_title}</h2>
             <p className="font-body text-muted-foreground mb-6">
               {tr.sport_avant_partie_intro}
             </p>
@@ -426,7 +408,7 @@ export default function LeSport() {
       <section className="py-24 bg-muted">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <AnimatedSection>
-            <h2 className="text-[hsl(var(--accent))] mt-2 mb-8 text-4xl font-heading sm:text-5xl">{tr.sport_pendant_partie_title}</h2>
+            <h2 className="section-title mb-10 text-primary">{tr.sport_pendant_partie_title}</h2>
           </AnimatedSection>
 
           <div className="space-y-4">
@@ -443,7 +425,7 @@ export default function LeSport() {
       <section className="py-24 bg-primary">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <AnimatedSection>
-            <h2 className="text-[hsl(var(--accent))] mt-2 mb-8 text-4xl font-heading sm:text-5xl">{tr.sport_fautes_title}</h2>
+            <h2 className="section-title mb-10 text-white">{tr.sport_fautes_title}</h2>
 
             <div className="bg-white/5 border border-white/10 rounded-lg p-8">
               <p className="font-body text-white/80 leading-relaxed mb-4">
@@ -472,8 +454,7 @@ export default function LeSport() {
       <section className="py-24 bg-background">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <AnimatedSection>
-            <span className="font-subtitle text-sm uppercase tracking-widest text-secondary">{tr.sport_arbitral_badge}</span>
-            <h2 className="text-[hsl(var(--chart-3))] mt-3 mb-8 text-4xl font-heading sm:text-5xl">{tr.sport_arbitral_title}</h2>
+            <h2 className="section-title mb-10 text-primary">{tr.sport_arbitral_title}</h2>
             <p className="font-body text-muted-foreground leading-relaxed mb-10">
               {tr.sport_arbitral_intro}
             </p>

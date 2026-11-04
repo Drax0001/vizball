@@ -1,94 +1,57 @@
-import React, { useRef } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
-import { motion, useInView } from 'framer-motion';
-import { BookOpen, Shield, Users, ChevronRight } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { ArrowRight } from 'lucide-react';
 import { useLang } from '../../lib/LanguageContext';
 import t from '../../lib/translations';
-import featureCommunity from '../../assets/images/community-vizball.webp';
-import featureThrone from '../../assets/images/vizball-throne.webp';
-import featureBallToLeg from '../../assets/images/ball-to-the-leg.webp';
+import imgCourt from '../../assets/images/court-vizball.webp';
+import imgCommunity from '../../assets/images/community-vizball.webp';
+import imgThrone from '../../assets/images/vizball-throne.webp';
+import imgBall from '../../assets/images/ball-to-the-leg.webp';
 
-// Shared feature images (same for every language)
-const FEATURE_IMAGES = {
-  fr: [featureCommunity, featureThrone, featureBallToLeg],
-  en: [featureCommunity, featureThrone, featureBallToLeg]
-};
-
+// "Découvrir le Vizball": four photo cards with the caption under the image,
+// as federation sites list their competitions.
 export default function FeatureCards() {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: '-50px' });
   const { lang } = useLang();
   const tr = t[lang];
 
-  const features = [
-  {
-    icon: BookOpen,
-    title: tr.features_rules_title,
-    desc: tr.features_rules_desc,
-    cta: tr.features_rules_cta,
-    link: '/le-sport',
-    img: FEATURE_IMAGES[lang][0]
-  },
-  {
-    icon: Shield,
-    title: tr.features_association_title,
-    desc: tr.features_association_desc,
-    cta: tr.features_association_cta,
-    link: '/gouvernance',
-    img: FEATURE_IMAGES[lang][1]
-  },
-  {
-    icon: Users,
-    title: tr.features_register_title,
-    desc: tr.features_register_desc,
-    cta: tr.features_register_cta,
-    link: '/contact',
-    img: FEATURE_IMAGES[lang][2]
-  }];
-
+  const cards = [
+    { title: tr.features_rules_title, desc: tr.features_rules_desc, link: '/le-sport', img: imgCourt },
+    { title: tr.nav_tutorials, desc: tr.discover_tuto_desc, link: '/tutoriels', img: imgBall },
+    { title: tr.features_association_title, desc: tr.features_association_desc, link: '/gouvernance', img: imgCommunity },
+    { title: tr.nav_shop, desc: tr.discover_shop_desc, link: '/boutique', img: imgThrone },
+  ];
 
   return (
-    <section ref={ref} className="py-24 bg-primary relative">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          className="text-center mb-16">
-          
-          <h2 className="text-accent mt-3 text-5xl font-heading sm:text-6xl">
-            {tr.features_title_1} {tr.features_title_2}
-          </h2>
-        </motion.div>
-
-        <div className="grid md:grid-cols-3 gap-8">
-          {features.map((feature, i) =>
-          <motion.div
-            key={i}
-            initial={{ opacity: 0, y: 40 }}
-            animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ delay: i * 0.15 }}>
-              <Link to={feature.link} className="group block">
-                <div className="relative rounded-lg overflow-hidden bg-white/5 border border-white/10 hover:border-accent/40 transition-all duration-500">
-                  <div className="h-52 overflow-hidden">
-                    <img src={feature.img} alt={feature.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
-                    <div className="absolute inset-0 bg-gradient-to-t from-primary via-primary/30 to-transparent" />
-                  </div>
-                  <div className="relative p-6">
-                    <div className="w-12 h-12 rounded-lg bg-accent/20 flex items-center justify-center mb-4 -mt-12 relative z-10 border border-accent/30">
-                      <feature.icon size={22} className="text-accent" />
-                    </div>
-                    <h3 className="font-heading text-2xl text-white mb-2">{feature.title}</h3>
-                    <p className="font-body text-sm text-white/60 leading-relaxed mb-4">{feature.desc}</p>
-                    <span className="inline-flex items-center gap-1 font-body text-xs font-bold uppercase tracking-wider text-accent group-hover:gap-2 transition-all">
-                      {feature.cta} <ChevronRight size={14} />
-                    </span>
-                  </div>
+    <section className="bg-muted py-20 md:py-28" aria-labelledby="discover-title">
+      <div className="shell">
+        <h2 id="discover-title" className="section-title mb-12 text-primary">{tr.discover_title}</h2>
+        <ul className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          {cards.map((c, i) => (
+            <motion.li
+              key={c.link}
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: '-40px' }}
+              transition={{ duration: 0.5, delay: i * 0.08 }}
+            >
+              <Link to={c.link} className="photo-card group flex h-full flex-col overflow-hidden rounded-lg bg-card shadow-sm ring-1 ring-border transition-shadow hover:shadow-lg">
+                <div className="aspect-[4/3] overflow-hidden">
+                  <img src={c.img} alt="" loading="lazy" className="h-full w-full object-cover" />
+                </div>
+                <div className="flex flex-1 flex-col p-5">
+                  <h3 className="font-heading text-xl font-black uppercase leading-tight text-primary">{c.title}</h3>
+                  <p className="mt-2 flex-1 text-sm leading-relaxed text-muted-foreground">{c.desc}</p>
+                  <span className="mt-4 inline-flex items-center gap-2 font-heading text-sm font-bold uppercase tracking-wider text-[hsl(var(--brand-red))]">
+                    {lang === 'en' ? 'Explore' : 'Découvrir'}
+                    <ArrowRight size={16} className="transition-transform group-hover:translate-x-1" />
+                  </span>
                 </div>
               </Link>
-            </motion.div>
-          )}
-        </div>
+            </motion.li>
+          ))}
+        </ul>
       </div>
-    </section>);
-
+    </section>
+  );
 }

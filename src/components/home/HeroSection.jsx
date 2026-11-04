@@ -1,190 +1,185 @@
-import React, { useState, useEffect } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { motion, AnimatePresence } from 'framer-motion';
-import { ChevronLeft, ChevronRight, Play } from 'lucide-react';
+import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
+import { ChevronLeft, ChevronRight, Pause, Play } from 'lucide-react';
 import { useLang } from '../../lib/LanguageContext';
 import t from '../../lib/translations';
 import heroThrone from '../../assets/images/vizball-throne.webp';
 import heroBallToLeg from '../../assets/images/ball-to-the-leg.webp';
 import heroCommunity from '../../assets/images/community-vizball.webp';
 
-// Shared hero images (same for every language)
-const HERO_IMAGES = {
-  fr: [heroThrone, heroBallToLeg, heroCommunity],
-  en: [heroThrone, heroBallToLeg, heroCommunity]
-};
+const SLIDE_MS = 7000;
 
 const HERO_SLIDES = [
   {
-    badge: tr => tr.hero_badge,
+    label: (tr) => tr.hero_badge,
     title: () => 'VIZBALL',
-    subtitle: tr => tr.hero_subtitle,
-    ctaDiscover: tr => tr.hero_cta_discover,
-    ctaRules: tr => tr.hero_cta_rules,
-    image: (lang) => HERO_IMAGES[lang][0]
+    subtitle: (tr) => tr.hero_subtitle,
+    image: heroThrone,
+    position: 'center 30%',
   },
   {
-    badge: tr => tr.hero_slide2_badge,
-    title: tr => tr.hero_slide2_title,
-    subtitle: tr => tr.hero_slide2_subtitle,
-    ctaDiscover: tr => tr.hero_cta_discover,
-    ctaRules: tr => tr.hero_cta_rules,
-    image: (lang) => HERO_IMAGES[lang][1]
+    label: (tr) => tr.hero_slide2_badge,
+    title: (tr) => tr.hero_slide2_title,
+    subtitle: (tr) => tr.hero_slide2_subtitle,
+    image: heroBallToLeg,
+    position: 'center 60%',
   },
   {
-    badge: tr => tr.hero_slide3_badge,
-    title: tr => tr.hero_slide3_title,
-    subtitle: tr => tr.hero_slide3_subtitle,
-    ctaDiscover: tr => tr.hero_cta_discover,
-    ctaRules: tr => tr.hero_cta_rules,
-    image: (lang) => HERO_IMAGES[lang][2]
-  }
+    label: (tr) => tr.hero_slide3_badge,
+    title: (tr) => tr.hero_slide3_title,
+    subtitle: (tr) => tr.hero_slide3_subtitle,
+    image: heroCommunity,
+    position: 'center 40%',
+  },
 ];
 
 export default function HeroSection() {
   const { lang } = useLang();
   const tr = t[lang];
-  const [currentSlide, setCurrentSlide] = useState(0);
-  const [direction, setDirection] = useState(1);
+  const reduce = useReducedMotion();
+  const [current, setCurrent] = useState(0);
+  const [paused, setPaused] = useState(false);
+  const [hovered, setHovered] = useState(false);
+  const running = !reduce && !paused && !hovered;
+
+  const go = useCallback((i) => setCurrent((i + HERO_SLIDES.length) % HERO_SLIDES.length), []);
 
   useEffect(() => {
-    const timer = setInterval(() => {
-      setDirection(1);
-      setCurrentSlide((prev) => (prev + 1) % HERO_SLIDES.length);
-    }, 5000);
-    return () => clearInterval(timer);
-  }, [currentSlide]);
+    if (!running) return undefined;
+    const timer = setTimeout(() => go(current + 1), SLIDE_MS);
+    return () => clearTimeout(timer);
+  }, [current, running, go]);
 
-  const goToSlide = (index) => {
-    setDirection(index > currentSlide ? 1 : -1);
-    setCurrentSlide(index);
-  };
-
-  const prevSlide = () => {
-    setDirection(-1);
-    setCurrentSlide((prev) => (prev - 1 + HERO_SLIDES.length) % HERO_SLIDES.length);
-  };
-
-  const nextSlide = () => {
-    setDirection(1);
-    setCurrentSlide((prev) => (prev + 1) % HERO_SLIDES.length);
-  };
-
-  const slide = HERO_SLIDES[currentSlide];
+  const slide = HERO_SLIDES[current];
 
   return (
-    <section className="relative h-screen overflow-hidden">
-      <div className="absolute inset-0">
-        <AnimatePresence mode="wait" custom={direction}>
+    <section
+      className="relative isolate h-[100svh] min-h-[620px] max-h-[980px] overflow-hidden bg-primary"
+      aria-roledescription="carousel"
+      aria-label="Vizball"
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+      onFocus={() => setHovered(true)}
+      onBlur={() => setHovered(false)}
+      onKeyDown={(e) => {
+        if (e.key === 'ArrowLeft') go(current - 1);
+        if (e.key === 'ArrowRight') go(current + 1);
+      }}
+    >
+      <AnimatePresence initial={false}>
+        <motion.div
+          key={current}
+          className="absolute inset-0 -z-10"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 1.1, ease: 'easeInOut' }}
+        >
+          <motion.img
+            src={slide.image}
+            alt=""
+            className="h-full w-full object-cover"
+            style={{ objectPosition: slide.position }}
+            initial={{ scale: reduce ? 1 : 1.08 }}
+            animate={{ scale: 1 }}
+            transition={{ duration: SLIDE_MS / 1000 + 1, ease: 'easeOut' }}
+          />
+        </motion.div>
+      </AnimatePresence>
+      {/* Legibility: a dark band from the left and from the bottom, over the photo only */}
+      <div className="absolute inset-0 -z-10 bg-gradient-to-r from-primary/90 via-primary/45 to-transparent" />
+      <div className="absolute inset-0 -z-10 bg-gradient-to-t from-primary via-primary/20 to-transparent" />
+
+      <div className="shell flex h-full flex-col justify-end pb-8 pt-[132px] md:pb-10">
+        <AnimatePresence mode="wait">
           <motion.div
-            key={currentSlide}
-            custom={direction}
-            initial={{ opacity: 0, scale: 1.05 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 1.05 }}
-            transition={{ duration: 0.8, ease: 'easeInOut' }}
-            className="absolute inset-0"
+            key={current}
+            initial={{ opacity: 0, y: 28 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -16 }}
+            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+            className="max-w-3xl"
+            aria-live={running ? 'off' : 'polite'}
           >
-            <div className="w-full h-full bg-gradient-to-br from-gray-800 via-gray-900 to-black">
-              <img src={slide.image(lang)} alt={slide.badge(tr)} className="w-full h-full object-cover" />
-              <div className="absolute inset-0 bg-gradient-to-r from-primary/90 via-primary/60 to-transparent" />
-              <div className="absolute inset-0 bg-gradient-to-t from-primary/80 via-transparent to-primary/30" />
+            <h1 className="font-heading text-[clamp(3.5rem,10vw,8.5rem)] font-black uppercase leading-[0.88] tracking-tight text-white">
+              {slide.title(tr)}
+            </h1>
+            <p className="mt-5 max-w-xl text-lg leading-relaxed text-white/85 sm:text-xl">{slide.subtitle(tr)}</p>
+            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+              <Link to="/le-sport" className="btn btn-gold">
+                {tr.hero_cta_discover}
+                <ChevronRight size={18} />
+              </Link>
+              <Link to="/tutoriels" className="btn btn-outline-light">
+                {tr.nav_tutorials}
+              </Link>
             </div>
           </motion.div>
         </AnimatePresence>
-      </div>
 
-      <div className="relative z-10 h-full flex items-center">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
-          <AnimatePresence mode="wait" custom={direction}>
-            <motion.div
-              key={currentSlide}
-              custom={direction}
-              initial={{ opacity: 0, x: direction * 50 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: -direction * 50 }}
-              transition={{ duration: 0.6, ease: 'easeInOut' }}
-              className="max-w-2xl">
-
-              <motion.div
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.6, delay: 0.2 }}
-                className="inline-flex items-center gap-2 bg-accent/20 backdrop-blur-sm border border-accent/30 rounded-full px-4 py-2 mb-6">
-                <span className="w-2 h-2 bg-brand-red rounded-full animate-pulse" />
-                <span className="font-body text-xs font-semibold uppercase tracking-wider text-accent">
-                  {slide.badge(tr)}
-                </span>
-              </motion.div>
-
-              <h1 className="font-heading text-6xl sm:text-7xl md:text-8xl lg:text-9xl text-white leading-none mb-6">
-                {slide.title(tr)}
-              </h1>
-
-              <p className="font-body text-lg sm:text-xl text-white/80 leading-relaxed mb-10 max-w-lg">
-                {slide.subtitle(tr)}
-              </p>
-
-              <div className="flex flex-col sm:flex-row gap-4">
-                <Link
-                  to="/le-sport"
-                  className="group inline-flex items-center justify-center gap-2 bg-accent hover:bg-accent/90 text-primary font-body font-bold text-lg sm:text-xl uppercase tracking-wider px-8 py-4 rounded transition-all duration-300">
-                  {slide.ctaDiscover(tr)}
-                  <ChevronRight size={18} className="group-hover:translate-x-1 transition-transform" />
-                </Link>
-                <Link
-                  to="/le-sport"
-                  className="group inline-flex items-center justify-center gap-2 border-2 border-white/30 hover:border-accent text-white hover:text-accent font-body font-bold text-lg sm:text-xl uppercase tracking-wider px-8 py-4 rounded transition-all duration-300">
-                  <Play size={16} />
-                  {slide.ctaRules(tr)}
-                </Link>
-              </div>
-            </motion.div>
-          </AnimatePresence>
+        {/* Slide tabs with progress, arrows and pause */}
+        <div className="mt-10 flex items-end gap-4 border-t border-white/20 pt-5 md:mt-14">
+          <ol className="grid flex-1 grid-cols-3 gap-3 sm:gap-6">
+            {HERO_SLIDES.map((s, i) => (
+              <li key={i}>
+                <button
+                  type="button"
+                  onClick={() => go(i)}
+                  aria-current={i === current ? 'true' : undefined}
+                  className="group block w-full text-left"
+                >
+                  <span className="relative block h-[3px] overflow-hidden rounded bg-white/25">
+                    {i === current && (
+                      <motion.span
+                        key={`${current}-${running}`}
+                        className="absolute inset-y-0 left-0 bg-accent"
+                        initial={{ width: running ? '0%' : '100%' }}
+                        animate={{ width: '100%' }}
+                        transition={{ duration: running ? SLIDE_MS / 1000 : 0, ease: 'linear' }}
+                      />
+                    )}
+                    {i < current && <span className="absolute inset-0 bg-white/60" />}
+                  </span>
+                  <span
+                    className={`meta mt-3 hidden truncate transition-colors sm:block ${
+                      i === current ? 'text-accent' : 'text-white/60 group-hover:text-white'
+                    }`}
+                  >
+                    {s.label(tr)}
+                  </span>
+                </button>
+              </li>
+            ))}
+          </ol>
+          <div className="flex shrink-0 items-center gap-2">
+            <button
+              type="button"
+              onClick={() => setPaused((p) => !p)}
+              aria-label={paused ? tr.hero_play : tr.hero_pause}
+              className="grid h-11 w-11 place-items-center rounded-full border border-white/25 text-white transition-colors hover:border-accent hover:text-accent"
+            >
+              {paused ? <Play size={16} /> : <Pause size={16} />}
+            </button>
+            <button
+              type="button"
+              onClick={() => go(current - 1)}
+              aria-label={tr.hero_prev}
+              className="grid h-11 w-11 place-items-center rounded-full border border-white/25 text-white transition-colors hover:border-accent hover:text-accent"
+            >
+              <ChevronLeft size={20} />
+            </button>
+            <button
+              type="button"
+              onClick={() => go(current + 1)}
+              aria-label={tr.hero_next}
+              className="grid h-11 w-11 place-items-center rounded-full border border-white/25 text-white transition-colors hover:border-accent hover:text-accent"
+            >
+              <ChevronRight size={20} />
+            </button>
+          </div>
         </div>
       </div>
-
-      {/* Carousel Controls */}
-      <div className="absolute inset-0 z-10 flex items-center justify-between px-4 sm:px-6 lg:px-8 pointer-events-none">
-        <button
-          onClick={prevSlide}
-          className="pointer-events-auto w-12 h-12 rounded-full bg-white/5 backdrop-blur-sm border border-white/10 hover:border-accent hover:bg-accent/10 text-white/60 hover:text-accent flex items-center justify-center transition-all duration-300"
-        >
-          <ChevronLeft size={24} />
-        </button>
-        <button
-          onClick={nextSlide}
-          className="pointer-events-auto w-12 h-12 rounded-full bg-white/5 backdrop-blur-sm border border-white/10 hover:border-accent hover:bg-accent/10 text-white/60 hover:text-accent flex items-center justify-center transition-all duration-300"
-        >
-          <ChevronRight size={24} />
-        </button>
-      </div>
-
-      {/* Carousel Dots */}
-      <div className="absolute bottom-24 left-1/2 -translate-x-1/2 z-10 flex gap-2">
-        {HERO_SLIDES.map((_, index) => (
-          <button
-            key={index}
-            onClick={() => goToSlide(index)}
-            className={`transition-all duration-300 rounded-full ${
-              index === currentSlide ? 'w-8 h-2 bg-accent' : 'w-2 h-2 bg-white/30 hover:bg-white/50'
-            }`}
-          />
-        ))}
-      </div>
-
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1.5 }}
-        className="hidden sm:block absolute bottom-8 left-1/2 -translate-x-1/2 z-10">
-        <motion.div
-          animate={{ y: [0, 10, 0] }}
-          transition={{ repeat: Infinity, duration: 2 }}
-          className="w-6 h-10 border-2 border-white/40 rounded-full flex items-start justify-center pt-2">
-          <div className="w-1.5 h-1.5 bg-accent rounded-full" />
-        </motion.div>
-      </motion.div>
-    </section>);
-
+    </section>
+  );
 }

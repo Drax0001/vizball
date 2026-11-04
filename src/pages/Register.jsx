@@ -7,6 +7,7 @@ import { useLang } from '@/lib/LanguageContext';
 import t from '@/lib/translations';
 import { api } from '@/api/client';
 import Seo from '@/components/Seo';
+import PageHeader from '@/components/PageHeader';
 
 export default function Register() {
   const { lang } = useLang();
@@ -36,40 +37,41 @@ export default function Register() {
   };
 
   return (
-    <div className="min-h-screen pt-32 pb-20 flex items-center justify-center bg-background px-4">
+    <div className="min-h-screen bg-muted">
       <Seo title={tr.register_title} canonicalPath="/register" noindex />
-      <div className="max-w-md w-full p-8 bg-white rounded-lg shadow-lg border border-slate-100">
-        <h1 className="font-heading text-3xl text-primary mb-2">{tr.register_title}</h1>
-        <p className="text-sm text-slate-500 mb-8">{tr.register_subtitle}</p>
+      <PageHeader title={tr.register_title} subtitle={tr.register_subtitle} />
+      <div className="shell flex justify-center py-14 md:py-20">
+      <div className="w-full max-w-md rounded-lg bg-card p-8 shadow-lg ring-1 ring-border">
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1">{tr.register_username}</label>
+            <label className="meta mb-2 block text-primary">{tr.register_username}</label>
             <Input value={username} onChange={(e) => setUsername(e.target.value)} required autoFocus />
           </div>
           <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1">{tr.register_email}</label>
+            <label className="meta mb-2 block text-primary">{tr.register_email}</label>
             <Input type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
           </div>
           <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1">{tr.register_password}</label>
+            <label className="meta mb-2 block text-primary">{tr.register_password}</label>
             <Input type="password" value={password} onChange={(e) => setPassword(e.target.value)} required minLength={6} />
-            <p className="text-xs text-slate-400 mt-1">{tr.register_password_hint}</p>
+            <p className="text-xs text-muted-foreground mt-1">{tr.register_password_hint}</p>
           </div>
 
           {error && <p className="text-sm text-destructive">{error}</p>}
 
-          <Button type="submit" disabled={submitting} className="w-full">
+          <Button type="submit" disabled={submitting} className="btn btn-green h-auto w-full">
             {submitting ? tr.register_submitting : tr.register_submit}
           </Button>
         </form>
 
-        <p className="text-sm text-slate-500 mt-6 text-center">
+        <p className="text-sm text-muted-foreground mt-6 text-center">
           {tr.register_have_account}{' '}
-          <Link to="/login" className="text-accent font-medium hover:underline">
+          <Link to="/login" className="font-bold text-[hsl(var(--brand-red))] underline-offset-4 hover:underline">
             {tr.register_login_link}
           </Link>
         </p>
+      </div>
       </div>
     </div>
   );

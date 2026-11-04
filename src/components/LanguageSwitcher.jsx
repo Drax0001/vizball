@@ -12,7 +12,7 @@ export default function LanguageSwitcher({ className = '' }) {
         className={`flex items-center gap-1.5 px-2 py-1 rounded transition-all font-body text-xs font-bold uppercase tracking-wider ${
         lang === 'fr' ?
         'bg-white/15 text-white' :
-        'text-white/40 hover:text-white/80 hover:bg-white/5'}`
+        'text-white/75 hover:text-white hover:bg-white/10'}`
         }>
         
         
@@ -25,7 +25,7 @@ export default function LanguageSwitcher({ className = '' }) {
         className={`flex items-center gap-1.5 px-2 py-1 rounded transition-all font-body text-xs font-bold uppercase tracking-wider ${
         lang === 'en' ?
         'bg-white/15 text-white' :
-        'text-white/40 hover:text-white/80 hover:bg-white/5'}`
+        'text-white/75 hover:text-white hover:bg-white/10'}`
         }>
         
         

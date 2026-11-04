@@ -1,53 +1,41 @@
-import React, { useRef } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
-import { motion, useInView } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
 import { useLang } from '../../lib/LanguageContext';
 import t from '../../lib/translations';
+import ctaImage from '../../assets/images/community-vizball.webp';
 
 export default function CTASection() {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: '-50px' });
   const { lang } = useLang();
   const tr = t[lang];
 
   return (
-    <section ref={ref} className="relative py-32 overflow-hidden">
-      <div className="absolute inset-0">
-        <div className="w-full h-full bg-gray-900" />
-        
-        <div className="absolute inset-0 bg-primary/85" />
-      </div>
-
-      <div className="relative max-w-4xl mx-auto px-4 text-center">
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8 }}>
-          
-          <h2 className="text-[hsl(var(--accent))] mb-6 text-5xl font-heading sm:text-7xl">
+    <section className="relative isolate overflow-hidden bg-[hsl(var(--brand-red))] py-20 md:py-24" aria-labelledby="cta-title">
+      <img src={ctaImage} alt="" loading="lazy" className="absolute inset-0 -z-10 h-full w-full object-cover opacity-15 mix-blend-multiply" />
+      <motion.div
+        className="shell flex flex-col items-start gap-8 md:flex-row md:items-center md:justify-between"
+        initial={{ opacity: 0, y: 24 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.6 }}
+      >
+        <div className="max-w-2xl">
+          <h2 id="cta-title" className="font-heading text-[clamp(2.5rem,6vw,4.5rem)] font-black uppercase leading-[0.92] text-white">
             {tr.cta_title_1} <span className="text-accent">{tr.cta_title_2}</span>
           </h2>
-          <p className="font-body text-lg text-white/70 max-w-xl mx-auto mb-10 leading-relaxed">
-            {tr.cta_desc}
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link
-              to="/contact"
-              className="group inline-flex items-center justify-center gap-2 bg-accent hover:bg-accent/90 text-primary font-body font-bold text-sm uppercase tracking-wider px-10 py-4 rounded transition-all">
-              
-              {tr.cta_contact}
-              <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
-            </Link>
-            <Link
-              to="/gouvernance"
-              className="inline-flex items-center justify-center gap-2 border-2 border-white/30 hover:border-accent text-white hover:text-accent font-body font-bold text-sm uppercase tracking-wider px-10 py-4 rounded transition-all">
-
-              {tr.cta_association}
-            </Link>
-          </div>
-        </motion.div>
-      </div>
-    </section>);
-
+          <p className="mt-4 text-lg text-white/90">{tr.cta_desc}</p>
+        </div>
+        <div className="flex shrink-0 flex-col gap-3 sm:flex-row">
+          <Link to="/contact" className="btn btn-gold">
+            {tr.cta_contact}
+            <ArrowRight size={18} />
+          </Link>
+          <Link to="/gouvernance" className="btn btn-outline-light">
+            {tr.cta_association}
+          </Link>
+        </div>
+      </motion.div>
+    </section>
+  );
 }

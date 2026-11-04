@@ -1,112 +1,62 @@
-import React, { useRef } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
-import { motion, useInView } from "framer-motion";
+import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import { useLang } from "../../lib/LanguageContext";
 import t from "../../lib/translations";
 import aboutImage from "../../assets/images/court-vizball.webp";
-
-// Language-specific images (when available)
-const ABOUT_IMAGES = {
-  fr: aboutImage,
-  en: aboutImage
-};
-
-function renderBold(text) {
-  return text.split("**").map((part, i) =>
-    i % 2 === 1 ? (
-      <strong key={i} className="text-foreground">
-        {part}
-      </strong>
-    ) : (
-      part
-    ),
-  );
-}
+import sideImage from "../../assets/images/vizball-players-sitting-on-pitch.webp";
 
 export default function AboutSection() {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
   const { lang } = useLang();
   const tr = t[lang];
-  const currentAboutImage = ABOUT_IMAGES[lang];
 
   return (
-    <section ref={ref} className="py-24 bg-background relative overflow-hidden">
-      <div className="absolute top-0 right-0 w-96 h-96 bg-secondary/5 rounded-full blur-3xl" />
-      <div className="absolute bottom-0 left-0 w-64 h-64 bg-accent/5 rounded-full blur-3xl" />
+    <section className="overflow-hidden bg-card py-20 md:py-28" aria-labelledby="about-title">
+      <div className="shell grid items-center gap-14 lg:grid-cols-2 lg:gap-20">
+        <motion.div
+          initial={{ opacity: 0, x: -32 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true, margin: "-80px" }}
+          transition={{ duration: 0.7 }}
+          className="relative pb-10 pr-10 sm:pb-14 sm:pr-14"
+        >
+          <img
+            src={aboutImage}
+            alt={lang === "en" ? "A Vizball player at the backstop, indoors" : "Un joueur de Vizball au butoir, en salle"}
+            loading="lazy"
+            className="aspect-[4/3] w-full rounded-lg object-cover shadow-xl"
+          />
+          <img
+            src={sideImage}
+            alt=""
+            loading="lazy"
+            className="absolute bottom-0 right-0 w-[42%] rounded-lg border-[6px] border-card object-cover shadow-xl aspect-[3/4]"
+          />
+          <div className="absolute left-5 top-5 rounded-md bg-accent px-5 py-3 text-primary shadow-lg">
+            <span className="block font-heading text-4xl font-black leading-none">2007</span>
+            <span className="meta mt-1 block">{tr.about_since}</span>
+          </div>
+        </motion.div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-        <div className="grid lg:grid-cols-2 gap-16 items-center">
-          <motion.div
-            initial={{ opacity: 0, x: -50 }}
-            animate={isInView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.8 }}
-            className="relative"
-          >
-            <div className="relative rounded-lg overflow-hidden">
-              <img src={currentAboutImage} alt="Vizball demo session" className="w-full h-[500px] object-cover" />
-
-              <div className="absolute inset-0 bg-gradient-to-t from-primary/40 to-transparent" />
-            </div>
-            <div className="absolute -bottom-6 -right-6 bg-accent text-primary p-6 rounded-lg shadow-xl">
-              <span className="font-heading text-5xl">2007</span>
-              <p className="font-body text-xs font-bold uppercase tracking-wider mt-1">
-                {tr.about_since}
-              </p>
-            </div>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, x: 50 }}
-            animate={isInView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.8, delay: 0.2 }}
-          >
-            <span className="font-subtitle text-sm uppercase tracking-widest text-secondary">
-              {tr.about_badge}
-            </span>
-            <h2 className="text-[hsl(var(--chart-3))] mt-3 mb-6 text-5xl font-heading sm:text-6xl">
-              {tr.about_title_1}{" "}
-              <span className="text-[hsl(var(--accent))]">
-                {tr.about_title_2}
-              </span>
-            </h2>
-
-            {/* Fiche de présentation */}
-            <div className="bg-muted rounded-xl p-5 mb-8 border border-border space-y-2">
-              {[
-                tr.about_fact_1,
-                tr.about_fact_2,
-                tr.about_fact_3,
-                tr.about_fact_4,
-                tr.about_fact_5,
-                tr.about_fact_6,
-                tr.about_fact_7,
-              ].map((fact, i) => (
-                <div key={i} className="flex items-start gap-2">
-                  <span className="text-accent font-bold mt-0.5">—</span>
-                  <p className="font-body text-sm text-muted-foreground leading-relaxed">
-                    {renderBold(fact)}
-                  </p>
-                </div>
-              ))}
-              {/* <p className="font-body text-xs font-bold uppercase tracking-wider text-accent pt-2 border-t border-border mt-2">
-                {tr.about_author}
-              </p> */}
-            </div>
-
-            <Link
-              to="/le-sport"
-              className="group inline-flex items-center gap-2 font-body font-bold text-sm uppercase tracking-wider text-accent hover:text-secondary transition-colors"
-            >
-              {tr.about_learn_more}
-              <ArrowRight
-                size={16}
-                className="group-hover:translate-x-1 transition-transform"
-              />
-            </Link>
-          </motion.div>
-        </div>
+        <motion.div
+          initial={{ opacity: 0, x: 32 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true, margin: "-80px" }}
+          transition={{ duration: 0.7, delay: 0.1 }}
+        >
+          <h2 id="about-title" className="section-title text-primary">
+            {tr.about_title_1} <span className="text-[hsl(var(--brand-red))]">{tr.about_title_2}</span>
+          </h2>
+          <div className="mt-8 space-y-4 text-lg leading-relaxed text-muted-foreground">
+            <p>{tr.about_desc1}</p>
+            <p>{tr.about_desc2}</p>
+          </div>
+          <Link to="/le-sport" className="btn btn-green mt-8">
+            {tr.about_learn_more}
+            <ArrowRight size={18} />
+          </Link>
+        </motion.div>
       </div>
     </section>
   );

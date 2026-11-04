@@ -31,9 +31,9 @@ export default function VisitorCounter() {
   if (count === null || count === 0) return null;
 
   return (
-    <div className="flex items-center gap-2 text-white/40">
-      <Users size={13} className="text-brand-red" />
-      <span className="font-body text-xs">
+    <div className="flex items-center gap-2 text-white/90">
+      <Users size={14} className="text-accent" />
+      <span className="font-body text-sm">
         {count.toLocaleString()} {lang === 'en' ? 'visitor' : 'visiteur'}{count > 1 ? 's' : ''}
       </span>
     </div>

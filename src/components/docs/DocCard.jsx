@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { FileText, Download, Eye, Lock, ChevronRight } from 'lucide-react';
+import { Download, Eye, Lock, ChevronRight } from 'lucide-react';
 import { useLang } from '../../lib/LanguageContext';
 import t from '../../lib/translations';
 import { translateDocStatus } from '../../lib/docLabels';
