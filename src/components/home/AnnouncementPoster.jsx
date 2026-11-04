@@ -1,13 +1,13 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { useLang } from '../../lib/LanguageContext';
-import posterFr from '../../assets/images/vizball-on-arrive-fr.webp';
-import posterEn from '../../assets/images/vizball-we-are-coming-en.webp';
+import posterFr from '../../assets/images/dodging-in-vizball-fr.webp';
+import posterEn from '../../assets/images/dodging-in-vizball-en.webp';
 
-// Campaign poster ("On arrive…" / "We are coming…"), shown in the visitor's language.
+// "Dodging in Vizball" poster ("On arrive…" / "We are coming…"), in the visitor's language.
 const POSTERS = {
-  fr: { src: posterFr, alt: 'On arrive… Un joueur de Vizball en extension devant une tribune aux couleurs du Cameroun' },
-  en: { src: posterEn, alt: 'We are coming… A Vizball player at full stretch in front of a stand in Cameroon colours' },
+  fr: { src: posterFr, alt: "L'esquive au Vizball : « On arrive… », un joueur en extension esquive la balle devant une tribune aux couleurs du Cameroun" },
+  en: { src: posterEn, alt: 'Dodging in Vizball: "We are coming…", a player at full stretch dodges the ball in front of a stand in Cameroon colours' },
 };
 
 export default function AnnouncementPoster() {

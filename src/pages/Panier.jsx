@@ -7,6 +7,7 @@ import { formatPrice } from '../lib/shopData';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { useLang } from '../lib/LanguageContext';
+import Seo from '../components/Seo';
 import t from '../lib/translations';
 
 export default function Panier() {
@@ -36,6 +37,7 @@ export default function Panier() {
   if (step === 'confirm') {
     return (
       <div className="min-h-screen bg-primary flex items-center justify-center p-4">
+        <Seo title={tr.cart_title} canonicalPath="/boutique/panier" noindex />
         <motion.div
           initial={{ scale: 0.9, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
@@ -58,6 +60,7 @@ export default function Panier() {
 
   return (
     <div className="min-h-screen bg-primary">
+      <Seo title={tr.cart_title} canonicalPath="/boutique/panier" noindex />
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pt-32 pb-20">
         {/* Header */}
         <div className="flex items-center justify-between mb-10">

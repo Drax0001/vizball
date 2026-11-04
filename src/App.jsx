@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { lazy, useState } from 'react';
 import { HelmetProvider } from 'react-helmet-async';
 import { Toaster } from "@/components/ui/toaster"
 import { QueryClientProvider } from '@tanstack/react-query'
@@ -13,20 +13,20 @@ import ProtectedRoute from '@/components/ProtectedRoute';
 import ScrollToTop from '@/components/ScrollToTop';
 import Layout from './components/Layout';
 import Home from './pages/Home';
-import LeSport from './pages/LeSport';
-import Contact from './pages/Contact';
-import Gouvernance from './pages/Gouvernance';
-import Actualites from './pages/Actualites';
-import ArticleDetail from './pages/ArticleDetail';
-import Boutique from './pages/Boutique';
-import ProductDetail from './pages/ProductDetail';
-import Panier from './pages/Panier';
-import Forum from './pages/Forum';
-import Media from './pages/Media';
-import Tutoriels from './pages/Tutoriels';
-import AdminDashboard from './pages/AdminDashboard';
-import Login from './pages/Login';
-import Register from './pages/Register';
+const LeSport = lazy(() => import('./pages/LeSport'));
+const Contact = lazy(() => import('./pages/Contact'));
+const Gouvernance = lazy(() => import('./pages/Gouvernance'));
+const Actualites = lazy(() => import('./pages/Actualites'));
+const ArticleDetail = lazy(() => import('./pages/ArticleDetail'));
+const Boutique = lazy(() => import('./pages/Boutique'));
+const ProductDetail = lazy(() => import('./pages/ProductDetail'));
+const Panier = lazy(() => import('./pages/Panier'));
+const Forum = lazy(() => import('./pages/Forum'));
+const Media = lazy(() => import('./pages/Media'));
+const Tutoriels = lazy(() => import('./pages/Tutoriels'));
+const AdminDashboard = lazy(() => import('./pages/AdminDashboard'));
+const Login = lazy(() => import('./pages/Login'));
+const Register = lazy(() => import('./pages/Register'));
 
 // Flip to false to retire the "under construction" gate once the site is ready.
 const CONSTRUCTION_MODE = true;

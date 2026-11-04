@@ -10,34 +10,49 @@ const FILES = import.meta.glob('../../assets/images/*.webp', { eager: true, impo
 
 const CAPTIONS = {
   'vizball-throne': { fr: 'Les Lions du Vizball', en: 'The Lions of Vizball' },
+  'dodging-in-vizball': { fr: "L'esquive au Vizball", en: 'Dodging in Vizball' },
   'court-vizball': { fr: 'Le butoir, en salle', en: 'The backstop, indoors' },
   'ball-to-the-leg': { fr: 'Balle de catch', en: 'Catch ball' },
   'vizball-players-sitting-on-pitch': { fr: 'Joueuses sur le terrain', en: 'Players on the pitch' },
+  'vizball-equipes-avant-coup-envoi': { fr: "Les équipes alignées avant le coup d'envoi", en: 'Teams lined up before kick-off' },
+  'vizball-jeune-generation': { fr: 'La jeune génération du Vizball', en: "Vizball's young generation" },
+  'vizball-2007-naissance': { fr: "2007, l'année de naissance du Vizball", en: '2007, the year Vizball was born' },
   'community-vizball': { fr: "Séance d'initiation", en: 'Introduction session' },
-  'vizball-on-arrive-fr': { fr: 'On arrive… (affiche, français)', en: 'On arrive… (poster, French)' },
-  'vizball-we-are-coming-en': { fr: 'We are coming… (affiche, anglais)', en: 'We are coming… (poster, English)' },
 };
 
-const PHOTOS = Object.entries(FILES)
+// A file named "<name>-fr.webp" / "<name>-en.webp" is one image in two
+// languages: only the visitor's language is shown.
+const LANG_SUFFIX = /-(fr|en)$/;
+
+// Readable name from a file name, for photos added without a caption.
+const humanize = (key) => {
+  const words = key.replace(LANG_SUFFIX, '').replace(/[-_]+/g, ' ').trim();
+  return words.charAt(0).toUpperCase() + words.slice(1);
+};
+
+const ALL = Object.entries(FILES)
   .map(([path, src]) => {
-    const key = path.split('/').pop().replace(/\.webp$/, '');
-    return { key, src, caption: CAPTIONS[key] || null };
+    const key = path.split('/').pop().replace(/.webp$/, '');
+    const base = key.replace(LANG_SUFFIX, '');
+    return { key, base, lang: key.match(LANG_SUFFIX)?.[1] || null, src, caption: CAPTIONS[base] || null };
   })
-  // Captioned photos first, in the order above; historical images after.
   .sort((a, b) => {
     const order = Object.keys(CAPTIONS);
-    const ia = order.indexOf(a.key);
-    const ib = order.indexOf(b.key);
+    const ia = order.indexOf(a.base);
+    const ib = order.indexOf(b.base);
     return (ia === -1 ? 99 : ia) - (ib === -1 ? 99 : ib) || a.key.localeCompare(b.key);
   });
+
+export const photoCaption = (p, lang) => (p.caption ? p.caption[lang] : humanize(p.key));
 
 export default function PhotoLibrary() {
   const { lang } = useLang();
   const [open, setOpen] = useState(null);
-  const label = (p, i) => (p.caption ? p.caption[lang] : `${lang === 'en' ? 'Vizball photo' : 'Photo Vizball'} ${i + 1}`);
+  const PHOTOS = ALL.filter((p) => !p.lang || p.lang === lang);
+  const label = (p) => photoCaption(p, lang);
 
   const close = useCallback(() => setOpen(null), []);
-  const step = useCallback((d) => setOpen((i) => (i + d + PHOTOS.length) % PHOTOS.length), []);
+  const step = useCallback((d) => setOpen((i) => (i + d + PHOTOS.length) % PHOTOS.length), [PHOTOS.length]);
 
   useEffect(() => {
     if (open === null) return undefined;
@@ -69,12 +84,12 @@ export default function PhotoLibrary() {
               type="button"
               onClick={() => setOpen(i)}
               className="photo-card group relative block aspect-[4/3] w-full overflow-hidden rounded-lg"
-              aria-label={label(p, i)}
+              aria-label={label(p)}
             >
-              <img src={p.src} alt="" loading="lazy" className="h-full w-full object-cover" />
+              <img src={p.src} alt={label(p)} loading="lazy" className="h-full w-full object-cover" />
               <span className="absolute inset-0 flex items-end bg-gradient-to-t from-black/70 via-transparent to-transparent p-3 opacity-0 transition-opacity duration-300 group-hover:opacity-100 group-focus-visible:opacity-100">
                 <span className="meta flex w-full items-center justify-between gap-2 text-left text-white">
-                  <span className="truncate">{label(p, i)}</span>
+                  <span className="truncate">{label(p)}</span>
                   <Expand size={15} className="shrink-0" />
                 </span>
               </span>
@@ -88,7 +103,7 @@ export default function PhotoLibrary() {
           <motion.div
             role="dialog"
             aria-modal="true"
-            aria-label={label(PHOTOS[open], open)}
+            aria-label={label(PHOTOS[open])}
             className="fixed inset-0 z-[60] flex flex-col bg-black/95"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -97,7 +112,7 @@ export default function PhotoLibrary() {
           >
             <div className="flex items-center justify-between p-4 text-white" onClick={(e) => e.stopPropagation()}>
               <p className="meta text-white/80">
-                {open + 1} / {PHOTOS.length} · {label(PHOTOS[open], open)}
+                {open + 1} / {PHOTOS.length} · {label(PHOTOS[open])}
               </p>
               <button type="button" onClick={close} aria-label={lang === 'en' ? 'Close' : 'Fermer'} className="grid h-11 w-11 place-items-center rounded-full hover:bg-white/10">
                 <X size={22} />
@@ -108,7 +123,7 @@ export default function PhotoLibrary() {
                 <motion.img
                   key={open}
                   src={PHOTOS[open].src}
-                  alt={label(PHOTOS[open], open)}
+                  alt={label(PHOTOS[open])}
                   className="max-h-full max-w-full rounded object-contain"
                   initial={{ opacity: 0, scale: 0.97 }}
                   animate={{ opacity: 1, scale: 1 }}

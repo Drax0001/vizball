@@ -3,6 +3,7 @@ import { ArrowLeft } from 'lucide-react';
 import { useLang } from './LanguageContext';
 import t from './translations';
 import vizballLogo from '../assets/images/LOGO-VIZBALL-ASSOCIATION-blanc.png';
+import Seo from '@/components/Seo';
 
 export default function PageNotFound() {
     const location = useLocation();
@@ -12,6 +13,7 @@ export default function PageNotFound() {
 
     return (
         <main className="flex min-h-screen flex-col bg-primary font-body text-white">
+            <Seo title={tr.error_404_title} canonicalPath={location.pathname} noindex />
             <div className="bg-[hsl(var(--brand-red))]">
                 <div className="shell flex h-20 items-center">
                     <Link to="/" aria-label="Vizball">

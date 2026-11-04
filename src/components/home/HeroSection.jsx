@@ -79,6 +79,7 @@ export default function HeroSection() {
           <motion.img
             src={slide.image}
             alt=""
+            fetchpriority={current === 0 ? 'high' : undefined}
             className="h-full w-full object-cover"
             style={{ objectPosition: slide.position }}
             initial={{ scale: reduce ? 1 : 1.08 }}

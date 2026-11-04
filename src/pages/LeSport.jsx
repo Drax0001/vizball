@@ -260,7 +260,7 @@ export default function LeSport() {
   const tr = t[lang];
   return (
     <div>
-      <Seo title={tr.sport_title} description={tr.sport_subtitle} canonicalPath="/le-sport" />
+      <Seo title={lang === 'en' ? 'Vizball rules: field, positions and referees' : 'Règles du Vizball : terrain, postes et arbitrage'} description={tr.sport_subtitle} canonicalPath="/le-sport" />
       <PageHeader title={tr.sport_title} subtitle={tr.sport_subtitle} image={headerImage} />
 
       {/* Description */}

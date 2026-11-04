@@ -83,7 +83,7 @@ export default function Tutoriels() {
 
   return (
     <div className="min-h-screen bg-primary">
-      <Seo title={tr.tutoriels_title + tr.tutoriels_title2} description={tr.tutoriels_subtitle} canonicalPath="/tutoriels" />
+      <Seo title={lang === 'en' ? 'Vizball video tutorials' : 'Tutoriels vidéo du Vizball'} description={tr.tutoriels_subtitle} canonicalPath="/tutoriels" />
       <PageHeader title={`${tr.tutoriels_title}${tr.tutoriels_title2}`} subtitle={tr.tutoriels_subtitle} image={headerImage} />
 
       {/* Stats bar */}

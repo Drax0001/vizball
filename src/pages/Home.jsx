@@ -15,11 +15,30 @@ import t from '../lib/translations';
 const ORGANIZATION_JSON_LD = {
   '@context': 'https://schema.org',
   '@type': 'SportsOrganization',
+  '@id': 'https://vizball.org/#organization',
   name: 'Vizball Association',
-  url: 'https://vizball.org',
+  alternateName: 'Vizball',
+  url: 'https://vizball.org/',
+  logo: 'https://vizball.org/icon-512.png',
+  image: 'https://vizball.org/og-image.jpg',
+  description: "Le Vizball est un sport collectif innovant créé au Cameroun en 2007, joué avec les mains et parfois les pieds.",
   sport: 'Vizball',
   foundingDate: '2007',
-  foundingLocation: 'Cameroun',
+  founder: { '@type': 'Person', name: 'MIAFFO NKENGNI Yannick Joël' },
+  foundingLocation: { '@type': 'Place', name: 'Cameroun' },
+  areaServed: 'Cameroun',
+  email: 'contact@vizball.org',
+  sameAs: ['https://www.facebook.com/search/top/?q=vizball%20association'],
+};
+
+const WEBSITE_JSON_LD = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  '@id': 'https://vizball.org/#website',
+  name: 'Vizball',
+  url: 'https://vizball.org/',
+  inLanguage: ['fr', 'en'],
+  publisher: { '@id': 'https://vizball.org/#organization' },
 };
 
 export default function Home() {
@@ -31,7 +50,7 @@ export default function Home() {
         title={lang === 'en' ? 'Home' : 'Accueil'}
         description={tr.hero_subtitle}
         canonicalPath="/"
-        jsonLd={ORGANIZATION_JSON_LD}
+        jsonLd={[ORGANIZATION_JSON_LD, WEBSITE_JSON_LD]}
       />
       <HeroSection />
       <FactsBar />

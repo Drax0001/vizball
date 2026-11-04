@@ -5,6 +5,7 @@ import PhotoLibrary from '../components/gallery/PhotoLibrary';
 import { useLang } from '../lib/LanguageContext';
 import t from '../lib/translations';
 import PageHeader from '../components/PageHeader';
+import Seo from '../components/Seo';
 import headerImage from '../assets/images/vizball-players-sitting-on-pitch.webp';
 
 function AnimatedSection({ children, className = '' }) {
@@ -28,6 +29,7 @@ export default function Media() {
   const tr = t[lang];
   return (
     <div className="min-h-screen bg-primary">
+      <Seo title={`${tr.media_title} ${tr.media_title2}`} description={tr.media_subtitle} canonicalPath="/media" />
       <PageHeader title={`${tr.media_title} ${tr.media_title2}`} subtitle={tr.media_subtitle} image={headerImage} />
 
       {/* Every photo in the images folder */}

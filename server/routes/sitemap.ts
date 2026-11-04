@@ -12,6 +12,7 @@ const STATIC_ROUTES = [
   '/actualites',
   '/boutique',
   '/tutoriels',
+  '/media',
   '/contact',
 ];
 
