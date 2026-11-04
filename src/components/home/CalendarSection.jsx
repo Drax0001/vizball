@@ -10,7 +10,7 @@ import { api } from '../../api/client';
 import TranslateButton from '../TranslateButton';
 
 const TYPE_CONFIG = {
-  'Rencontre': { icon: Swords, color: 'bg-[hsl(var(--brand-red))]/15 text-white border-[hsl(var(--brand-red))]/40', label: { fr: 'Rencontre', en: 'Match' } },
+  'Rencontre': { icon: Swords, color: 'bg-accent/15 text-white border-accent/40', label: { fr: 'Rencontre', en: 'Match' } },
   'Tournoi': { icon: Trophy, color: 'bg-accent/10 text-accent border-accent/20', label: { fr: 'Tournoi', en: 'Tournament' } },
   'Entraînement': { icon: Dumbbell, color: 'bg-secondary/10 text-secondary border-secondary/20', label: { fr: 'Entraînement', en: 'Training' } },
   'Autre': { icon: Calendar, color: 'bg-white/10 text-white/60 border-white/10', label: { fr: 'Autre', en: 'Other' } }

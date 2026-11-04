@@ -1,6 +1,7 @@
 import React from 'react';
 import HeroSection from '../components/home/HeroSection';
 import FactsBar from '../components/home/FactsBar';
+import AnnouncementPoster from '../components/home/AnnouncementPoster';
 import AboutSection from '../components/home/AboutSection';
 import LatestNews from '../components/home/LatestNews';
 import CalendarSection from '../components/home/CalendarSection';
@@ -34,6 +35,7 @@ export default function Home() {
       />
       <HeroSection />
       <FactsBar />
+      <AnnouncementPoster />
       <AboutSection />
       <LatestNews />
       <CalendarSection />

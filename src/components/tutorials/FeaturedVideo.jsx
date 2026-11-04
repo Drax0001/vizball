@@ -41,7 +41,7 @@ export default function FeaturedVideo({ video, onClick }) {
           </div>
 
           {/* Featured badge */}
-          <div className="bg-[hsl(var(--brand-red))] text-[hsl(var(--popover))] px-4 py-2 rounded-full absolute top-4 left-4 flex items-center gap-2">
+          <div className="bg-accent text-primary px-4 py-2 rounded-full absolute top-4 left-4 flex items-center gap-2">
             <Star size={14} fill="currentColor" />
             <span className="font-body text-xs font-bold uppercase tracking-wider">{tr.tutoriels_featured}</span>
           </div>

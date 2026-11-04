@@ -35,11 +35,11 @@ export default function ArticleCard({ article, index, featured = false }) {
               <div className="absolute inset-0 bg-gradient-to-t from-primary via-primary/40 to-transparent" />
               <div className="absolute top-4 left-4 flex items-center gap-2">
                 <Star size={12} className="text-accent" fill="currentColor" />
-                <span className="bg-[hsl(var(--brand-red))] text-[hsl(var(--background))] px-3 py-1 text-xs font-bold uppercase tracking-wider rounded-full backdrop-blur-sm border border-accent/30">{tr.news_featured}</span>
+                <span className="bg-accent text-primary px-3 py-1 text-xs font-bold uppercase tracking-wider rounded-full backdrop-blur-sm border border-accent/30">{tr.news_featured}</span>
               </div>
             </div>
             <div className="absolute bottom-0 left-0 right-0 p-6">
-              <span className="bg-[hsl(var(--brand-red))] text-[hsl(var(--background))] mb-3 px-3 py-1 text-xs font-bold uppercase tracking-wider rounded-full inline-block border border-secondary/30">
+              <span className="bg-accent text-primary mb-3 px-3 py-1 text-xs font-bold uppercase tracking-wider rounded-full inline-block border border-secondary/30">
                 {article.category}
               </span>
               <h2 className="font-heading text-3xl sm:text-4xl text-white group-hover:text-accent transition-colors leading-tight mb-2">{article.title}</h2>
@@ -70,7 +70,7 @@ export default function ArticleCard({ article, index, featured = false }) {
             <div className="absolute inset-0 bg-gradient-to-t from-primary/60 to-transparent" />
           </div>
           <div className="p-5 flex flex-col flex-1">
-            <span className="bg-[hsl(var(--brand-red))] text-[hsl(var(--popover))] mb-3 px-3 py-1 text-xs font-bold uppercase tracking-wider rounded-full inline-block border w-fit border-white/20">
+            <span className="bg-accent text-primary mb-3 px-3 py-1 text-xs font-bold uppercase tracking-wider rounded-full inline-block border w-fit border-white/20">
               {article.category}
             </span>
             <h3 className="font-heading text-xl text-white group-hover:text-accent transition-colors leading-tight mb-2 flex-1">{article.title}</h3>

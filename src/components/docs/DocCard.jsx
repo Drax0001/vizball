@@ -32,7 +32,7 @@ export default function DocCard({ doc, index, onClick }) {
         }>
           <doc.icon size={22} className={hovered && isAvailable ? 'text-accent' : 'text-white/60'} />
         </div>
-        <span className="bg-[hsl(var(--brand-red))] text-[hsl(var(--background))] px-3 py-1 text-xs font-bold uppercase tracking-wider rounded-full border border-secondary/30">
+        <span className="bg-accent text-primary px-3 py-1 text-xs font-bold uppercase tracking-wider rounded-full border border-secondary/30">
           {translateDocStatus(doc.status, lang)}
         </span>
       </div>

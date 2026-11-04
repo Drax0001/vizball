@@ -48,7 +48,7 @@ export default function VideoCard({ video, onClick, index }) {
             <div className={`absolute top-3 left-3 rounded-full px-3 py-1 text-xs font-body font-bold border ${
               video.level === 'Débutant' ? 'bg-secondary/30 text-secondary border-secondary/40' :
               video.level === 'Intermédiaire' ? 'bg-accent/30 text-accent border-accent/40' :
-              'bg-red-500/30 text-red-300 border-red-400/40'
+              'bg-accent text-primary border-accent'
             }`}>
               {LEVEL_LABELS[video.level]?.[lang] || video.level}
             </div>

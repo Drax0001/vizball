@@ -76,7 +76,7 @@ export default function LatestNews() {
                 </div>
                 <div className="absolute inset-0 bg-gradient-to-t from-primary via-primary/30 to-transparent" />
                 <div className="absolute inset-x-0 bottom-0 p-6 md:p-8">
-                  <span className="meta inline-block rounded bg-[hsl(var(--brand-red))] px-2.5 py-1 text-white">{lead.category}</span>
+                  <span className="meta inline-block rounded bg-accent px-2.5 py-1 text-primary">{lead.category}</span>
                   <h3 className="mt-3 font-heading text-2xl font-black uppercase leading-tight text-white group-hover:underline group-hover:decoration-accent group-hover:underline-offset-4 md:text-4xl">
                     {lead.title}
                   </h3>

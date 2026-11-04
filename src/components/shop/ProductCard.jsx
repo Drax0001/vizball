@@ -42,7 +42,7 @@ export default function ProductCard({ product, index }) {
               className="w-full h-full object-contain p-6 group-hover:scale-105 transition-transform duration-500" />
             
             <div className="absolute top-3 left-3">
-              <span className="bg-[hsl(var(--brand-red))] text-[hsl(var(--background))] px-3 py-1 text-xs font-bold uppercase tracking-wider rounded-full border border-secondary/30">
+              <span className="bg-accent text-primary px-3 py-1 text-xs font-bold uppercase tracking-wider rounded-full border border-secondary/30">
                 {product.badge}
               </span>
             </div>
