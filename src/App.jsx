@@ -1,4 +1,4 @@
-import { lazy, useState } from 'react';
+import { lazy } from 'react';
 import { HelmetProvider } from 'react-helmet-async';
 import { Toaster } from "@/components/ui/toaster"
 import { QueryClientProvider } from '@tanstack/react-query'
@@ -8,7 +8,6 @@ import PageNotFound from './lib/PageNotFound';
 import { AuthProvider, useAuth } from '@/lib/AuthContext';
 import { LanguageProvider } from '@/lib/LanguageContext';
 import UserNotRegisteredError from '@/components/UserNotRegisteredError';
-import UnderConstruction from '@/components/UnderConstruction';
 import ProtectedRoute from '@/components/ProtectedRoute';
 import ScrollToTop from '@/components/ScrollToTop';
 import Layout from './components/Layout';
@@ -28,26 +27,8 @@ const AdminDashboard = lazy(() => import('./pages/AdminDashboard'));
 const Login = lazy(() => import('./pages/Login'));
 const Register = lazy(() => import('./pages/Register'));
 
-// Flip to false to retire the "under construction" gate once the site is ready.
-const CONSTRUCTION_MODE = true;
-const CONSTRUCTION_GATE_KEY = 'vizball_construction_gate_passed';
-
 const AuthenticatedApp = () => {
   const { isLoadingAuth, isLoadingPublicSettings, authError, navigateToLogin } = useAuth();
-  const [gatePassed, setGatePassed] = useState(
-    () => sessionStorage.getItem(CONSTRUCTION_GATE_KEY) === 'true'
-  );
-
-  if (CONSTRUCTION_MODE && !gatePassed) {
-    return (
-      <UnderConstruction
-        onEnter={() => {
-          sessionStorage.setItem(CONSTRUCTION_GATE_KEY, 'true');
-          setGatePassed(true);
-        }}
-      />
-    );
-  }
 
   if (isLoadingPublicSettings || isLoadingAuth) {
     return (
@@ -90,8 +71,8 @@ const AuthenticatedApp = () => {
         <Route path="/media" element={<Media />} />
         <Route path="/tutoriels" element={<Tutoriels />} />
         <Route path="/admin" element={<AdminDashboard />} />
+        <Route path="*" element={<PageNotFound />} />
       </Route>
-      <Route path="*" element={<PageNotFound />} />
     </Routes>
   );
 };

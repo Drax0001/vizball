@@ -9,6 +9,7 @@ import { useLang } from '../lib/LanguageContext';
 import t from '../lib/translations';
 import { api } from '../api/client';
 import Seo from '../components/Seo';
+import PageNotFound from '../lib/PageNotFound';
 
 export default function ProductDetail() {
   const { id } = useParams();
@@ -72,14 +73,7 @@ export default function ProductDetail() {
   }
 
   if (!product) {
-    return (
-      <div className="min-h-screen bg-primary flex items-center justify-center">
-        <div className="text-center">
-          <p className="font-heading text-3xl text-white/30 mb-4">{tr.shop_not_found}</p>
-          <Link to="/boutique" className="font-body text-sm text-accent hover:text-accent/80">← {tr.shop_back_to_shop}</Link>
-        </div>
-      </div>
-    );
+    return <PageNotFound title={tr.shop_not_found} />;
   }
 
   const badge = product.badge || (product.in_stock ? tr.shop_badge_approved : tr.shop_badge_on_order);

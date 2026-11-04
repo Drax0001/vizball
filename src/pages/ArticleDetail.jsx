@@ -10,6 +10,7 @@ import t from '../lib/translations';
 import { api } from '../api/client';
 import TranslateButton from '../components/TranslateButton';
 import Seo from '../components/Seo';
+import PageNotFound from '../lib/PageNotFound';
 
 const categoryColors = {
   'Événement':   'bg-accent/20 text-accent border-accent/30',
@@ -82,17 +83,7 @@ export default function ArticleDetail() {
   }
 
   if (error || !article) {
-    return (
-      <div className="min-h-screen bg-primary flex items-center justify-center text-center p-4">
-        <div>
-          <h2 className="font-heading text-2xl text-white mb-4">{tr.article_not_found}</h2>
-          <p className="font-body text-white/60 mb-6">{error || tr.article_not_found_desc}</p>
-          <Link to="/actualites" className="inline-flex items-center gap-2 bg-accent text-primary font-body font-bold text-sm uppercase px-6 py-3 rounded-lg">
-            <ArrowLeft size={16} /> {tr.article_back_cta}
-          </Link>
-        </div>
-      </div>
-    );
+    return <PageNotFound title={tr.article_not_found} message={tr.article_not_found_desc} />;
   }
 
   const dateLocale = getDateLocale(lang);

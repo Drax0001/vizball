@@ -476,8 +476,6 @@ const t = {
     sport_zone_duel_5: "Point de Claque (PC) — Point de pénalité",
 
     // Under construction gate
-    construction_title: "En construction…",
-    construction_cta: "Entrez pour visiter le chantier",
 
     // 404 / access error pages
     error_404_title: "Page introuvable",
@@ -1242,8 +1240,6 @@ const t = {
     sport_zone_duel_5: "Slap Point (PC) — Penalty point",
 
     // Under construction gate
-    construction_title: "Under construction…",
-    construction_cta: "Enter to visit the site",
 
     // 404 / access error pages
     error_404_title: "Page Not Found",

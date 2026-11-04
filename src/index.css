@@ -1,6 +1,7 @@
 @font-face {
   font-family: 'Fester';
-  src: url('./assets/fonts/Fester Regular.otf') format('opentype');
+  src: url('./assets/fonts/Fester Regular.woff2') format('woff2'),
+       url('./assets/fonts/Fester Regular.otf') format('opentype');
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -8,7 +9,8 @@
 
 @font-face {
   font-family: 'Fester';
-  src: url('./assets/fonts/Fester Bold.otf') format('opentype');
+  src: url('./assets/fonts/Fester Bold.woff2') format('woff2'),
+       url('./assets/fonts/Fester Bold.otf') format('opentype');
   font-weight: 700;
   font-style: normal;
   font-display: swap;
@@ -16,7 +18,8 @@
 
 @font-face {
   font-family: 'Fester';
-  src: url('./assets/fonts/Fester Bold Italic.otf') format('opentype');
+  src: url('./assets/fonts/Fester Bold Italic.woff2') format('woff2'),
+       url('./assets/fonts/Fester Bold Italic.otf') format('opentype');
   font-weight: 700;
   font-style: italic;
   font-display: swap;
@@ -24,7 +27,8 @@
 
 @font-face {
   font-family: 'Fester';
-  src: url('./assets/fonts/Fester Heavy.otf') format('opentype');
+  src: url('./assets/fonts/Fester Heavy.woff2') format('woff2'),
+       url('./assets/fonts/Fester Heavy.otf') format('opentype');
   font-weight: 900;
   font-style: normal;
   font-display: swap;
