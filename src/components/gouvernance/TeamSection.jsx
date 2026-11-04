@@ -3,6 +3,7 @@ import { motion, useInView } from 'framer-motion';
 import { Users } from 'lucide-react';
 import { useLang } from '../../lib/LanguageContext';
 import t from '../../lib/translations';
+import PageEyebrow from '../PageEyebrow';
 import { api } from '../../api/client';
 
 function MemberCard({ member, index }) {
@@ -27,7 +28,7 @@ function MemberCard({ member, index }) {
           />
         ) : (
           <div className="w-24 h-24 rounded-xl bg-white/10 border border-white/10 flex items-center justify-center">
-            <Users size={32} className="text-chalk/20" />
+            <Users size={32} className="text-white/20" />
           </div>
         )}
       </div>
@@ -35,8 +36,8 @@ function MemberCard({ member, index }) {
       {/* Infos */}
       <div className="flex-1 min-w-0">
         <p className="font-subtitle text-xs uppercase tracking-widest text-accent mb-1">{member.role}</p>
-        <h4 className="font-heading text-xl text-chalk mb-2">{member.name}</h4>
-        <p className="font-body text-sm text-chalk/50 leading-relaxed">{member.bio}</p>
+        <h4 className="font-heading text-xl text-white mb-2">{member.name}</h4>
+        <p className="font-body text-sm text-white/50 leading-relaxed">{member.bio}</p>
       </div>
     </motion.div>
   );
@@ -68,10 +69,11 @@ export default function GouvernanceTeamSection() {
           transition={{ duration: 0.6 }}
           className="mb-12"
         >
-          <h2 className="display mb-10 text-[clamp(2.4rem,5.5vw,5rem)]">
+          <PageEyebrow>{tr.gov_team_badge}</PageEyebrow>
+          <h2 className="font-heading text-5xl sm:text-6xl text-white leading-none">
             {tr.gov_team_title} <span className="text-[hsl(var(--background))]">{tr.gov_team_title2}</span>
           </h2>
-          <p className="font-body text-sm text-chalk/40 mt-4 max-w-xl leading-relaxed">
+          <p className="font-body text-sm text-white/40 mt-4 max-w-xl leading-relaxed">
             {tr.gov_team_subtitle}
           </p>
         </motion.div>

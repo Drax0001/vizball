@@ -20,7 +20,7 @@ export default function CartIcon() {
   }, []);
 
   return (
-    <Link to="/boutique/panier" aria-label={tr.cart_word} className="relative inline-flex h-12 items-center gap-2.5 rounded-full bg-accent px-6 font-heading text-[0.95rem] font-bold uppercase tracking-[0.06em] text-night transition-colors duration-300 hover:bg-chalk">
+    <Link to="/boutique/panier" className="relative flex items-center gap-2 px-4 py-2 bg-accent hover:bg-accent/90 text-primary font-body font-bold text-sm uppercase tracking-wider rounded transition-all">
       <ShoppingCart size={16} />
       <span className="hidden sm:inline">{tr.cart_word}</span>
       <AnimatePresence>
@@ -30,7 +30,7 @@ export default function CartIcon() {
             initial={{ scale: 0.5, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             exit={{ scale: 0.5, opacity: 0 }}
-            className="absolute -right-1.5 -top-1.5 flex h-6 w-6 items-center justify-center rounded-full bg-brand-red text-xs font-bold text-white tabular"
+            className="absolute -top-2 -right-2 w-5 h-5 bg-primary text-accent text-xs font-bold rounded-full flex items-center justify-center border border-accent"
           >
             {count}
           </motion.span>

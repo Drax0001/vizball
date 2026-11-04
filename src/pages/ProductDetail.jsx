@@ -75,7 +75,7 @@ export default function ProductDetail() {
     return (
       <div className="min-h-screen bg-primary flex items-center justify-center">
         <div className="text-center">
-          <p className="display text-[clamp(2.2rem,4.5vw,4rem)] text-chalk/30 mb-4">{tr.shop_not_found}</p>
+          <p className="font-heading text-3xl text-white/30 mb-4">{tr.shop_not_found}</p>
           <Link to="/boutique" className="font-body text-sm text-accent hover:text-accent/80">← {tr.shop_back_to_shop}</Link>
         </div>
       </div>
@@ -113,19 +113,19 @@ export default function ProductDetail() {
         jsonLd={productJsonLd}
       />
       {/* Top bar */}
-      <div className="fixed top-20 left-0 right-0 z-30 border-b border-chalk/10 bg-night">
-        <div className="shell h-14 flex items-center justify-between">
-          <div className="flex items-center gap-2 font-body text-xs text-chalk/40">
-            <Link to="/boutique" className="hover:text-chalk transition-colors">{tr.nav_shop}</Link>
+      <div className="fixed top-20 left-0 right-0 z-30 bg-primary/95 backdrop-blur-md border-b border-white/10">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-14 flex items-center justify-between">
+          <div className="flex items-center gap-2 font-body text-xs text-white/40">
+            <Link to="/boutique" className="hover:text-white transition-colors">{tr.nav_shop}</Link>
             <ChevronRight size={12} />
-            <span className="text-chalk/70 truncate max-w-48">{product.name}</span>
+            <span className="text-white/70 truncate max-w-48">{product.name}</span>
           </div>
           <CartIcon />
         </div>
       </div>
 
-      <div className="shell pt-40 pb-20">
-        <Link to="/boutique" className="inline-flex items-center gap-2 font-body text-sm text-chalk/40 hover:text-chalk transition-colors mb-10 group">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-40 pb-20">
+        <Link to="/boutique" className="inline-flex items-center gap-2 font-body text-sm text-white/40 hover:text-white transition-colors mb-10 group">
           <ArrowLeft size={16} className="group-hover:-translate-x-0.5 transition-transform" /> {tr.shop_back_to_shop}
         </Link>
 
@@ -161,15 +161,15 @@ export default function ProductDetail() {
 
           {/* Info */}
           <motion.div initial={{ opacity: 0, x: 30 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.6, delay: 0.1 }}>
-            <p className="font-body text-xs text-chalk/40 uppercase tracking-wider mb-2">{product.category}</p>
-            <h1 className="display text-[clamp(2.2rem,4.5vw,4rem)] text-chalk mb-4">{product.name}</h1>
-            <div className="display text-[clamp(2.2rem,4.5vw,4rem)] text-accent mb-6">{formatPrice(product.price, lang)}</div>
-            <p className="font-body text-sm text-chalk/60 leading-relaxed mb-8">{product.desc}</p>
+            <p className="font-body text-xs text-white/40 uppercase tracking-wider mb-2">{product.category}</p>
+            <h1 className="font-heading text-4xl sm:text-5xl text-white mb-4 leading-tight">{product.name}</h1>
+            <div className="font-heading text-4xl text-accent mb-6">{formatPrice(product.price, lang)}</div>
+            <p className="font-body text-sm text-white/60 leading-relaxed mb-8">{product.desc}</p>
 
             {/* Size selector */}
             {product.sizes && (
               <div className="mb-6">
-                <p className="font-body text-xs font-bold uppercase tracking-wider text-chalk/50 mb-3">{tr.shop_size}</p>
+                <p className="font-body text-xs font-bold uppercase tracking-wider text-white/50 mb-3">{tr.shop_size}</p>
                 <div className="flex flex-wrap gap-2">
                   {product.sizes.map((size) => (
                     <button
@@ -178,7 +178,7 @@ export default function ProductDetail() {
                       className={`w-12 h-12 rounded-lg border font-body text-sm font-bold transition-all ${
                         selectedSize === size
                           ? 'bg-accent text-primary border-accent'
-                          : 'bg-white/5 text-chalk/70 border-white/15 hover:border-accent/40 hover:text-chalk'
+                          : 'bg-white/5 text-white/70 border-white/15 hover:border-accent/40 hover:text-white'
                       }`}
                     >
                       {size}
@@ -186,7 +186,7 @@ export default function ProductDetail() {
                   ))}
                 </div>
                 {product.sizes && !selectedSize && (
-                  <p className="font-body text-xs text-chalk/30 mt-2">{tr.shop_select_size}</p>
+                  <p className="font-body text-xs text-white/30 mt-2">{tr.shop_select_size}</p>
                 )}
               </div>
             )}
@@ -194,18 +194,18 @@ export default function ProductDetail() {
             {/* Qty + Add */}
             <div className="flex items-center gap-4 mb-8">
               <div className="flex items-center border border-white/15 rounded-lg overflow-hidden">
-                <button onClick={() => setQty(Math.max(1, qty - 1))} className="px-4 py-3 text-chalk/60 hover:text-chalk hover:bg-white/5 transition-colors font-body text-lg">−</button>
-                <span className="px-5 py-3 font-body font-bold text-chalk border-x border-white/15">{qty}</span>
-                <button onClick={() => setQty(qty + 1)} className="px-4 py-3 text-chalk/60 hover:text-chalk hover:bg-white/5 transition-colors font-body text-lg">+</button>
+                <button onClick={() => setQty(Math.max(1, qty - 1))} className="px-4 py-3 text-white/60 hover:text-white hover:bg-white/5 transition-colors font-body text-lg">−</button>
+                <span className="px-5 py-3 font-body font-bold text-white border-x border-white/15">{qty}</span>
+                <button onClick={() => setQty(qty + 1)} className="px-4 py-3 text-white/60 hover:text-white hover:bg-white/5 transition-colors font-body text-lg">+</button>
               </div>
               <button
                 onClick={handleAdd}
                 disabled={product.sizes && !selectedSize}
                 className={`flex-1 flex items-center justify-center gap-2 py-4 rounded-lg font-body font-bold text-sm uppercase tracking-wider transition-all ${
                   added
-                    ? 'bg-secondary text-chalk'
+                    ? 'bg-secondary text-white'
                     : product.sizes && !selectedSize
-                    ? 'bg-white/10 text-chalk/30 cursor-not-allowed'
+                    ? 'bg-white/10 text-white/30 cursor-not-allowed'
                     : 'bg-accent hover:bg-accent/90 text-primary'
                 }`}
               >
@@ -216,12 +216,12 @@ export default function ProductDetail() {
             {/* Specs */}
             <div className="border border-white/10 rounded-xl overflow-hidden mb-6">
               <div className="bg-white/5 px-5 py-3 border-b border-white/10">
-                <p className="font-body text-xs font-bold uppercase tracking-wider text-chalk/40">{tr.shop_specs}</p>
+                <p className="font-body text-xs font-bold uppercase tracking-wider text-white/40">{tr.shop_specs}</p>
               </div>
               {specs.map((spec, i) => (
                 <div key={i} className={`flex items-center justify-between px-5 py-3 ${i < specs.length - 1 ? 'border-b border-white/5' : ''}`}>
-                  <span className="font-body text-xs text-chalk/40">{spec.label}</span>
-                  <span className="font-body text-xs font-semibold text-chalk/80 text-right max-w-48">{spec.value}</span>
+                  <span className="font-body text-xs text-white/40">{spec.label}</span>
+                  <span className="font-body text-xs font-semibold text-white/80 text-right max-w-48">{spec.value}</span>
                 </div>
               ))}
             </div>
@@ -233,7 +233,7 @@ export default function ProductDetail() {
                 { icon: Shield, text: tr.shop_quality },
                 { icon: Truck, text: tr.shop_delivery },
               ].map((b, i) => (
-                <div key={i} className="flex items-center gap-2 text-chalk/40">
+                <div key={i} className="flex items-center gap-2 text-white/40">
                   <b.icon size={14} className="text-accent" />
                   <span className="font-body text-xs">{b.text}</span>
                 </div>
@@ -245,7 +245,7 @@ export default function ProductDetail() {
         {/* Related */}
         {related.length > 0 && (
           <div className="mt-24">
-            <h2 className="display text-[clamp(2.2rem,4.5vw,4rem)] text-chalk mb-8">{tr.shop_related}</h2>
+            <h2 className="font-heading text-4xl text-white mb-8">{tr.shop_related}</h2>
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {related.map((p) => (
                 <Link key={p.id} to={`/boutique/${p.id}`} className="group block">
@@ -254,7 +254,7 @@ export default function ProductDetail() {
                       <img src={p.img} alt={p.name} className="w-full h-full object-contain p-6 group-hover:scale-105 transition-transform duration-500 max-h-[300px]" />
                     </div>
                     <div className="p-4">
-                      <h3 className="font-heading text-lg text-chalk group-hover:text-accent transition-colors">{p.name}</h3>
+                      <h3 className="font-heading text-lg text-white group-hover:text-accent transition-colors">{p.name}</h3>
                       <span className="font-heading text-xl text-accent">{formatPrice(p.price, lang)}</span>
                     </div>
                   </div>

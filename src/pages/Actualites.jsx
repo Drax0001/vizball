@@ -7,7 +7,7 @@ import Seo from '../components/Seo';
 import { useLang } from '../lib/LanguageContext';
 import t from '../lib/translations';
 import { api } from '../api/client';
-import PageHero from '../components/site/PageHero';
+import PageEyebrow from '../components/PageEyebrow';
 
 const CATEGORIES = ['Tous', 'Événement', 'Tournoi', 'Portrait', 'Actualité', 'Communiqué'];
 const CATEGORY_LABELS = {
@@ -67,41 +67,54 @@ export default function Actualites() {
   return (
     <div className="min-h-screen bg-primary">
       <Seo title={tr.news_title + tr.news_title2} description={tr.news_subtitle} canonicalPath="/actualites" />
-      <PageHero
-        title={`${tr.news_title}${tr.news_title2}`.trim()}
-        subtitle={tr.news_subtitle}
-        crop="duel"
-      />
+      {/* Hero */}
+      <section className="relative overflow-hidden pt-32 pb-16">
+        <div className="absolute inset-0 opacity-5" style={{ backgroundImage: 'radial-gradient(circle at 1px 1px, hsl(43,75%,49%) 1px, transparent 0)', backgroundSize: '40px 40px' }} />
+        <div className="absolute top-0 right-0 w-96 h-96 bg-accent/5 rounded-full blur-3xl" />
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex items-start justify-between flex-wrap gap-6">
+            <motion.div initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }}>
+              <PageEyebrow>{tr.news_badge}</PageEyebrow>
+              <h1 className="font-heading text-6xl sm:text-7xl md:text-8xl text-white leading-none mb-4">
+                {tr.news_title}<span className="text-[hsl(var(--background))]">{tr.news_title2}</span>
+              </h1>
+              <p className="font-body text-lg text-white/60 max-w-xl leading-relaxed">
+                {tr.news_subtitle}
+              </p>
+            </motion.div>
+          </div>
+        </div>
+      </section>
 
       {/* Filters */}
-      <div className="sticky top-0 z-30 border-y border-chalk/10 bg-pitch">
-        <div className="shell py-4">
+      <div className="sticky top-20 z-30 bg-primary/95 backdrop-blur-md border-y border-white/10">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
           <div className="flex flex-col sm:flex-row gap-3 items-start sm:items-center justify-between">
             <div className="flex flex-wrap gap-2">
               {CATEGORIES.map((cat) =>
               <button key={cat} onClick={() => setActiveCategory(cat)}
-              className={`px-4 py-2 rounded-full font-body text-xs font-bold uppercase tracking-wider border transition-all ${activeCategory === cat ? 'bg-accent text-night border-accent' : 'bg-transparent text-chalk/70 border-chalk/20 hover:border-chalk/50 hover:text-chalk'}`}>
+              className={`px-4 py-2 rounded-full font-body text-xs font-bold uppercase tracking-wider border transition-all ${activeCategory === cat ? 'bg-accent text-primary border-accent' : 'bg-white/5 text-white/60 border-white/10 hover:border-white/30 hover:text-white'}`}>
                   {CATEGORY_LABELS[cat][lang]}
                 </button>
               )}
             </div>
             <div className="relative w-full sm:w-56">
-              <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-chalk/30" />
-              <input type="text" value={search} onChange={(e) => setSearch(e.target.value)} placeholder={tr.news_search} className="w-full bg-white/5 border border-white/10 rounded-full pl-8 pr-4 py-2 font-body text-xs text-chalk placeholder-chalk/30 focus:outline-none focus:border-accent/50 transition-colors" />
+              <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-white/30" />
+              <input type="text" value={search} onChange={(e) => setSearch(e.target.value)} placeholder={tr.news_search} className="w-full bg-white/5 border border-white/10 rounded-full pl-8 pr-4 py-2 font-body text-xs text-white placeholder-white/30 focus:outline-none focus:border-accent/50 transition-colors" />
             </div>
           </div>
         </div>
       </div>
 
-      <div className="shell py-14">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14">
         {loading ?
         <div className="flex items-center justify-center py-24">
             <div className="w-8 h-8 border-2 border-accent/30 border-t-accent rounded-full animate-spin" />
           </div> :
         filtered.length === 0 ?
         <div className="text-center py-24">
-            <Newspaper size={48} className="text-chalk/15 mx-auto mb-4" />
-            <p className="font-heading text-2xl text-chalk/25">{tr.news_no_results}</p>
+            <Newspaper size={48} className="text-white/15 mx-auto mb-4" />
+            <p className="font-heading text-2xl text-white/25">{tr.news_no_results}</p>
           </div> :
 
         <>

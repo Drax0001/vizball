@@ -14,9 +14,9 @@ import Seo from '../components/Seo';
 const categoryColors = {
   'Événement':   'bg-accent/20 text-accent border-accent/30',
   'Tournoi':     'bg-secondary/20 text-secondary border-secondary/30',
-  'Portrait':    'bg-white/10 text-chalk/80 border-white/20',
+  'Portrait':    'bg-white/10 text-white/80 border-white/20',
   'Actualité':   'bg-accent/15 text-accent/80 border-accent/20',
-  'Communiqué':  'bg-white/10 text-chalk/60 border-white/15',
+  'Communiqué':  'bg-white/10 text-white/60 border-white/15',
 };
 
 export default function ArticleDetail() {
@@ -85,8 +85,8 @@ export default function ArticleDetail() {
     return (
       <div className="min-h-screen bg-primary flex items-center justify-center text-center p-4">
         <div>
-          <h2 className="font-heading text-2xl text-chalk mb-4">{tr.article_not_found}</h2>
-          <p className="font-body text-chalk/60 mb-6">{error || tr.article_not_found_desc}</p>
+          <h2 className="font-heading text-2xl text-white mb-4">{tr.article_not_found}</h2>
+          <p className="font-body text-white/60 mb-6">{error || tr.article_not_found_desc}</p>
           <Link to="/actualites" className="inline-flex items-center gap-2 bg-accent text-primary font-body font-bold text-sm uppercase px-6 py-3 rounded-lg">
             <ArrowLeft size={16} /> {tr.article_back_cta}
           </Link>
@@ -127,17 +127,17 @@ export default function ArticleDetail() {
       />
       {/* Cover */}
       {article.cover_image && (
-        <div className="relative h-[62vh] min-h-[380px] overflow-hidden">
+        <div className="relative h-[55vh] min-h-[350px] overflow-hidden">
           <img src={article.cover_image} alt={article.title} className="w-full h-full object-cover" />
-          <div className="absolute inset-0 bg-gradient-to-t from-primary via-primary/50 to-night/40" />
+          <div className="absolute inset-0 bg-gradient-to-t from-primary via-primary/50 to-primary/20" />
         </div>
       )}
 
-      <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 pb-24" style={{ marginTop: article.cover_image ? '-120px' : '140px' }}>
+      <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 pb-24" style={{ marginTop: article.cover_image ? '-120px' : '120px' }}>
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }} className="relative z-10">
           {/* Back */}
           <div className="flex items-center justify-between mb-8">
-            <Link to="/actualites" className="inline-flex items-center gap-2 font-body text-sm text-chalk/40 hover:text-chalk transition-colors group">
+            <Link to="/actualites" className="inline-flex items-center gap-2 font-body text-sm text-white/40 hover:text-white transition-colors group">
               <ArrowLeft size={15} className="group-hover:-translate-x-0.5 transition-transform" /> {tr.article_back}
             </Link>
           </div>
@@ -147,15 +147,15 @@ export default function ArticleDetail() {
             <span className={`text-xs font-body font-bold uppercase tracking-wider px-3 py-1.5 rounded-full border ${categoryColors[article.category] || categoryColors['Actualité']}`}>
               {article.category}
             </span>
-            <div className="flex items-center gap-1.5 text-chalk/40 font-body text-xs">
+            <div className="flex items-center gap-1.5 text-white/40 font-body text-xs">
               <Calendar size={12} /> {dateLabel}
             </div>
             {article.author_name && (
-              <div className="flex items-center gap-1.5 text-chalk/40 font-body text-xs">
+              <div className="flex items-center gap-1.5 text-white/40 font-body text-xs">
                 <User size={12} /> {article.author_name}
               </div>
             )}
-            <div className="flex items-center gap-1.5 text-chalk/40 font-body text-xs">
+            <div className="flex items-center gap-1.5 text-white/40 font-body text-xs">
               <Eye size={12} /> {(article.views || 0).toLocaleString(lang === 'en' ? 'en-US' : 'fr-FR')} {article.views > 1 ? tr.article_views : tr.article_view}
             </div>
           </div>
@@ -168,7 +168,7 @@ export default function ArticleDetail() {
               interactive={!hasRated}
               onRate={handleRate}
             />
-            <span className="font-body text-xs text-chalk/30">
+            <span className="font-body text-xs text-white/30">
               {hasRated ? tr.rating_thanks : tr.rating_rate_prompt}
             </span>
           </div>
@@ -184,15 +184,15 @@ export default function ArticleDetail() {
           </div>
 
           {/* Title */}
-          <h1 className="display mb-8 text-[clamp(2.6rem,6vw,5rem)] leading-[0.92] text-chalk">{displayTitle}</h1>
+          <h1 className="font-heading text-4xl sm:text-5xl md:text-6xl text-white leading-tight mb-6">{displayTitle}</h1>
 
           {/* Excerpt */}
           {displayExcerpt && (
-            <p className="voice mb-12 text-xl leading-snug text-accent md:text-2xl">{displayExcerpt}</p>
+            <p className="font-body text-lg text-white/60 leading-relaxed border-l-2 border-accent pl-5 mb-10">{displayExcerpt}</p>
           )}
 
           {/* Content */}
-          <div className="space-y-6 text-lg leading-[1.75] text-chalk/85">
+          <div className="font-body text-white/75 leading-relaxed space-y-4 text-[15px]">
             {displayContent.split('\n\n').map((para, i) => (
               para.trim() ? <p key={i}>{para.trim()}</p> : null
             ))}
@@ -201,16 +201,16 @@ export default function ArticleDetail() {
           {/* Tags */}
           {article.tags?.length > 0 && (
             <div className="flex flex-wrap items-center gap-2 mt-12 pt-8 border-t border-white/10">
-              <Tag size={14} className="text-chalk/30" />
+              <Tag size={14} className="text-white/30" />
               {article.tags.map((tag, i) => (
-                <span key={i} className="font-body text-xs text-chalk/40 bg-white/5 border border-white/10 px-3 py-1 rounded-full">#{tag}</span>
+                <span key={i} className="font-body text-xs text-white/40 bg-white/5 border border-white/10 px-3 py-1 rounded-full">#{tag}</span>
               ))}
             </div>
           )}
 
           {/* Back CTA */}
           <div className="mt-14 pt-8 border-t border-white/10">
-            <Link to="/actualites" className="inline-flex items-center gap-2 h-12 rounded-full bg-accent px-6 font-heading text-sm font-bold uppercase tracking-[0.06em] text-night transition-colors duration-300 hover:bg-chalk">
+            <Link to="/actualites" className="inline-flex items-center gap-2 bg-accent hover:bg-accent/90 text-primary font-body font-bold text-sm uppercase tracking-wider px-8 py-4 rounded-lg transition-all">
               <ArrowLeft size={15} /> {tr.article_back_cta}
             </Link>
           </div>

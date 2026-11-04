@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Download, Eye, Lock, ChevronRight } from 'lucide-react';
+import { FileText, Download, Eye, Lock, ChevronRight } from 'lucide-react';
 import { useLang } from '../../lib/LanguageContext';
 import t from '../../lib/translations';
 import { translateDocStatus } from '../../lib/docLabels';
@@ -30,7 +30,7 @@ export default function DocCard({ doc, index, onClick }) {
         <div className={`w-12 h-12 rounded-xl flex items-center justify-center shrink-0 transition-colors duration-300 ${
         hovered && isAvailable ? 'bg-accent/30 border border-accent/50' : 'bg-white/10 border border-white/10'}`
         }>
-          <doc.icon size={22} className={hovered && isAvailable ? 'text-accent' : 'text-chalk/60'} />
+          <doc.icon size={22} className={hovered && isAvailable ? 'text-accent' : 'text-white/60'} />
         </div>
         <span className="bg-[hsl(var(--brand-red))] text-[hsl(var(--background))] px-3 py-1 text-xs font-bold uppercase tracking-wider rounded-full border border-secondary/30">
           {translateDocStatus(doc.status, lang)}
@@ -39,20 +39,20 @@ export default function DocCard({ doc, index, onClick }) {
 
       {/* Title & desc */}
       <h4 className={`font-heading text-lg leading-tight mb-2 transition-colors ${
-      hovered && isAvailable ? 'text-accent' : 'text-chalk'}`
+      hovered && isAvailable ? 'text-accent' : 'text-white'}`
       }>
         {doc.title}
       </h4>
-      <p className="font-body text-xs text-chalk/50 leading-relaxed mb-5 line-clamp-3">{doc.desc}</p>
+      <p className="font-body text-xs text-white/50 leading-relaxed mb-5 line-clamp-3">{doc.desc}</p>
 
       {/* Footer */}
       <div className="flex items-center justify-between pt-4 border-t border-white/10">
         {doc.pages &&
-        <span className="font-body text-xs text-chalk/30">{doc.pages} pages · {tr.doc_pdf}</span>
+        <span className="font-body text-xs text-white/30">{doc.pages} pages · {tr.doc_pdf}</span>
         }
         {isAvailable ?
         <div className="flex items-center gap-3 ml-auto">
-            <div className="flex items-center gap-1 text-xs font-body text-chalk/40 hover:text-chalk transition-colors">
+            <div className="flex items-center gap-1 text-xs font-body text-white/40 hover:text-white transition-colors">
               <Eye size={13} /> {tr.doc_consult}
             </div>
             <div className="flex items-center gap-1 text-xs font-body font-bold text-accent group-hover:gap-2 transition-all">
@@ -60,7 +60,7 @@ export default function DocCard({ doc, index, onClick }) {
             </div>
           </div> :
 
-        <div className="flex items-center gap-1 text-xs font-body text-chalk/30 ml-auto">
+        <div className="flex items-center gap-1 text-xs font-body text-white/30 ml-auto">
             <Lock size={12} /> {doc.status === 'restreint' ? tr.doc_on_request : tr.doc_coming_soon}
           </div>
         }

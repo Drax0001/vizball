@@ -1,14 +1,13 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { motion, useInView, AnimatePresence } from 'framer-motion';
-import { Plus, Search, MessageCircle, Zap, Shield, MapPin, Package } from 'lucide-react';
+import { Users, Plus, Search, MessageCircle, Zap, Shield, MapPin, Package } from 'lucide-react';
 import TopicRow from '../components/forum/TopicRow';
 import TopicDetail from '../components/forum/TopicDetail';
 import NewTopicModal from '../components/forum/NewTopicModal';
 import { useLang } from '../lib/LanguageContext';
 import tr from '../lib/translations';
 import { api } from '../api/client';
-import PageHero from '../components/site/PageHero';
-import Cta from '../components/site/Cta';
+import PageEyebrow from '../components/PageEyebrow';
 import Seo from '../components/Seo';
 
 const CATEGORIES_FR = ['Tous', 'Tactiques', 'Règles', 'Rencontres', 'Général', 'Équipement'];
@@ -20,9 +19,9 @@ const CAT_FR_TO_EN = { 'Tous': 'All', 'Tactiques': 'Tactics', 'Règles': 'Rules'
 const categoryIcons = {
   'Tactiques': { icon: Zap, color: 'text-secondary', bg: 'bg-secondary/15 border-secondary/30' },
   'Règles': { icon: Shield, color: 'text-accent', bg: 'bg-accent/15 border-accent/30' },
-  'Rencontres': { icon: MapPin, color: 'text-chalk/70', bg: 'bg-white/10 border-white/20' },
+  'Rencontres': { icon: MapPin, color: 'text-white/70', bg: 'bg-white/10 border-white/20' },
   'Général': { icon: MessageCircle, color: 'text-accent/80', bg: 'bg-accent/10 border-accent/20' },
-  'Équipement': { icon: Package, color: 'text-chalk/60', bg: 'bg-white/8 border-white/15' }
+  'Équipement': { icon: Package, color: 'text-white/60', bg: 'bg-white/8 border-white/15' }
 };
 
 function AnimatedSection({ children, className = '' }) {
@@ -93,12 +92,30 @@ export default function Forum() {
   return (
     <div className="min-h-screen bg-primary">
       <Seo title={t.forum_title} description={t.forum_subtitle} canonicalPath="/forum" />
-      <PageHero title={t.forum_title} accent={[1]} subtitle={t.forum_subtitle} crop="full">
-        <Cta onClick={() => setModalOpen(true)} tone="gold">{t.forum_new_topic}</Cta>
-      </PageHero>
+      {/* Hero */}
+      <section className="relative overflow-hidden pt-32 pb-16">
+        <div className="absolute inset-0 opacity-5" style={{ backgroundImage: 'radial-gradient(circle at 1px 1px, hsl(43,75%,49%) 1px, transparent 0)', backgroundSize: '40px 40px' }} />
+        <div className="absolute top-0 right-0 w-96 h-96 bg-accent/5 rounded-full blur-3xl" />
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex items-start justify-between flex-wrap gap-6">
+            <motion.div initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }}>
+              <PageEyebrow>{t.forum_badge}</PageEyebrow>
+              <h1 className="font-heading text-6xl sm:text-7xl md:text-8xl text-white leading-none mb-4">
+                {t.forum_title.split(' ')[0]} <span className="text-[hsl(var(--background))]">{t.forum_title.split(' ').slice(1).join(' ')}</span>
+              </h1>
+              <p className="font-body text-lg text-white/60 max-w-xl leading-relaxed">{t.forum_subtitle}</p>
+            </motion.div>
+            <motion.button initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.2 }}
+            onClick={() => setModalOpen(true)}
+            className="flex items-center gap-2 bg-accent hover:bg-accent/90 text-primary font-body font-bold text-sm uppercase tracking-wider px-6 py-3 rounded-lg transition-all">
+              <Plus size={16} /> {t.forum_new_topic}
+            </motion.button>
+          </div>
+        </div>
+      </section>
 
       {/* Category cards */}
-      <div className="shell mb-2 mt-12">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-2">
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3">
           {CATEGORIES_FR.slice(1).map((frCat) => {
             const cfg = categoryIcons[frCat];
@@ -106,11 +123,11 @@ export default function Forum() {
             const isActive = activeCategory === frCat;
             return (
               <button key={frCat} onClick={() => setActiveCategory(isActive ? 'Tous' : frCat)}
-              className={`flex items-center gap-3 p-3 rounded-xl border transition-all ${isActive ? 'bg-accent/20 border-accent text-chalk' : `${cfg.bg} hover:border-white/30`}`}>
+              className={`flex items-center gap-3 p-3 rounded-xl border transition-all ${isActive ? 'bg-accent/20 border-accent text-white' : `${cfg.bg} hover:border-white/30`}`}>
                 <Icon size={16} className={isActive ? 'text-accent' : cfg.color} />
                 <div className="text-left min-w-0">
-                  <p className={`font-body text-xs font-bold truncate ${isActive ? 'text-chalk' : 'text-chalk/70'}`}>{getDisplayCat(frCat)}</p>
-                  <p className="font-body text-xs text-chalk/30">{counts[frCat] || 0} {t.forum_subjects}</p>
+                  <p className={`font-body text-xs font-bold truncate ${isActive ? 'text-white' : 'text-white/70'}`}>{getDisplayCat(frCat)}</p>
+                  <p className="font-body text-xs text-white/30">{counts[frCat] || 0} {t.forum_subjects}</p>
                 </div>
               </button>);
 
@@ -119,8 +136,8 @@ export default function Forum() {
       </div>
 
       {/* Filters */}
-      <div className="sticky top-0 z-30 mt-4 border-y border-chalk/10 bg-pitch">
-        <div className="shell py-3">
+      <div className="sticky top-20 z-30 bg-primary/95 backdrop-blur-md border-y border-white/10 mt-4">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
           <div className="flex flex-col sm:flex-row gap-3 items-start sm:items-center justify-between">
             <div className="flex flex-wrap gap-2">
               {CATEGORIES.map((displayCat, i) => {
@@ -128,25 +145,25 @@ export default function Forum() {
                 const isActive = activeCategory === frCat;
                 return (
                   <button key={displayCat} onClick={() => setActiveCategory(frCat)}
-                  className={`px-4 py-1.5 rounded-full font-body text-xs font-bold uppercase tracking-wider border transition-all ${isActive ? 'bg-accent text-primary border-accent' : 'bg-white/5 text-chalk/60 border-white/10 hover:border-white/30 hover:text-chalk'}`}>
+                  className={`px-4 py-1.5 rounded-full font-body text-xs font-bold uppercase tracking-wider border transition-all ${isActive ? 'bg-accent text-primary border-accent' : 'bg-white/5 text-white/60 border-white/10 hover:border-white/30 hover:text-white'}`}>
                     {displayCat}
                   </button>);
 
               })}
             </div>
             <div className="relative w-full sm:w-56">
-              <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-chalk/30" />
+              <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-white/30" />
               <input type="text" value={search} onChange={(e) => setSearch(e.target.value)} placeholder={t.forum_search}
-              className="w-full bg-white/5 border border-white/10 rounded-full pl-8 pr-4 py-2 font-body text-xs text-chalk placeholder-chalk/30 focus:outline-none focus:border-accent/50 transition-colors" />
+              className="w-full bg-white/5 border border-white/10 rounded-full pl-8 pr-4 py-2 font-body text-xs text-white placeholder-white/30 focus:outline-none focus:border-accent/50 transition-colors" />
             </div>
           </div>
         </div>
       </div>
 
       {/* Topics list */}
-      <div className="shell py-10">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
         <AnimatedSection className="mb-4">
-          <p className="font-body text-sm text-chalk/30">
+          <p className="font-body text-sm text-white/30">
             <span className="text-accent font-bold">{filtered.length}</span> {t.forum_subjects}
           </p>
         </AnimatedSection>
@@ -155,9 +172,9 @@ export default function Forum() {
         <div className="flex justify-center py-24"><div className="w-8 h-8 border-2 border-accent/30 border-t-accent rounded-full animate-spin" /></div> :
         filtered.length === 0 ?
         <div className="text-center py-24">
-            <MessageCircle size={48} className="text-chalk/15 mx-auto mb-4" />
-            <p className="font-heading text-2xl text-chalk/25 mb-2">{t.forum_no_results}</p>
-            <button onClick={() => setModalOpen(true)} className="mt-4 flex items-center gap-2 h-12 bg-accent px-6 font-heading font-bold text-sm uppercase tracking-[0.06em] text-night rounded-full transition-colors duration-300 hover:bg-chalk mx-auto">
+            <MessageCircle size={48} className="text-white/15 mx-auto mb-4" />
+            <p className="font-heading text-2xl text-white/25 mb-2">{t.forum_no_results}</p>
+            <button onClick={() => setModalOpen(true)} className="mt-4 flex items-center gap-2 bg-accent hover:bg-accent/90 text-primary font-body font-bold text-sm uppercase tracking-wider px-6 py-3 rounded-lg transition-all mx-auto">
               <Plus size={15} /> {t.forum_first}
             </button>
           </div> :
@@ -171,10 +188,10 @@ export default function Forum() {
 
         {/* CTA */}
         <AnimatedSection className="mt-16">
-          <div className="rounded-[14px] bg-night p-8 text-center ring-1 ring-inset ring-chalk/10">
+          <div className="border border-accent/20 rounded-2xl bg-gradient-to-br from-accent/10 to-secondary/5 p-8 text-center">
             <h3 className="text-[hsl(var(--accent))] mb-2 text-3xl font-heading">{t.forum_cta_title} <span className="text-accent">{t.forum_cta_title2}</span></h3>
-            <p className="font-body text-sm text-chalk/50 max-w-md mx-auto mb-5 leading-relaxed">{t.forum_cta_desc}</p>
-            <button onClick={() => setModalOpen(true)} className="inline-flex items-center gap-2 h-12 bg-accent px-8 font-heading font-bold text-sm uppercase tracking-[0.06em] text-night rounded-full transition-colors duration-300 hover:bg-chalk">
+            <p className="font-body text-sm text-white/50 max-w-md mx-auto mb-5 leading-relaxed">{t.forum_cta_desc}</p>
+            <button onClick={() => setModalOpen(true)} className="inline-flex items-center gap-2 bg-accent hover:bg-accent/90 text-primary font-body font-bold text-sm uppercase tracking-wider px-8 py-3.5 rounded-lg transition-all">
               <Plus size={16} /> {t.forum_create}
             </button>
           </div>

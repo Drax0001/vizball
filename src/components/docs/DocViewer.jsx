@@ -44,12 +44,12 @@ export default function DocViewer({ doc, onClose }) {
               </div>
               <div>
                 <span className="font-body text-xs font-bold uppercase tracking-wider text-accent">{doc.pillar}</span>
-                <h2 className="font-heading text-2xl text-chalk mt-1 leading-tight">{doc.title}</h2>
+                <h2 className="font-heading text-2xl text-white mt-1 leading-tight">{doc.title}</h2>
               </div>
             </div>
             <button
               onClick={onClose}
-              className="p-2 hover:bg-white/10 rounded-lg transition-colors text-chalk/50 hover:text-chalk shrink-0"
+              className="p-2 hover:bg-white/10 rounded-lg transition-colors text-white/50 hover:text-white shrink-0"
             >
               <X size={20} />
             </button>
@@ -64,22 +64,22 @@ export default function DocViewer({ doc, onClose }) {
             ].map((m, i) => (
               <div key={i} className="flex items-center gap-1.5 bg-white/5 border border-white/10 rounded-full px-3 py-1.5">
                 <m.icon size={12} className="text-accent" />
-                <span className="font-body text-xs text-chalk/60">{m.label}</span>
+                <span className="font-body text-xs text-white/60">{m.label}</span>
               </div>
             ))}
           </div>
 
           {/* Description */}
           <div className="px-6 py-6">
-            <h3 className="font-body text-xs font-bold uppercase tracking-wider text-chalk/40 mb-3">{tr.doc_about}</h3>
-            <p className="font-body text-sm text-chalk/70 leading-relaxed mb-4">{doc.desc}</p>
+            <h3 className="font-body text-xs font-bold uppercase tracking-wider text-white/40 mb-3">{tr.doc_about}</h3>
+            <p className="font-body text-sm text-white/70 leading-relaxed mb-4">{doc.desc}</p>
             {doc.content && (
               <div className="space-y-2 mt-4">
-                <h3 className="font-body text-xs font-bold uppercase tracking-wider text-chalk/40 mb-3">{tr.doc_content}</h3>
+                <h3 className="font-body text-xs font-bold uppercase tracking-wider text-white/40 mb-3">{tr.doc_content}</h3>
                 {doc.content.map((item, i) => (
                   <div key={i} className="flex items-start gap-3 py-2 border-b border-white/5 last:border-0">
                     <span className="w-1.5 h-1.5 rounded-full bg-accent mt-2 shrink-0" />
-                    <span className="font-body text-sm text-chalk/60">{item}</span>
+                    <span className="font-body text-sm text-white/60">{item}</span>
                   </div>
                 ))}
               </div>
@@ -90,7 +90,7 @@ export default function DocViewer({ doc, onClose }) {
           <div className="flex items-center justify-between gap-4 px-6 py-5 border-t border-white/10 bg-white/3">
             <button
               onClick={onClose}
-              className="font-body text-sm text-chalk/40 hover:text-chalk transition-colors"
+              className="font-body text-sm text-white/40 hover:text-white transition-colors"
             >
               {tr.doc_close}
             </button>
@@ -100,14 +100,14 @@ export default function DocViewer({ doc, onClose }) {
                   href={doc.fileUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-2 h-11 rounded-full px-5 font-heading text-sm font-bold text-chalk/80 ring-1 ring-inset ring-chalk/25 transition-colors hover:bg-chalk hover:text-night"
+                  className="flex items-center gap-2 border border-white/20 hover:border-accent/40 text-white/70 hover:text-white font-body text-sm font-semibold px-5 py-2.5 rounded-lg transition-all"
                 >
                   <ExternalLink size={15} /> {tr.doc_open}
                 </a>
               )}
               <button
                 onClick={handleDownload}
-                className="flex items-center gap-2 h-12 rounded-full bg-accent px-6 font-heading text-sm font-bold uppercase tracking-[0.06em] text-night transition-colors duration-300 hover:bg-chalk"
+                className="flex items-center gap-2 bg-accent hover:bg-accent/90 text-primary font-body text-sm font-bold px-6 py-2.5 rounded-lg transition-all"
               >
                 <Download size={15} /> {tr.doc_download}
               </button>

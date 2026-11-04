@@ -11,10 +11,7 @@ import t from '../lib/translations';
 import { CATEGORY_LABELS, LEVEL_LABELS } from '../lib/tutorialLabels';
 import { api } from '../api/client';
 import sportUniqueImage from '../assets/images/vizball-players-sitting-on-pitch.webp';
-import heroImage from '../assets/images/court-vizball.webp';
-import PageHero from '../components/site/PageHero';
-import FieldLines from '../components/field/FieldLines';
-import { useMediaQuery } from '@/hooks/use-media-query';
+import terrainImage from '../assets/images/community-vizball.webp';
 
 const VIDEO_CATEGORIES = [
   { label: 'Tous', icon: Play },
@@ -194,11 +191,12 @@ function TutorielsSection() {
   const showFeatured = featuredVideo && activeCategory === 'Tous' && !search && activeLevel === 'Tous les niveaux';
 
   return (
-    <section className="pitch-2 py-24 md:py-32">
-      <div className="shell">
+    <section className="py-24 bg-primary">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <AnimatedSection className="mb-12">
-          <h2 className="display mb-10 text-[clamp(2.4rem,5.5vw,5rem)]">{tr.tutoriels_title}{tr.tutoriels_title2}</h2>
-          <p className="font-body text-chalk/60">{tr.tutoriels_subtitle}</p>
+          <span className="font-subtitle text-sm uppercase tracking-widest text-secondary">{tr.tutoriels_badge}</span>
+          <h2 className="text-accent mt-3 mb-3 text-4xl font-heading sm:text-5xl">{tr.tutoriels_title}{tr.tutoriels_title2}</h2>
+          <p className="font-body text-white/60">{tr.tutoriels_subtitle}</p>
         </AnimatedSection>
 
         {/* Featured */}
@@ -216,7 +214,7 @@ function TutorielsSection() {
                 key={cat.label}
                 onClick={() => setActiveCategory(cat.label)}
                 className={`flex items-center gap-2 px-4 py-2.5 rounded-full font-body text-xs font-bold uppercase tracking-wider transition-all border ${
-                  activeCategory === cat.label ? 'bg-accent text-primary border-accent' : 'bg-white/5 text-chalk/70 border-white/10 hover:border-accent/40 hover:text-chalk'
+                  activeCategory === cat.label ? 'bg-accent text-primary border-accent' : 'bg-white/5 text-white/70 border-white/10 hover:border-accent/40 hover:text-white'
                 }`}>
                 <cat.icon size={14} />{CATEGORY_LABELS[cat.label][lang]}
               </button>
@@ -224,24 +222,24 @@ function TutorielsSection() {
           </div>
           <div className="flex gap-3 w-full lg:w-auto">
             <div className="relative flex-1 lg:w-64">
-              <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-chalk/40" />
-              <input type="text" value={search} onChange={(e) => setSearch(e.target.value)} placeholder={tr.tutoriels_search} className="w-full bg-white/5 border border-white/10 rounded-full pl-9 pr-4 py-2.5 font-body text-sm text-chalk placeholder-chalk/30 focus:outline-none focus:border-accent/50 transition-colors" />
+              <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-white/40" />
+              <input type="text" value={search} onChange={(e) => setSearch(e.target.value)} placeholder={tr.tutoriels_search} className="w-full bg-white/5 border border-white/10 rounded-full pl-9 pr-4 py-2.5 font-body text-sm text-white placeholder-white/30 focus:outline-none focus:border-accent/50 transition-colors" />
             </div>
             <div className="relative">
-              <Filter size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-chalk/40 pointer-events-none" />
-              <select value={activeLevel} onChange={(e) => setActiveLevel(e.target.value)} className="bg-white/5 border border-white/10 rounded-full pl-9 pr-4 py-2.5 font-body text-sm text-chalk appearance-none focus:outline-none focus:border-accent/50 transition-colors cursor-pointer">
-                {LEVELS.map((l) => <option key={l} value={l} className="bg-[#1B4332] text-chalk">{LEVEL_LABELS[l][lang]}</option>)}
+              <Filter size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-white/40 pointer-events-none" />
+              <select value={activeLevel} onChange={(e) => setActiveLevel(e.target.value)} className="bg-white/5 border border-white/10 rounded-full pl-9 pr-4 py-2.5 font-body text-sm text-white appearance-none focus:outline-none focus:border-accent/50 transition-colors cursor-pointer">
+                {LEVELS.map((l) => <option key={l} value={l} className="bg-[#1B4332] text-white">{LEVEL_LABELS[l][lang]}</option>)}
               </select>
             </div>
           </div>
         </div>
 
-        <p className="font-body text-sm text-chalk/40 mb-6"><span className="text-accent font-bold">{filtered.length}</span> {filtered.length > 1 ? tr.tutoriels_results : tr.tutoriels_result}</p>
+        <p className="font-body text-sm text-white/40 mb-6"><span className="text-accent font-bold">{filtered.length}</span> {filtered.length > 1 ? tr.tutoriels_results : tr.tutoriels_result}</p>
 
         {filtered.length === 0 ? (
           <div className="text-center py-20">
-            <BookOpen size={48} className="text-chalk/20 mx-auto mb-4" />
-            <p className="font-heading text-2xl text-chalk/30">{tr.tutoriels_no_results}</p>
+            <BookOpen size={48} className="text-white/20 mx-auto mb-4" />
+            <p className="font-heading text-2xl text-white/30">{tr.tutoriels_no_results}</p>
           </div>
         ) : (
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -259,19 +257,35 @@ function TutorielsSection() {
 export default function LeSport() {
   const { lang } = useLang();
   const tr = t[lang];
-  const portrait = useMediaQuery('(max-width: 767px)');
   return (
     <div>
       <Seo title={tr.sport_title} description={tr.sport_subtitle} canonicalPath="/le-sport" />
-      <PageHero title={tr.sport_title} accent={[1]} subtitle={tr.sport_subtitle} image={heroImage} imageAlt={tr.gallery_cap_2} crop="circle" />
+      {/* Hero */}
+      <section className="relative h-[60vh] min-h-[400px] overflow-hidden">
+        <div className="w-full h-full bg-gray-900" />
+
+        <div className="absolute inset-0 bg-gradient-to-r from-primary/90 via-primary/70 to-primary/40" />
+        <div className="absolute inset-0 flex items-center">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+            <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>
+              <span className="font-subtitle text-sm uppercase tracking-widest text-accent">Vizball</span>
+              <h1 className="text-[hsl(var(--background))] mt-2 text-6xl font-heading sm:text-7xl md:text-8xl">{tr.sport_title}</h1>
+              <p className="font-body text-lg text-white/70 max-w-lg mt-4">
+                {tr.sport_subtitle}
+              </p>
+            </motion.div>
+          </div>
+        </div>
+      </section>
 
       {/* Description */}
-      <section className="bg-background py-24 md:py-32">
-        <div className="shell">
+      <section className="py-24 bg-background">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <AnimatedSection>
             <div className="grid lg:grid-cols-2 gap-16 items-center">
               <div>
-                <h2 className="display mb-10 text-[clamp(2.4rem,5.5vw,5rem)]">{lang === 'en' ? 'A UNIQUE SPORT' : 'UN SPORT UNIQUE'}</h2>
+                <span className="font-subtitle text-sm uppercase tracking-widest text-secondary">{lang === 'en' ? 'Overview' : 'Présentation'}</span>
+                <h2 className="text-[hsl(var(--chart-3))] mt-3 mb-6 text-5xl font-heading">{lang === 'en' ? 'A UNIQUE SPORT' : 'UN SPORT UNIQUE'}</h2>
                 <div className="space-y-4 font-body text-muted-foreground leading-relaxed">
                   <p>
                     {lang === 'en'
@@ -299,9 +313,9 @@ export default function LeSport() {
                 <img
                   src={sportUniqueImage}
                   alt={lang === 'en' ? 'A unique sport' : 'Un sport unique'}
-                  className="h-[450px] w-full rounded-[14px] object-cover" />
+                  className="rounded-lg w-full h-[450px] object-cover" />
 
-                <div className="pitch absolute -bottom-4 -left-4 rounded-[14px] p-5">
+                <div className="absolute -bottom-4 -left-4 bg-primary text-white p-5 rounded-lg">
                   <span className="font-heading text-3xl text-accent">{tr.sport_field_dims}</span>
                   <p className="font-body text-xs uppercase tracking-wider mt-1">{tr.sport_field_dims_label}</p>
                 </div>
@@ -312,17 +326,18 @@ export default function LeSport() {
       </section>
 
       {/* Zones du terrain */}
-      <section className="pitch-2 py-24 md:py-32">
-        <div className="shell">
+      <section className="py-24 bg-primary">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <AnimatedSection className="mb-16">
-            <h2 className="display mb-10 text-[clamp(2.4rem,5.5vw,5rem)]">{tr.sport_zones_title}</h2>
+            <span className="text-[hsl(var(--background))] font-subtitle text-sm uppercase tracking-widest">{tr.sport_field_title}</span>
+            <h2 className="text-[hsl(var(--sidebar-ring))] mt-3 text-5xl font-heading sm:text-6xl">{tr.sport_zones_title}</h2>
           </AnimatedSection>
 
           <div className="grid md:grid-cols-2 gap-8">
             <AnimatedSection>
-              <div className="h-full rounded-[14px] p-8 ring-1 ring-inset ring-chalk/15">
-                <h3 className="display mb-5 text-3xl text-accent">{tr.sport_zone_tir}</h3>
-                <ul className="space-y-3 font-body text-sm text-chalk/70">
+              <div className="bg-white/5 border border-white/10 rounded-lg p-8">
+                <h3 className="font-heading text-3xl text-accent mb-4">{tr.sport_zone_tir}</h3>
+                <ul className="space-y-3 font-body text-sm text-white/70">
                   <li className="flex items-start gap-2"><span className="text-accent mt-1">•</span>{tr.sport_zone_tir_1}</li>
                   <li className="flex items-start gap-2"><span className="text-accent mt-1">•</span>{tr.sport_zone_tir_2}</li>
                   <li className="flex items-start gap-2"><span className="text-accent mt-1">•</span>{tr.sport_zone_tir_3}</li>
@@ -331,9 +346,9 @@ export default function LeSport() {
               </div>
             </AnimatedSection>
             <AnimatedSection>
-              <div className="h-full rounded-[14px] p-8 ring-1 ring-inset ring-chalk/15">
-                <h3 className="display mb-5 text-3xl text-accent">{tr.sport_zone_duel}</h3>
-                <ul className="space-y-3 font-body text-sm text-chalk/70">
+              <div className="bg-white/5 border border-white/10 rounded-lg p-8">
+                <h3 className="font-heading text-3xl text-accent mb-4">{tr.sport_zone_duel}</h3>
+                <ul className="space-y-3 font-body text-sm text-white/70">
                   <li className="flex items-start gap-2"><span className="text-accent mt-1">•</span>{tr.sport_zone_duel_1}</li>
                   <li className="flex items-start gap-2"><span className="text-accent mt-1">•</span>{tr.sport_zone_duel_2}</li>
                   <li className="flex items-start gap-2"><span className="text-accent mt-1">•</span>{tr.sport_zone_duel_3}</li>
@@ -345,27 +360,29 @@ export default function LeSport() {
           </div>
 
           <AnimatedSection className="mt-12">
-            <figure className="rounded-[14px] bg-night p-5 ring-1 ring-inset ring-chalk/10 md:p-10">
-              <FieldLines
-                orient={portrait ? 'v' : 'h'}
-                zoneTint
-                labels={{ shooting: tr.field_label_shooting, duel: tr.field_label_duel }}
-                className="mx-auto max-h-[80svh] w-full text-chalk/70"
-              />
-              <figcaption className="mt-6 flex flex-wrap items-baseline justify-between gap-3 text-chalk/70">
-                <span className="display text-4xl text-accent md:text-6xl">{tr.sport_field_dims}</span>
-                <span>{tr.sport_field_dims_official}</span>
-              </figcaption>
-            </figure>
+            <div className="relative rounded-lg overflow-hidden">
+              {/* Container dimensions: 100% width, 256px (mobile) to 384px (desktop) height */}
+              {/* Recommended image aspect ratio: ~16:9 or wider for best fit */}
+              <img src={terrainImage} alt={tr.sport_field_dims_official} className="w-full h-64 md:h-96 object-cover" />
+
+              <div className="absolute inset-0 bg-primary/40" />
+              <div className="absolute inset-0 flex items-center justify-center">
+                <div className="text-center">
+                  <span className="font-heading text-6xl md:text-8xl text-white">{tr.sport_field_dims}</span>
+                  <p className="font-body text-sm text-white/70 uppercase tracking-wider mt-2">{tr.sport_field_dims_official}</p>
+                </div>
+              </div>
+            </div>
           </AnimatedSection>
         </div>
       </section>
 
       {/* Postes des joueurs */}
-      <section className="bg-background py-24 md:py-32">
-        <div className="shell">
+      <section className="py-24 bg-background">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <AnimatedSection className="mb-16">
-            <h2 className="display mb-10 text-[clamp(2.4rem,5.5vw,5rem)]">{tr.sport_positions_title} {tr.sport_positions_title2}</h2>
+            <span className="font-subtitle text-sm uppercase tracking-widest text-secondary">{tr.sport_positions_section_badge}</span>
+            <h2 className="text-[hsl(var(--accent))] mt-3 text-5xl font-heading sm:text-6xl">{tr.sport_positions_title} {tr.sport_positions_title2}</h2>
           </AnimatedSection>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -384,10 +401,10 @@ export default function LeSport() {
       </section>
 
       {/* Avant la partie */}
-      <section className="bg-background py-24 md:py-32">
-        <div className="shell">
+      <section className="py-24 bg-background">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <AnimatedSection>
-            <h2 className="display mb-10 text-[clamp(2.4rem,5.5vw,5rem)]">{tr.sport_avant_partie_title}</h2>
+            <h2 className="text-[hsl(var(--chart-3))] mt-2 mb-8 text-4xl font-heading sm:text-5xl">{tr.sport_avant_partie_title}</h2>
             <p className="font-body text-muted-foreground mb-6">
               {tr.sport_avant_partie_intro}
             </p>
@@ -406,10 +423,10 @@ export default function LeSport() {
       </section>
 
       {/* Pendant la partie */}
-      <section className="bg-muted py-24 md:py-32">
-        <div className="shell">
+      <section className="py-24 bg-muted">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <AnimatedSection>
-            <h2 className="display mb-10 text-[clamp(2.4rem,5.5vw,5rem)]">{tr.sport_pendant_partie_title}</h2>
+            <h2 className="text-[hsl(var(--accent))] mt-2 mb-8 text-4xl font-heading sm:text-5xl">{tr.sport_pendant_partie_title}</h2>
           </AnimatedSection>
 
           <div className="space-y-4">
@@ -423,16 +440,16 @@ export default function LeSport() {
       </section>
 
       {/* Fautes et Pénalités */}
-      <section className="pitch-2 py-24 md:py-32">
-        <div className="shell">
+      <section className="py-24 bg-primary">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <AnimatedSection>
-            <h2 className="display mb-10 text-[clamp(2.4rem,5.5vw,5rem)]">{tr.sport_fautes_title}</h2>
+            <h2 className="text-[hsl(var(--accent))] mt-2 mb-8 text-4xl font-heading sm:text-5xl">{tr.sport_fautes_title}</h2>
 
-            <div className="h-full rounded-[14px] p-8 ring-1 ring-inset ring-chalk/15">
-              <p className="font-body text-chalk/80 leading-relaxed mb-4">
+            <div className="bg-white/5 border border-white/10 rounded-lg p-8">
+              <p className="font-body text-white/80 leading-relaxed mb-4">
                 {tr.sport_fautes_intro} <span className="text-accent font-semibold">T1, T4, C1, P1, A1, A3, G3</span>
               </p>
-              <p className="font-body text-chalk/80 leading-relaxed mb-6">
+              <p className="font-body text-white/80 leading-relaxed mb-6">
                 {tr.sport_fautes_penalty}
               </p>
               <div className="bg-accent/10 border border-accent/30 rounded-lg p-4">
@@ -452,10 +469,11 @@ export default function LeSport() {
       <TutorielsSection />
 
       {/* Le Corps Arbitral */}
-      <section className="bg-background py-24 md:py-32">
-        <div className="shell">
+      <section className="py-24 bg-background">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <AnimatedSection>
-            <h2 className="display mb-10 text-[clamp(2.4rem,5.5vw,5rem)]">{tr.sport_arbitral_title}</h2>
+            <span className="font-subtitle text-sm uppercase tracking-widest text-secondary">{tr.sport_arbitral_badge}</span>
+            <h2 className="text-[hsl(var(--chart-3))] mt-3 mb-8 text-4xl font-heading sm:text-5xl">{tr.sport_arbitral_title}</h2>
             <p className="font-body text-muted-foreground leading-relaxed mb-10">
               {tr.sport_arbitral_intro}
             </p>
@@ -506,7 +524,7 @@ export default function LeSport() {
           {/* Gestes officiels */}
           <AnimatedSection>
             <div className="bg-muted rounded-xl p-8">
-              <h3 className="display mb-6 text-2xl md:text-3xl ">{tr.sport_arbitral_gestures_title}</h3>
+              <h3 className="font-heading text-2xl text-foreground mb-6">{tr.sport_arbitral_gestures_title}</h3>
               <div className="grid sm:grid-cols-2 gap-4">
                 {[
                   { geste: { fr: 'Bras tendu, index pointé vers le haut', en: 'Arm extended, index finger pointed up' }, signification: { fr: 'Point validé', en: 'Point validated' } },
@@ -533,7 +551,7 @@ export default function LeSport() {
           {/* Principes */}
           <AnimatedSection className="mt-8">
             <div className="bg-primary rounded-xl p-8">
-              <h3 className="display mb-6 text-2xl md:text-3xl text-accent">{tr.sport_arbitral_principles_title}</h3>
+              <h3 className="font-heading text-2xl text-accent mb-4">{tr.sport_arbitral_principles_title}</h3>
               <ul className="space-y-3">
                 {[
                   { fr: "Chaque officiel est souverain dans son territoire — aucun chevauchement de compétences.", en: 'Each official has sole authority within their territory — no overlap of responsibilities.' },
@@ -542,7 +560,7 @@ export default function LeSport() {
                   { fr: "Tout officiel peut signaler une faute grave (violence, insulte) quel que soit son territoire.", en: 'Any official may report a serious offence (violence, insults) regardless of their territory.' },
                   { fr: "Le Corps Arbitral doit être nommé avant le début de chaque rencontre officielle.", en: 'The refereeing body must be appointed before the start of every official match.' }
                 ].map((p, i) => (
-                  <li key={i} className="flex items-start gap-3 font-body text-sm text-chalk/80">
+                  <li key={i} className="flex items-start gap-3 font-body text-sm text-white/80">
                     <span className="w-5 h-5 rounded-full bg-accent/20 text-accent flex items-center justify-center shrink-0 text-xs font-bold mt-0.5">{i + 1}</span>
                     {p[lang]}
                   </li>

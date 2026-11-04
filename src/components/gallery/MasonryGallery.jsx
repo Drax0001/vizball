@@ -64,7 +64,7 @@ export default function MasonryGallery() {
             className={`px-4 py-2 rounded-full font-body text-xs font-bold uppercase tracking-wider border transition-all ${
               activeCategory === cat
                 ? 'bg-accent text-primary border-accent'
-                : 'bg-white/5 text-chalk/60 border-white/10 hover:border-white/30 hover:text-chalk'
+                : 'bg-white/5 text-white/60 border-white/10 hover:border-white/30 hover:text-white'
             }`}
           >
             {tr[CATEGORY_KEYS[cat]]}
@@ -78,9 +78,9 @@ export default function MasonryGallery() {
         </div>
       ) : filtered.length === 0 ? (
         <div className="text-center py-24">
-          <ImageOff size={48} className="text-chalk/15 mx-auto mb-4" />
-          <p className="font-heading text-2xl text-chalk/25 mb-2">{tr.media_gallery_empty}</p>
-          <p className="font-body text-sm text-chalk/30">{tr.media_gallery_empty_desc}</p>
+          <ImageOff size={48} className="text-white/15 mx-auto mb-4" />
+          <p className="font-heading text-2xl text-white/25 mb-2">{tr.media_gallery_empty}</p>
+          <p className="font-body text-sm text-white/30">{tr.media_gallery_empty_desc}</p>
         </div>
       ) : (
         <div className="columns-1 sm:columns-2 lg:columns-3 gap-4 space-y-4">
@@ -103,16 +103,16 @@ export default function MasonryGallery() {
                   loading="lazy"
                 />
               ) : (
-                <div className="w-full h-64 bg-night transition-transform duration-500 group-hover:scale-105" />
+                <div className="w-full h-64 bg-gray-900 transition-transform duration-500 group-hover:scale-105" />
               )}
               {/* Overlay */}
               <div className="absolute inset-0 bg-primary/0 group-hover:bg-primary/60 transition-all duration-300 flex flex-col items-center justify-center gap-2">
-                <ZoomIn size={28} className="text-chalk opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                <ZoomIn size={28} className="text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                 <div className="absolute bottom-0 left-0 right-0 p-3 translate-y-full group-hover:translate-y-0 transition-transform duration-300">
                   <span className="inline-block text-xs font-bold uppercase tracking-wider text-accent bg-accent/20 px-2 py-0.5 rounded-full font-body mb-1">
                     {tr[CATEGORY_KEYS[photo.category]]}
                   </span>
-                  <p className="font-body text-sm text-chalk font-medium">{photo.caption}</p>
+                  <p className="font-body text-sm text-white font-medium">{photo.caption}</p>
                 </div>
               </div>
             </motion.div>
@@ -133,7 +133,7 @@ export default function MasonryGallery() {
             {/* Close */}
             <button
               onClick={closeLightbox}
-              className="absolute top-4 right-4 z-10 text-chalk/60 hover:text-chalk bg-white/10 hover:bg-white/20 rounded-full p-2 transition-all"
+              className="absolute top-4 right-4 z-10 text-white/60 hover:text-white bg-white/10 hover:bg-white/20 rounded-full p-2 transition-all"
             >
               <X size={24} />
             </button>
@@ -141,7 +141,7 @@ export default function MasonryGallery() {
             {/* Prev */}
             <button
               onClick={(e) => { e.stopPropagation(); prev(); }}
-              className="absolute left-4 top-1/2 -translate-y-1/2 z-10 text-chalk/60 hover:text-chalk bg-white/10 hover:bg-white/20 rounded-full p-3 transition-all"
+              className="absolute left-4 top-1/2 -translate-y-1/2 z-10 text-white/60 hover:text-white bg-white/10 hover:bg-white/20 rounded-full p-3 transition-all"
             >
               <ChevronLeft size={28} />
             </button>
@@ -163,21 +163,21 @@ export default function MasonryGallery() {
                   className="max-w-full max-h-[70vh] object-contain rounded-lg shadow-2xl"
                 />
               ) : (
-                <div className="w-full max-w-3xl aspect-video bg-night rounded-lg shadow-2xl" />
+                <div className="w-full max-w-3xl aspect-video bg-gray-900 rounded-lg shadow-2xl" />
               )}
               <div className="mt-4 text-center">
                 <span className="font-body text-xs font-bold uppercase tracking-wider text-accent">
                   {tr[CATEGORY_KEYS[filtered[lightbox]?.category]]}
                 </span>
-                <p className="font-body text-sm text-chalk/80 mt-1">{filtered[lightbox]?.caption}</p>
-                <p className="font-body text-xs text-chalk/30 mt-2">{lightbox + 1} / {filtered.length}</p>
+                <p className="font-body text-sm text-white/80 mt-1">{filtered[lightbox]?.caption}</p>
+                <p className="font-body text-xs text-white/30 mt-2">{lightbox + 1} / {filtered.length}</p>
               </div>
             </motion.div>
 
             {/* Next */}
             <button
               onClick={(e) => { e.stopPropagation(); next(); }}
-              className="absolute right-4 top-1/2 -translate-y-1/2 z-10 text-chalk/60 hover:text-chalk bg-white/10 hover:bg-white/20 rounded-full p-3 transition-all"
+              className="absolute right-4 top-1/2 -translate-y-1/2 z-10 text-white/60 hover:text-white bg-white/10 hover:bg-white/20 rounded-full p-3 transition-all"
             >
               <ChevronRight size={28} />
             </button>

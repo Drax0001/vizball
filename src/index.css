@@ -39,37 +39,31 @@
     --font-heading: 'Fester', sans-serif;
     --font-body: 'Fester', sans-serif;
 
-    /* Brand palette (fixed): pitch green, field green, gold, brand red, chalk */
-    --pitch: 153 50% 16%;
-    --night: 153 52% 9%;
-    --night-2: 153 48% 12%;
-    --chalk: 48 80% 95%;
-
-    --background: 48 50% 97%;
-    --foreground: 153 40% 10%;
-    --card: 48 60% 99%;
-    --card-foreground: 153 40% 10%;
-    --popover: 48 60% 99%;
-    --popover-foreground: 153 40% 10%;
+    --background: 0 0% 100%;
+    --foreground: 150 30% 10%;
+    --card: 0 0% 100%;
+    --card-foreground: 150 30% 10%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 150 30% 10%;
     --primary: 153 50% 16%;
     --primary-foreground: 48 80% 95%;
     --secondary: 152 40% 55%;
-    --secondary-foreground: 153 52% 9%;
-    --muted: 48 35% 92%;
-    --muted-foreground: 153 14% 34%;
+    --secondary-foreground: 0 0% 100%;
+    --muted: 140 15% 95%;
+    --muted-foreground: 150 10% 40%;
     --accent: 43 75% 49%;
-    --accent-foreground: 153 52% 9%;
+    --accent-foreground: 150 30% 10%;
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
-    --border: 150 18% 84%;
-    --input: 150 18% 80%;
-    --ring: 43 75% 49%;
+    --border: 140 15% 88%;
+    --input: 140 15% 88%;
+    --ring: 153 50% 16%;
     --chart-1: 153 50% 16%;
     --chart-2: 152 40% 55%;
     --chart-3: 43 75% 49%;
     --chart-4: 140 30% 35%;
     --chart-5: 48 60% 60%;
-    --radius: 0.875rem;
+    --radius: 0.5rem;
     --sidebar-background: 153 50% 10%;
     --sidebar-foreground: 48 80% 95%;
     --sidebar-primary: 43 75% 49%;
@@ -79,11 +73,6 @@
     --sidebar-border: 153 30% 25%;
     --sidebar-ring: 43 75% 49%;
     --brand-red: 0 100% 40%;
-
-    --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
-    --ease-in-out: cubic-bezier(0.76, 0, 0.24, 1);
-    --shell: 1440px;
-    --gutter: clamp(1.25rem, 3.4vw, 3rem);
   }
 
   .dark {
@@ -127,153 +116,8 @@
     @apply border-border outline-ring/50;
   }
 
-  html {
-    -webkit-text-size-adjust: 100%;
-    text-rendering: optimizeLegibility;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    scrollbar-color: hsl(var(--accent)) hsl(var(--night));
-    scrollbar-width: thin;
-  }
-
   body {
-    @apply bg-background text-foreground font-body;
-    font-feature-settings: "kern", "liga";
-  }
-
-  html,
-  body {
-    overflow-x: clip;
-  }
-
-  ::selection {
-    background: hsl(var(--accent));
-    color: hsl(var(--night));
-  }
-
-  :focus-visible {
-    outline: 2px solid hsl(var(--accent));
-    outline-offset: 3px;
-    border-radius: 4px;
-  }
-
-  input,
-  textarea,
-  select {
-    caret-color: hsl(var(--accent));
-  }
-
-  a {
-    text-underline-offset: 0.22em;
-    text-decoration-thickness: 1px;
-  }
-
-  h1,
-  h2,
-  h3 {
-    text-wrap: balance;
-  }
-
-  p {
-    text-wrap: pretty;
-  }
-
-  ::-webkit-scrollbar {
-    width: 10px;
-    height: 10px;
-  }
-  ::-webkit-scrollbar-track {
-    background: hsl(var(--night));
-  }
-  ::-webkit-scrollbar-thumb {
-    background: hsl(var(--accent) / 0.85);
-    border-radius: 999px;
-    border: 3px solid hsl(var(--night));
-  }
-}
-
-/* Lenis smooth scroll */
-html.lenis,
-html.lenis body {
-  height: auto;
-}
-.lenis.lenis-smooth {
-  scroll-behavior: auto !important;
-}
-.lenis.lenis-smooth [data-lenis-prevent] {
-  overscroll-behavior: contain;
-}
-.lenis.lenis-stopped {
-  overflow: hidden;
-}
-
-@layer components {
-  /* Page shell: one max width and gutter for the whole site */
-  .shell {
-    width: 100%;
-    max-width: var(--shell);
-    margin-inline: auto;
-    padding-inline: var(--gutter);
-  }
-
-  /* Display voice: Fester Heavy, uppercase, tight */
-  .display {
-    font-family: var(--font-heading);
-    font-weight: 900;
-    text-transform: uppercase;
-    line-height: 0.86;
-    letter-spacing: -0.02em;
-  }
-
-  /* Spoken voice: Fester Bold Italic for slogans and pull lines */
-  .voice {
-    font-family: var(--font-heading);
-    font-weight: 700;
-    font-style: italic;
-  }
-
-  /* Small uppercase label used inside components (never above a heading) */
-  .label {
-    font-family: var(--font-heading);
-    font-weight: 700;
-    font-size: 0.75rem;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-  }
-
-  .pitch {
-    background-color: hsl(var(--night));
-    color: hsl(var(--chalk));
-  }
-
-  .pitch-2 {
-    background-color: hsl(var(--pitch));
-    color: hsl(var(--chalk));
-  }
-
-  /* Chalk hairline rule */
-  .rule {
-    height: 1px;
-    width: 100%;
-    background: currentColor;
-    opacity: 0.18;
-  }
-
-  /* Underline that draws in from the left on hover */
-  .link-draw {
-    background-image: linear-gradient(currentColor, currentColor);
-    background-size: 0% 1px;
-    background-repeat: no-repeat;
-    background-position: 0 100%;
-    transition: background-size 0.5s var(--ease-out-expo);
-  }
-  .link-draw:hover,
-  .link-draw:focus-visible {
-    background-size: 100% 1px;
-  }
-
-  .tabular {
-    font-variant-numeric: tabular-nums;
+    @apply bg-background text-foreground;
   }
 }
 
@@ -289,22 +133,23 @@ html.lenis body {
 }
 
 #clientexpress-widget-shell {
-  background-color: hsl(var(--night)) !important;
+  background-color: hsl(var(--primary)) !important;
   border: 1px solid hsl(var(--accent) / 0.5) !important;
-  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.35) !important;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.25) !important;
 }
 
-@keyframes marquee {
-  from { transform: translate3d(0, 0, 0); }
-  to { transform: translate3d(-50%, 0, 0); }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
+@media (prefers-color-scheme: dark) {
+  #clientexpress-widget-shell {
+    background-color: hsl(var(--primary) / 0.92) !important;
+    border-color: hsl(var(--accent) / 0.7) !important;
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.45) !important;
   }
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+html, body {
+  overflow-x: hidden;
 }

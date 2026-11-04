@@ -10,6 +10,7 @@ import { LanguageProvider } from '@/lib/LanguageContext';
 import UserNotRegisteredError from '@/components/UserNotRegisteredError';
 import UnderConstruction from '@/components/UnderConstruction';
 import ProtectedRoute from '@/components/ProtectedRoute';
+import ScrollToTop from '@/components/ScrollToTop';
 import Layout from './components/Layout';
 import Home from './pages/Home';
 import LeSport from './pages/LeSport';
@@ -50,10 +51,10 @@ const AuthenticatedApp = () => {
 
   if (isLoadingPublicSettings || isLoadingAuth) {
     return (
-      <div className="pitch fixed inset-0 flex items-center justify-center">
-        <div className="flex flex-col items-center gap-5" role="status">
-          <span className="h-10 w-10 animate-spin rounded-full border-2 border-chalk/15 border-t-accent" aria-hidden="true" />
-          <span className="display text-3xl">VIZ<span className="text-accent">BALL</span></span>
+      <div className="fixed inset-0 flex items-center justify-center bg-primary">
+        <div className="text-center">
+          <div className="w-10 h-10 border-4 border-accent/30 border-t-accent rounded-full animate-spin mx-auto mb-4"></div>
+          <span className="font-heading text-2xl text-white tracking-wider">VIZBALL</span>
         </div>
       </div>
     );
@@ -102,6 +103,7 @@ function App() {
         <AuthProvider>
           <QueryClientProvider client={queryClientInstance}>
             <Router>
+              <ScrollToTop />
               <AuthenticatedApp />
             </Router>
             <Toaster />

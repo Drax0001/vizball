@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
+import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { useAuth } from '@/lib/AuthContext';
 import { useLang } from '@/lib/LanguageContext';
 import t from '@/lib/translations';
 import Seo from '@/components/Seo';
-import AuthShell, { Field } from '@/components/site/AuthShell';
-import Cta from '@/components/site/Cta';
 
 export default function Login() {
   const { lang } = useLang();
@@ -37,35 +36,36 @@ export default function Login() {
   };
 
   return (
-    <>
+    <div className="min-h-screen pt-32 pb-20 flex items-center justify-center bg-background px-4">
       <Seo title={tr.login_title} canonicalPath="/login" noindex />
-      <AuthShell
-        title={tr.login_title}
-        subtitle={tr.login_subtitle}
-        footer={
-          <p>
-            {tr.login_no_account}{' '}
-            <Link to="/register" className="font-bold text-night underline decoration-accent decoration-2 underline-offset-4 hover:text-pitch">
-              {tr.login_register_link}
-            </Link>
-          </p>
-        }
-      >
-        <form onSubmit={handleSubmit} className="space-y-5">
-          <Field label={tr.login_username}>
-            <Input value={username} onChange={(e) => setUsername(e.target.value)} required autoFocus autoComplete="username" />
-          </Field>
-          <Field label={tr.login_password}>
-            <Input type="password" value={password} onChange={(e) => setPassword(e.target.value)} required autoComplete="current-password" />
-          </Field>
+      <div className="max-w-md w-full p-8 bg-white rounded-lg shadow-lg border border-slate-100">
+        <h1 className="font-heading text-3xl text-primary mb-2">{tr.login_title}</h1>
+        <p className="text-sm text-slate-500 mb-8">{tr.login_subtitle}</p>
 
-          {error && <p role="alert" className="text-sm font-bold text-brand-red">{error}</p>}
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <div>
+            <label className="block text-sm font-medium text-slate-700 mb-1">{tr.login_username}</label>
+            <Input value={username} onChange={(e) => setUsername(e.target.value)} required autoFocus />
+          </div>
+          <div>
+            <label className="block text-sm font-medium text-slate-700 mb-1">{tr.login_password}</label>
+            <Input type="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
+          </div>
 
-          <Cta type="submit" tone="night" size="lg" magnetic={false} disabled={submitting} className="w-full">
+          {error && <p className="text-sm text-destructive">{error}</p>}
+
+          <Button type="submit" disabled={submitting} className="w-full">
             {submitting ? tr.login_submitting : tr.login_submit}
-          </Cta>
+          </Button>
         </form>
-      </AuthShell>
-    </>
+
+        <p className="text-sm text-slate-500 mt-6 text-center">
+          {tr.login_no_account}{' '}
+          <Link to="/register" className="text-accent font-medium hover:underline">
+            {tr.login_register_link}
+          </Link>
+        </p>
+      </div>
+    </div>
   );
 }

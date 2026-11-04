@@ -9,8 +9,7 @@ import { useLang } from '../lib/LanguageContext';
 import t from '../lib/translations';
 import { CATEGORY_LABELS, LEVEL_LABELS } from '../lib/tutorialLabels';
 import Seo from '../components/Seo';
-import PageHero from '../components/site/PageHero';
-import tutoImage from '../assets/images/community-vizball.webp';
+import PageEyebrow from '../components/PageEyebrow';
 
 const CATEGORIES = [
 { label: 'Tous', icon: Play },
@@ -73,18 +72,55 @@ export default function Tutoriels() {
 
   const gridVideos = filtered.filter((v) => !v.featured || activeCategory !== 'Tous' || search || activeLevel !== 'Tous les niveaux');
 
+  const categoryCount = new Set(videos.map((v) => v.category)).size;
+  const levelCount = new Set(videos.map((v) => v.level)).size;
+  const totalMinutes = videos.reduce((sum, v) => {
+    const [m, s] = (v.duration || '0:00').split(':').map(Number);
+    return sum + (m || 0) + (s || 0) / 60;
+  }, 0);
+  const contentHours = videos.length === 0 ? '0h' : `${Math.max(1, Math.floor(totalMinutes / 60))}h+`;
 
   return (
     <div className="min-h-screen bg-primary">
       <Seo title={tr.tutoriels_title + tr.tutoriels_title2} description={tr.tutoriels_subtitle} canonicalPath="/tutoriels" />
-      <PageHero
-        title={`${tr.tutoriels_title}${tr.tutoriels_title2}`}
-        subtitle={tr.tutoriels_subtitle}
-        image={tutoImage}
-        imageAlt={tr.gallery_cap_5}
-      />
+      {/* Hero */}
+      <section className="relative h-[50vh] min-h-[350px] overflow-hidden bg-gray-900">
+        <div className="absolute inset-0 bg-gradient-to-r from-primary/95 via-primary/80 to-primary/50" />
+        <div className="absolute inset-x-0 top-[100px] bottom-0 flex items-center">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+            <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>
+              <PageEyebrow>{tr.tutoriels_badge}</PageEyebrow>
+              <h1 className="font-heading text-6xl sm:text-7xl md:text-8xl text-white mt-2">
+                {tr.tutoriels_title}<span className="text-[hsl(var(--background))]">{tr.tutoriels_title2}</span>
+              </h1>
+              <p className="font-body text-lg text-white/70 max-w-xl mt-4">
+                {tr.tutoriels_subtitle}
+              </p>
+            </motion.div>
+          </div>
+        </div>
+      </section>
 
-      <div className="shell py-16">
+      {/* Stats bar */}
+      <div className="border-b border-white/10 bg-primary/80 backdrop-blur-sm">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center divide-x divide-white/10 py-4 overflow-x-auto">
+            {[
+            { value: `${videos.length}`, label: tr.tutoriels_stat_tutorials },
+            { value: `${categoryCount}`, label: tr.tutoriels_stat_categories },
+            { value: `${levelCount}`, label: tr.tutoriels_stat_levels },
+            { value: contentHours, label: tr.tutoriels_stat_content }].
+            map((s, i) =>
+            <div key={i} className="flex-1 min-w-[120px] px-6 text-center">
+                <span className="font-heading text-3xl text-accent">{s.value}</span>
+                <p className="font-body text-xs text-white/50 uppercase tracking-wider">{s.label}</p>
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         {/* Featured video */}
         {featuredVideo && activeCategory === 'Tous' && !search && activeLevel === 'Tous les niveaux' &&
         <AnimatedSection className="mb-16">
@@ -103,8 +139,8 @@ export default function Tutoriels() {
                 onClick={() => setActiveCategory(cat.label)}
                 className={`flex items-center gap-2 px-4 py-2.5 rounded-full font-body text-xs font-bold uppercase tracking-wider transition-all duration-300 border ${
                 activeCategory === cat.label ?
-                'bg-accent text-night border-accent' :
-                'bg-transparent text-chalk/70 border-chalk/20 hover:border-chalk/50 hover:text-chalk'}`
+                'bg-accent text-primary border-accent' :
+                'bg-white/5 text-white/70 border-white/10 hover:border-accent/40 hover:text-white'}`
                 }>
                 
                   <cat.icon size={14} />
@@ -117,25 +153,25 @@ export default function Tutoriels() {
             <div className="flex gap-3 w-full lg:w-auto">
               {/* Search */}
               <div className="relative flex-1 lg:w-64">
-                <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-chalk/40" />
+                <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-white/40" />
                 <input
                   type="text"
                   value={search}
                   onChange={(e) => setSearch(e.target.value)}
                   placeholder={tr.tutoriels_search}
-                  className="w-full bg-white/5 border border-white/10 rounded-full pl-9 pr-4 py-2.5 font-body text-sm text-chalk placeholder-chalk/30 focus:outline-none focus:border-accent/50 transition-colors" />
+                  className="w-full bg-white/5 border border-white/10 rounded-full pl-9 pr-4 py-2.5 font-body text-sm text-white placeholder-white/30 focus:outline-none focus:border-accent/50 transition-colors" />
 
               </div>
               {/* Level filter */}
               <div className="relative">
-                <Filter size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-chalk/40 pointer-events-none" />
+                <Filter size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-white/40 pointer-events-none" />
                 <select
                   value={activeLevel}
                   onChange={(e) => setActiveLevel(e.target.value)}
-                  className="bg-white/5 border border-white/10 rounded-full pl-9 pr-4 py-2.5 font-body text-sm text-chalk appearance-none focus:outline-none focus:border-accent/50 transition-colors cursor-pointer">
+                  className="bg-white/5 border border-white/10 rounded-full pl-9 pr-4 py-2.5 font-body text-sm text-white appearance-none focus:outline-none focus:border-accent/50 transition-colors cursor-pointer">
 
                   {LEVELS.map((l) =>
-                  <option key={l} value={l} className="bg-night text-chalk">{LEVEL_LABELS[l][lang]}</option>
+                  <option key={l} value={l} className="bg-[#1B4332] text-white">{LEVEL_LABELS[l][lang]}</option>
                   )}
                 </select>
               </div>
@@ -145,7 +181,7 @@ export default function Tutoriels() {
 
         {/* Results count */}
         <div className="mb-6">
-          <p className="font-body text-sm text-chalk/40">
+          <p className="font-body text-sm text-white/40">
             <span className="text-accent font-bold">{filtered.length}</span> {filtered.length > 1 ? tr.tutoriels_results : tr.tutoriels_result}
           </p>
         </div>
@@ -157,9 +193,9 @@ export default function Tutoriels() {
           </div> :
         filtered.length === 0 ?
         <div className="text-center py-20">
-            <BookOpen size={48} className="text-chalk/20 mx-auto mb-4" />
-            <p className="font-heading text-2xl text-chalk/30">{tr.tutoriels_no_results}</p>
-            <p className="font-body text-sm text-chalk/20 mt-2">{tr.tutoriels_no_results_desc}</p>
+            <BookOpen size={48} className="text-white/20 mx-auto mb-4" />
+            <p className="font-heading text-2xl text-white/30">{tr.tutoriels_no_results}</p>
+            <p className="font-body text-sm text-white/20 mt-2">{tr.tutoriels_no_results_desc}</p>
           </div> :
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
