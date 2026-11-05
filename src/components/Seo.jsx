@@ -17,9 +17,10 @@ const PREVIEW_BUILD = import.meta.env.VITE_NOINDEX === 'true';
 const sentenceCase = (text) =>
   text && text === text.toUpperCase() ? text.charAt(0) + text.slice(1).toLowerCase() : text;
 
-export default function Seo({ title, description, canonicalPath = '/', image, imageAlt, noindex = false, jsonLd, type = 'website' }) {
+// `keepCase`: titles written by editors (articles, products) are used exactly as typed.
+export default function Seo({ title, description, canonicalPath = '/', image, imageAlt, noindex = false, jsonLd, type = 'website', keepCase = false }) {
   const { lang } = useLang();
-  const fullTitle = title ? `${sentenceCase(title.trim())} | ${SITE_NAME}` : `${SITE_NAME} - Sport Innovant Né au Cameroun`;
+  const fullTitle = title ? `${keepCase ? title.trim() : sentenceCase(title.trim())} | ${SITE_NAME}` : `${SITE_NAME} - Sport Innovant Né au Cameroun`;
   const canonicalUrl = `${SITE_ORIGIN}${canonicalPath}`;
   const ogImage = image || DEFAULT_IMAGE;
   const blockIndexing = noindex || PREVIEW_BUILD;

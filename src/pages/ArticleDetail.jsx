@@ -128,6 +128,7 @@ export default function ArticleDetail() {
     <div className="min-h-screen bg-primary">
       <Seo
         title={localized.title}
+        keepCase
         description={localized.excerpt}
         canonicalPath={`/actualites/${id}`}
         image={article.cover_image}

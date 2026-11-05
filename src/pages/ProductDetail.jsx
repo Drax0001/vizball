@@ -101,6 +101,7 @@ export default function ProductDetail() {
     <div className="min-h-screen bg-primary">
       <Seo
         title={product.name}
+        keepCase
         description={product.desc}
         canonicalPath={`/boutique/${id}`}
         image={product.image_url}
