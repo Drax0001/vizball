@@ -11,6 +11,7 @@ import { api } from '../api/client';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import ArticleEditor from '../components/news/ArticleEditor';
+import { hasVersion } from '../lib/articleLang';
 import { useLang } from '../lib/LanguageContext';
 import t from '../lib/translations';
 import { CATEGORY_LABELS } from '../lib/shopData';
@@ -860,7 +861,14 @@ export default function AdminDashboard() {
                     <tbody>
                       {articles.map((art) => (
                         <tr key={art.id} className="border-b border-white/5 hover:bg-white/3">
-                          <td className="py-3 px-4 font-bold">{art.title} {art.featured && <span className="text-accent text-xs">★ {tr.admin_featured_short}</span>}</td>
+                          <td className="py-3 px-4 font-bold">
+                            {art.title || art.title_en} {art.featured && <span className="text-accent text-xs">★ {tr.admin_featured_short}</span>}
+                            <span className="ml-2 inline-flex gap-1 align-middle" aria-label={tr.admin_versions}>
+                              {['fr', 'en'].filter((v) => hasVersion(art, v)).map((v) => (
+                                <span key={v} className="rounded border border-white/20 px-1.5 py-0.5 text-[10px] font-bold uppercase text-white/70">{v}</span>
+                              ))}
+                            </span>
+                          </td>
                           <td className="py-3 px-4">{art.category}</td>
                           <td className="py-3 px-4">{art.author_name}</td>
                           <td className="py-3 px-4">{art.published_at}</td>

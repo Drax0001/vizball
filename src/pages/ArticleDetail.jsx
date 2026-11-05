@@ -8,7 +8,7 @@ import { useLang } from '../lib/LanguageContext';
 import { getDateLocale } from '../lib/dateLocale';
 import t from '../lib/translations';
 import { api } from '../api/client';
-import TranslateButton from '../components/TranslateButton';
+import { localizeArticle } from '../lib/articleLang';
 import Seo from '../components/Seo';
 import PageNotFound from '../lib/PageNotFound';
 
@@ -23,17 +23,15 @@ const categoryColors = {
 export default function ArticleDetail() {
   const { id } = useParams();
   const [article, setArticle] = useState(null);
-  const { lang } = useLang();
+  const { lang, setLang } = useLang();
   const tr = t[lang];
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [hasRated, setHasRated] = useState(false);
-  const [translated, setTranslated] = useState(null);
 
   const loadArticle = async () => {
     setLoading(true);
     setError(null);
-    setTranslated(null);
     try {
       const data = await api.articles.get(id);
       setArticle(data);
@@ -86,6 +84,24 @@ export default function ArticleDetail() {
     return <PageNotFound title={tr.article_not_found} message={tr.article_not_found_desc} />;
   }
 
+  // This article has no version in the visitor's language: say so, and offer
+  // the version that exists rather than showing the other language's text.
+  const localized = localizeArticle(article, lang);
+  if (!localized) {
+    const other = lang === 'en' ? 'fr' : 'en';
+    return (
+      <PageNotFound
+        title={tr.article_lang_unavailable_title}
+        message={tr.article_lang_unavailable_desc}
+        action={
+          <button type="button" onClick={() => setLang(other)} className="btn btn-gold mt-8">
+            {tr.article_read_other_lang}
+          </button>
+        }
+      />
+    );
+  }
+
   const dateLocale = getDateLocale(lang);
   const dateLabel = article.published_at
     ? format(new Date(article.published_at), 'd MMMM yyyy', { locale: dateLocale })
@@ -93,15 +109,16 @@ export default function ArticleDetail() {
       ? format(new Date(article.created_date), 'd MMMM yyyy', { locale: dateLocale })
       : tr.article_unknown_date;
 
-  const displayTitle = translated?.title ?? article.title;
-  const displayExcerpt = translated?.excerpt ?? article.excerpt;
-  const displayContent = translated?.content ?? article.content;
+  const displayTitle = localized.title;
+  const displayExcerpt = localized.excerpt;
+  const displayContent = localized.content;
 
   const articleJsonLd = {
     '@context': 'https://schema.org',
     '@type': 'Article',
-    headline: article.title,
-    description: article.excerpt || undefined,
+    headline: localized.title,
+    description: localized.excerpt || undefined,
+    inLanguage: lang,
     image: article.cover_image || undefined,
     datePublished: article.published_at || article.created_date || undefined,
     author: article.author_name ? { '@type': 'Person', name: article.author_name } : undefined,
@@ -110,8 +127,8 @@ export default function ArticleDetail() {
   return (
     <div className="min-h-screen bg-primary">
       <Seo
-        title={article.title}
-        description={article.excerpt}
+        title={localized.title}
+        description={localized.excerpt}
         canonicalPath={`/actualites/${id}`}
         image={article.cover_image}
         jsonLd={articleJsonLd}
@@ -119,7 +136,7 @@ export default function ArticleDetail() {
       {/* Cover */}
       {article.cover_image && (
         <div className="relative h-[55vh] min-h-[350px] overflow-hidden">
-          <img src={article.cover_image} alt={article.title} className="w-full h-full object-cover" />
+          <img src={article.cover_image} alt={localized.title} className="w-full h-full object-cover" />
           <div className="absolute inset-0 bg-gradient-to-t from-primary via-primary/50 to-primary/20" />
         </div>
       )}
@@ -162,16 +179,6 @@ export default function ArticleDetail() {
             <span className="font-body text-xs text-white/30">
               {hasRated ? tr.rating_thanks : tr.rating_rate_prompt}
             </span>
-          </div>
-
-          {/* Translate */}
-          <div className="mb-4">
-            <TranslateButton
-              contentType="article"
-              contentId={article.id}
-              fields={{ title: article.title, excerpt: article.excerpt || '', content: article.content }}
-              onResult={setTranslated}
-            />
           </div>
 
           {/* Title */}

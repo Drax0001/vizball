@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { ArrowRight, Newspaper } from 'lucide-react';
@@ -7,6 +7,7 @@ import { useLang } from '../../lib/LanguageContext';
 import { getDateLocale } from '../../lib/dateLocale';
 import t from '../../lib/translations';
 import { api } from '../../api/client';
+import { localizeArticles } from '../../lib/articleLang';
 
 function dateOf(a, lang) {
   const d = a.published_at || a.created_date;
@@ -27,20 +28,25 @@ function Cover({ src, alt, className }) {
 export default function LatestNews() {
   const { lang } = useLang();
   const tr = t[lang];
-  const [articles, setArticles] = useState(null);
+  const [all, setAll] = useState(null);
 
   useEffect(() => {
     api.articles
       .list()
-      .then((data) => {
-        const published = (data || [])
-          .filter((a) => a.status === 'publié')
-          .sort((a, b) => new Date(b.published_at || b.created_date) - new Date(a.published_at || a.created_date));
-        const featured = published.find((a) => a.featured);
-        setArticles(featured ? [featured, ...published.filter((a) => a !== featured)] : published);
-      })
-      .catch(() => setArticles([]));
+      .then((data) => setAll((data || []).filter((a) => a.status === 'publié')))
+      .catch(() => setAll([]));
   }, []);
+
+  // Only articles written in the visitor's language, newest first, the
+  // featured one leading.
+  const articles = useMemo(() => {
+    if (all === null) return null;
+    const visible = localizeArticles(all, lang).sort(
+      (a, b) => new Date(b.published_at || b.created_date) - new Date(a.published_at || a.created_date)
+    );
+    const featured = visible.find((a) => a.featured);
+    return featured ? [featured, ...visible.filter((a) => a !== featured)] : visible;
+  }, [all, lang]);
 
   const [lead, ...rest] = articles || [];
 

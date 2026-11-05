@@ -9,7 +9,7 @@ import headerImage from '../assets/images/ball-to-the-leg.webp';
 // Rendered inside the site layout (navbar and footer stay), for any URL the
 // app does not know. On the server, nginx answers the same URLs with a 404
 // status so search engines do not index them (deploy/nginx.vizball.conf).
-export default function PageNotFound({ title, message }) {
+export default function PageNotFound({ title, message, action }) {
     const location = useLocation();
     const pageName = location.pathname.substring(1);
     const { lang } = useLang();
@@ -39,7 +39,8 @@ export default function PageNotFound({ title, message }) {
                         </>
                     )}
                 </p>
-                <Link to="/" className="btn btn-green mt-8">
+                {action}
+                <Link to="/" className={`btn btn-green mt-8 ${action ? 'sm:ml-3' : ''}`}>
                     <ArrowLeft size={18} />
                     {tr.error_404_go_home}
                 </Link>

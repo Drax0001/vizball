@@ -32,7 +32,11 @@ router.post('/', authenticateAdmin, (req: Request, res: Response) => {
   const featured = !!req.body.featured;
   const article = {
     id,
-    title: req.body.title || 'Sans titre',
+    // The French title may be empty when only an English version is written.
+    title: req.body.title || (req.body.title_en ? '' : 'Sans titre'),
+    title_en: req.body.title_en || '',
+    excerpt_en: req.body.excerpt_en || '',
+    content_en: req.body.content_en || '',
     category: req.body.category || 'Actualité',
     status: req.body.status || 'brouillon',
     cover_image: req.body.cover_image || '',
@@ -47,8 +51,8 @@ router.post('/', authenticateAdmin, (req: Request, res: Response) => {
   db.transaction(() => {
     if (featured) db.prepare('UPDATE articles SET featured = 0').run();
     db.prepare(
-      'INSERT INTO articles (id, title, category, status, cover_image, excerpt, content, author_name, published_at, featured) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)'
-    ).run(article.id, article.title, article.category, article.status, article.cover_image, article.excerpt, article.content, article.author_name, article.published_at, featured ? 1 : 0);
+      'INSERT INTO articles (id, title, category, status, cover_image, excerpt, content, title_en, excerpt_en, content_en, author_name, published_at, featured) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)'
+    ).run(article.id, article.title, article.category, article.status, article.cover_image, article.excerpt, article.content, article.title_en, article.excerpt_en, article.content_en, article.author_name, article.published_at, featured ? 1 : 0);
   })();
 
   return res.status(201).json(article);
@@ -67,8 +71,8 @@ router.put('/:id', authenticateAdmin, (req: Request, res: Response) => {
   db.transaction(() => {
     if (featured) db.prepare('UPDATE articles SET featured = 0 WHERE id != ?').run(req.params.id);
     db.prepare(
-      'UPDATE articles SET title = ?, category = ?, status = ?, cover_image = ?, excerpt = ?, content = ?, author_name = ?, published_at = ?, featured = ? WHERE id = ?'
-    ).run(updated.title, updated.category, updated.status, updated.cover_image, updated.excerpt, updated.content, updated.author_name, updated.published_at, featured ? 1 : 0, req.params.id);
+      'UPDATE articles SET title = ?, category = ?, status = ?, cover_image = ?, excerpt = ?, content = ?, title_en = ?, excerpt_en = ?, content_en = ?, author_name = ?, published_at = ?, featured = ? WHERE id = ?'
+    ).run(updated.title ?? '', updated.category, updated.status, updated.cover_image, updated.excerpt, updated.content, updated.title_en ?? '', updated.excerpt_en ?? '', updated.content_en ?? '', updated.author_name, updated.published_at, featured ? 1 : 0, req.params.id);
   })();
 
   return res.json(serialize({ ...updated, featured: featured ? 1 : 0 }));

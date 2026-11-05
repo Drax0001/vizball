@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { X, Upload, Save, Eye } from 'lucide-react';
+import { X, Upload, Save, Eye, Check } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { motion } from 'framer-motion';
@@ -26,6 +26,9 @@ export default function ArticleEditor({ article, onSave, onClose }) {
   const isEdit = !!article?.id;
   const [form, setForm] = useState({
     title: article?.title || '',
+    title_en: article?.title_en || '',
+    excerpt_en: article?.excerpt_en || '',
+    content_en: article?.content_en || '',
     category: article?.category || 'Actualité',
     status: article?.status || 'brouillon',
     cover_image: article?.cover_image || '',
@@ -40,6 +43,22 @@ export default function ArticleEditor({ article, onSave, onClose }) {
   const [resolvingImage, setResolvingImage] = useState(false);
 
   const set = (key, val) => setForm((f) => ({ ...f, [key]: val }));
+
+  // Text fields come in two versions: French (title/excerpt/content) and
+  // English (title_en/excerpt_en/content_en). Visitors only see the version
+  // in their selected language.
+  const [version, setVersion] = useState(article?.title || !article?.title_en ? 'fr' : 'en');
+  const field = (base) => (version === 'fr' ? base : `${base}_en`);
+  const versionState = (v) => {
+    const title = (v === 'fr' ? form.title : form.title_en).trim();
+    const content = (v === 'fr' ? form.content : form.content_en).trim();
+    if (title && content) return 'complete';
+    if (title || content) return 'partial';
+    return 'empty';
+  };
+  const states = { fr: versionState('fr'), en: versionState('en') };
+  const hasAnyTitle = Boolean(form.title.trim() || form.title_en.trim());
+  const canPublish = Object.values(states).includes('complete') && !Object.values(states).includes('partial');
 
   const handleCoverImageBlur = async () => {
     const isUnsplashPageUrl = /^https?:\/\/(www\.)?unsplash\.com\/photos\//i.test(form.cover_image);
@@ -98,12 +117,6 @@ export default function ArticleEditor({ article, onSave, onClose }) {
         </div>
 
         <div className="p-6 space-y-5">
-          {/* Title */}
-          <div>
-            <label className="font-body text-xs font-bold uppercase tracking-wider text-white/40 block mb-2">{tr.admin_label_title_req}</label>
-            <Input value={form.title} onChange={(e) => set('title', e.target.value)} placeholder={tr.editor_title_placeholder} className="bg-white/5 border-white/15 text-white placeholder-white/20 focus:border-accent/50" />
-          </div>
-
           {/* Category + Author */}
           <div className="grid sm:grid-cols-2 gap-4">
             <div>
@@ -154,27 +167,62 @@ export default function ArticleEditor({ article, onSave, onClose }) {
             )}
           </div>
 
+          <div className="border-t border-white/10 pt-5" />
+
+          {/* Language version */}
+          <div>
+            <div className="flex gap-2" role="tablist" aria-label={tr.editor_versions_label}>
+              {[{ v: 'fr', label: tr.editor_version_fr }, { v: 'en', label: tr.editor_version_en }].map(({ v, label }) => (
+                <button
+                  key={v}
+                  type="button"
+                  role="tab"
+                  aria-selected={version === v}
+                  onClick={() => setVersion(v)}
+                  className={`flex items-center gap-2 rounded-lg px-4 py-2 font-body text-sm font-bold transition-colors ${
+                    version === v ? 'bg-accent text-primary' : 'bg-white/5 text-white/60 hover:text-white'
+                  }`}
+                >
+                  {label}
+                  {states[v] === 'complete' && <Check size={14} aria-label={tr.editor_version_complete} />}
+                  {states[v] === 'partial' && <span className="h-2 w-2 rounded-full bg-[hsl(var(--brand-red))]" aria-label={tr.editor_version_partial} />}
+                </button>
+              ))}
+            </div>
+            <p className="font-body text-xs text-white/40 mt-2">{tr.editor_versions_hint}</p>
+          </div>
+
+          {/* Title */}
+          <div>
+            <label className="font-body text-xs font-bold uppercase tracking-wider text-white/40 block mb-2">{tr.admin_label_title_req}</label>
+            <Input value={form[field('title')]} onChange={(e) => set(field('title'), e.target.value)} placeholder={tr.editor_title_placeholder} className="bg-white/5 border-white/15 text-white placeholder-white/20 focus:border-accent/50" />
+          </div>
+
           {/* Excerpt */}
           <div>
             <label className="font-body text-xs font-bold uppercase tracking-wider text-white/40 block mb-2">{tr.editor_excerpt}</label>
-            <Textarea value={form.excerpt} onChange={(e) => set('excerpt', e.target.value)} placeholder={tr.editor_excerpt_placeholder} rows={2} className="bg-white/5 border-white/15 text-white placeholder-white/20 focus:border-accent/50" />
+            <Textarea value={form[field('excerpt')]} onChange={(e) => set(field('excerpt'), e.target.value)} placeholder={tr.editor_excerpt_placeholder} rows={2} className="bg-white/5 border-white/15 text-white placeholder-white/20 focus:border-accent/50" />
           </div>
 
           {/* Content */}
           <div>
             <label className="font-body text-xs font-bold uppercase tracking-wider text-white/40 block mb-2">{tr.forum_topic_content}</label>
-            <Textarea value={form.content} onChange={(e) => set('content', e.target.value)} placeholder={tr.editor_content_placeholder} rows={12} className="bg-white/5 border-white/15 text-white placeholder-white/20 focus:border-accent/50 font-body text-sm leading-relaxed" />
+            <Textarea value={form[field('content')]} onChange={(e) => set(field('content'), e.target.value)} placeholder={tr.editor_content_placeholder} rows={12} className="bg-white/5 border-white/15 text-white placeholder-white/20 focus:border-accent/50 font-body text-sm leading-relaxed" />
           </div>
         </div>
+
+        {hasAnyTitle && !canPublish && (
+          <p className="px-6 pb-4 font-body text-xs text-white/50">{tr.editor_publish_needs}</p>
+        )}
 
         {/* Footer */}
         <div className="flex items-center justify-between gap-4 px-6 py-5 border-t border-white/10">
           <button onClick={onClose} className="font-body text-sm text-white/40 hover:text-white transition-colors">{tr.admin_cancel}</button>
           <div className="flex gap-3">
-            <button onClick={() => handleSave('brouillon')} disabled={saving || !form.title} className="flex items-center gap-2 border border-white/20 hover:border-white/40 text-white/70 hover:text-white font-body text-sm font-semibold px-5 py-2.5 rounded-lg transition-all disabled:opacity-40">
+            <button onClick={() => handleSave('brouillon')} disabled={saving || !hasAnyTitle} className="flex items-center gap-2 border border-white/20 hover:border-white/40 text-white/70 hover:text-white font-body text-sm font-semibold px-5 py-2.5 rounded-lg transition-all disabled:opacity-40">
               <Save size={14} /> {tr.editor_draft}
             </button>
-            <button onClick={() => handleSave('publié')} disabled={saving || !form.title || !form.content} className="flex items-center gap-2 bg-accent hover:bg-accent/90 text-primary font-body text-sm font-bold px-6 py-2.5 rounded-lg transition-all disabled:opacity-40">
+            <button onClick={() => handleSave('publié')} disabled={saving || !canPublish} title={canPublish ? undefined : tr.editor_publish_needs} className="flex items-center gap-2 bg-accent hover:bg-accent/90 text-primary font-body text-sm font-bold px-6 py-2.5 rounded-lg transition-all disabled:opacity-40">
               <Eye size={14} /> {tr.editor_publish}
             </button>
           </div>

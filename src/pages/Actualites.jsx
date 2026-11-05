@@ -7,6 +7,7 @@ import Seo from '../components/Seo';
 import { useLang } from '../lib/LanguageContext';
 import t from '../lib/translations';
 import { api } from '../api/client';
+import { localizeArticles } from '../lib/articleLang';
 import PageHeader from '../components/PageHeader';
 import headerImage from '../assets/images/vizball-players-sitting-on-pitch.webp';
 
@@ -54,7 +55,9 @@ export default function Actualites() {
     loadArticles();
   }, []);
 
-  const published = articles.filter((a) => a.status === 'publié');
+  // Published articles that have a version in the visitor's language,
+  // already switched to that version (search runs on the same text).
+  const published = localizeArticles(articles.filter((a) => a.status === 'publié'), lang);
 
   const filtered = published.filter((a) => {
     const matchCat = activeCategory === 'Tous' || a.category === activeCategory;

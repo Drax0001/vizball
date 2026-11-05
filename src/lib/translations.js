@@ -769,6 +769,19 @@ const t = {
     hero_play: "Lecture",
     footer_back_top: "Haut de page",
 
+    // Bilingual articles
+    article_lang_unavailable_title: "Article disponible en anglais uniquement",
+    article_lang_unavailable_desc: "Cet article n'a pas encore de version française.",
+    article_read_other_lang: "Lire en anglais",
+    editor_versions_label: "Versions de l’article",
+    editor_version_fr: "Français",
+    editor_version_en: "English",
+    editor_version_complete: "Version complète",
+    editor_version_partial: "Version incomplète",
+    editor_versions_hint: "Les visiteurs ne voient que la version de leur langue. Un article sans version dans une langue est masqué pour cette langue.",
+    editor_publish_needs: "Pour publier : au moins une version complète (titre et texte), et aucune version à moitié remplie.",
+    admin_versions: "Langues",
+
   },
 
   en: {
@@ -1530,6 +1543,19 @@ const t = {
     hero_pause: "Pause",
     hero_play: "Play",
     footer_back_top: "Back to top",
+
+    // Bilingual articles
+    article_lang_unavailable_title: "Article available in French only",
+    article_lang_unavailable_desc: "This article doesn't have an English version yet.",
+    article_read_other_lang: "Read in French",
+    editor_versions_label: "Article versions",
+    editor_version_fr: "Français",
+    editor_version_en: "English",
+    editor_version_complete: "Complete version",
+    editor_version_partial: "Incomplete version",
+    editor_versions_hint: "Visitors only see the version in their language. An article without a version in a language is hidden in that language.",
+    editor_publish_needs: "To publish: at least one complete version (title and text), and no half-filled version.",
+    admin_versions: "Languages",
 
   },
 };

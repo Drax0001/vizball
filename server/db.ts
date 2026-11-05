@@ -218,6 +218,11 @@ migrate();
 ensureColumn('articles', 'views', 'INTEGER NOT NULL DEFAULT 0');
 ensureColumn('articles', 'rating_sum', 'INTEGER NOT NULL DEFAULT 0');
 ensureColumn('articles', 'rating_count', 'INTEGER NOT NULL DEFAULT 0');
+// Bilingual articles: title/excerpt/content hold the French version, the
+// *_en columns the English one. An empty title means that version is absent.
+ensureColumn('articles', 'title_en', "TEXT NOT NULL DEFAULT ''");
+ensureColumn('articles', 'excerpt_en', "TEXT NOT NULL DEFAULT ''");
+ensureColumn('articles', 'content_en', "TEXT NOT NULL DEFAULT ''");
 ensureColumn('tutorials', 'rating_sum', 'INTEGER NOT NULL DEFAULT 0');
 ensureColumn('tutorials', 'rating_count', 'INTEGER NOT NULL DEFAULT 0');
 migrateTutorialViewsColumn();
