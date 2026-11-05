@@ -28,7 +28,11 @@ const ORGANIZATION_JSON_LD = {
   foundingLocation: { '@type': 'Place', name: 'Cameroun' },
   areaServed: 'Cameroun',
   email: 'contact@vizball.org',
-  sameAs: ['https://www.facebook.com/search/top/?q=vizball%20association'],
+  sameAs: [
+    'https://www.instagram.com/vizballassociation/',
+    'https://www.facebook.com/VizballAssociation',
+    'https://x.com/vizballofficial',
+  ],
 };
 
 const WEBSITE_JSON_LD = {

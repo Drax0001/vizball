@@ -7,19 +7,11 @@ import Seo from '../components/Seo';
 import { useLang } from '../lib/LanguageContext';
 import t from '../lib/translations';
 import { api } from '../api/client';
-import { localizeArticles } from '../lib/articleLang';
+import { localizeArticles, categoryLabel } from '../lib/articleLang';
 import PageHeader from '../components/PageHeader';
 import headerImage from '../assets/images/vizball-players-sitting-on-pitch.webp';
 
 const CATEGORIES = ['Tous', 'Événement', 'Tournoi', 'Portrait', 'Actualité', 'Communiqué'];
-const CATEGORY_LABELS = {
-  'Tous': { fr: 'Tous', en: 'All' },
-  'Événement': { fr: 'Événement', en: 'Event' },
-  'Tournoi': { fr: 'Tournoi', en: 'Tournament' },
-  'Portrait': { fr: 'Portrait', en: 'Portrait' },
-  'Actualité': { fr: 'Actualité', en: 'News' },
-  'Communiqué': { fr: 'Communiqué', en: 'Press release' },
-};
 
 function AnimatedSection({ children, className = '' }) {
   const ref = useRef(null);
@@ -81,7 +73,7 @@ export default function Actualites() {
               {CATEGORIES.map((cat) =>
               <button key={cat} onClick={() => setActiveCategory(cat)}
               className={`px-4 py-2 rounded-full font-body text-xs font-bold uppercase tracking-wider border transition-all ${activeCategory === cat ? 'bg-accent text-primary border-accent' : 'bg-white/5 text-white/60 border-white/10 hover:border-white/30 hover:text-white'}`}>
-                  {CATEGORY_LABELS[cat][lang]}
+                  {categoryLabel(cat, lang)}
                 </button>
               )}
             </div>

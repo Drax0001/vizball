@@ -8,9 +8,10 @@ import { useLang } from '../lib/LanguageContext';
 import { getDateLocale } from '../lib/dateLocale';
 import t from '../lib/translations';
 import { api } from '../api/client';
-import { localizeArticle } from '../lib/articleLang';
+import { localizeArticle, categoryLabel } from '../lib/articleLang';
 import Seo from '../components/Seo';
 import PageNotFound from '../lib/PageNotFound';
+import FollowUs from '../components/news/FollowUs';
 
 const categoryColors = {
   'Événement':   'bg-accent/20 text-accent border-accent/30',
@@ -154,7 +155,7 @@ export default function ArticleDetail() {
           {/* Category + date */}
           <div className="flex flex-wrap items-center gap-3 mb-5">
             <span className={`text-xs font-body font-bold uppercase tracking-wider px-3 py-1.5 rounded-full border ${categoryColors[article.category] || categoryColors['Actualité']}`}>
-              {article.category}
+              {categoryLabel(article.category, lang)}
             </span>
             <div className="flex items-center gap-1.5 text-white/40 font-body text-xs">
               <Calendar size={12} /> {dateLabel}
@@ -206,6 +207,8 @@ export default function ArticleDetail() {
               ))}
             </div>
           )}
+
+          <FollowUs />
 
           {/* Back CTA */}
           <div className="mt-14 pt-8 border-t border-white/10">

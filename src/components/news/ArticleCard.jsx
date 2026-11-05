@@ -6,6 +6,7 @@ import { format } from 'date-fns';
 import { useLang } from '../../lib/LanguageContext';
 import { getDateLocale } from '../../lib/dateLocale';
 import t from '../../lib/translations';
+import { categoryLabel } from '../../lib/articleLang';
 
 const categoryColors = {
   'Événement': 'bg-accent/20 text-accent border-accent/30',
@@ -40,7 +41,7 @@ export default function ArticleCard({ article, index, featured = false }) {
             </div>
             <div className="absolute bottom-0 left-0 right-0 p-6">
               <span className="bg-accent text-primary mb-3 px-3 py-1 text-xs font-bold uppercase tracking-wider rounded-full inline-block border border-secondary/30">
-                {article.category}
+                {categoryLabel(article.category, lang)}
               </span>
               <h2 className="font-heading text-3xl sm:text-4xl text-white group-hover:text-accent transition-colors leading-tight mb-2">{article.title}</h2>
               {article.excerpt && <p className="font-body text-sm text-white/60 line-clamp-2 mb-4">{article.excerpt}</p>}
@@ -71,7 +72,7 @@ export default function ArticleCard({ article, index, featured = false }) {
           </div>
           <div className="p-5 flex flex-col flex-1">
             <span className="bg-accent text-primary mb-3 px-3 py-1 text-xs font-bold uppercase tracking-wider rounded-full inline-block border w-fit border-white/20">
-              {article.category}
+              {categoryLabel(article.category, lang)}
             </span>
             <h3 className="font-heading text-xl text-white group-hover:text-accent transition-colors leading-tight mb-2 flex-1">{article.title}</h3>
             {article.excerpt && <p className="font-body text-xs text-white/50 line-clamp-2 mb-4">{article.excerpt}</p>}

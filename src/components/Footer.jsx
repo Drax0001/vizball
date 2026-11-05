@@ -5,28 +5,13 @@ import {
   MapPin,
   Globe,
   ArrowUp,
-  X as XIcon,
-  Linkedin,
-  Facebook,
-  Instagram,
-  Youtube,
 } from "lucide-react";
 import { useLang } from "../lib/LanguageContext";
 import t from "../lib/translations";
 import VisitorCounter from "./VisitorCounter";
+import { SOCIALS } from "../lib/socials";
 import vizballLogo from "../assets/images/LOGO-VIZBALL-ASSOCIATION-blanc.png";
 
-const SOCIAL_LINKS = [
-  { icon: XIcon, label: "X (Twitter)", href: "#" },
-  {
-    icon: Facebook,
-    label: "Facebook",
-    href: "https://www.facebook.com/search/top/?q=vizball%20association",
-  },
-  { icon: Instagram, label: "Instagram", href: "#" },
-  { icon: Youtube, label: "YouTube", href: "#" },
-  { icon: Linkedin, label: "LinkedIn", href: "#" },
-];
 
 function FooterColumn({ title, links }) {
   return (
@@ -101,13 +86,13 @@ export default function Footer() {
           </ul>
           <h2 className="meta mt-8 text-accent">{tr.footer_follow_us}</h2>
           <ul className="mt-4 flex flex-wrap gap-2">
-            {SOCIAL_LINKS.map(({ icon: Icon, label, href }) => (
-              <li key={label}>
+            {SOCIALS.map(({ icon: Icon, name, href }) => (
+              <li key={name}>
                 <a
                   href={href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  aria-label={label}
+                  aria-label={name}
                   className="grid h-10 w-10 place-items-center rounded-full bg-white/10 text-white/85 transition-colors hover:bg-accent hover:text-primary"
                 >
                   <Icon size={16} />

@@ -276,6 +276,10 @@ const t = {
     // Article detail
     article_back: "Actualités",
     article_back_cta: "Toutes les actualités",
+    follow_title: "Suivez Vizball",
+    follow_desc: "Matchs, tournois et coulisses du Vizball : ne manquez rien sur nos réseaux.",
+    follow_cta: "Suivre",
+    follow_on: "sur",
     article_not_found: "Article introuvable",
     article_not_found_desc: "Cet article n'existe pas ou a été supprimé.",
     article_unknown_date: "Date inconnue",
@@ -1056,6 +1060,10 @@ const t = {
     // Article detail
     article_back: "News",
     article_back_cta: "All news",
+    follow_title: "Follow Vizball",
+    follow_desc: "Matches, tournaments and behind the scenes: catch it all on our socials.",
+    follow_cta: "Follow",
+    follow_on: "on",
     article_not_found: "Article not found",
     article_not_found_desc: "This article doesn't exist or has been removed.",
     article_unknown_date: "Unknown date",

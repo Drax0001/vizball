@@ -7,7 +7,7 @@ import { useLang } from '../../lib/LanguageContext';
 import { getDateLocale } from '../../lib/dateLocale';
 import t from '../../lib/translations';
 import { api } from '../../api/client';
-import { localizeArticles } from '../../lib/articleLang';
+import { localizeArticles, categoryLabel } from '../../lib/articleLang';
 
 function dateOf(a, lang) {
   const d = a.published_at || a.created_date;
@@ -82,7 +82,7 @@ export default function LatestNews() {
                 </div>
                 <div className="absolute inset-0 bg-gradient-to-t from-primary via-primary/30 to-transparent" />
                 <div className="absolute inset-x-0 bottom-0 p-6 md:p-8">
-                  <span className="meta inline-block rounded bg-accent px-2.5 py-1 text-primary">{lead.category}</span>
+                  <span className="meta inline-block rounded bg-accent px-2.5 py-1 text-primary">{categoryLabel(lead.category, lang)}</span>
                   <h3 className="mt-3 font-heading text-2xl font-black uppercase leading-tight text-white group-hover:underline group-hover:decoration-accent group-hover:underline-offset-4 md:text-4xl">
                     {lead.title}
                   </h3>
@@ -106,7 +106,7 @@ export default function LatestNews() {
                       <Cover src={a.cover_image} alt={a.title} />
                     </div>
                     <div className="min-w-0">
-                      <span className="meta text-[hsl(var(--brand-red))]">{a.category}</span>
+                      <span className="meta text-[hsl(var(--brand-red))]">{categoryLabel(a.category, lang)}</span>
                       <h3 className="mt-1 line-clamp-2 font-heading text-lg font-bold leading-snug text-primary group-hover:underline group-hover:decoration-accent group-hover:underline-offset-4">
                         {a.title}
                       </h3>

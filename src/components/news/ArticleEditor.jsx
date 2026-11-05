@@ -6,15 +6,8 @@ import { motion } from 'framer-motion';
 import { api } from '@/api/client';
 import { useLang } from '@/lib/LanguageContext';
 import t from '@/lib/translations';
+import { ARTICLE_CATEGORIES, categoryLabel } from '@/lib/articleLang';
 
-const CATEGORIES = ['Événement', 'Tournoi', 'Portrait', 'Actualité', 'Communiqué'];
-const CATEGORY_LABELS = {
-  'Événement': { fr: 'Événement', en: 'Event' },
-  'Tournoi': { fr: 'Tournoi', en: 'Tournament' },
-  'Portrait': { fr: 'Portrait', en: 'Portrait' },
-  'Actualité': { fr: 'Actualité', en: 'News' },
-  'Communiqué': { fr: 'Communiqué', en: 'Press release' },
-};
 
 function slugify(str) {
   return str.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
@@ -122,7 +115,7 @@ export default function ArticleEditor({ article, onSave, onClose }) {
             <div>
               <label className="font-body text-xs font-bold uppercase tracking-wider text-white/40 block mb-2">{tr.admin_th_category}</label>
               <select value={form.category} onChange={(e) => set('category', e.target.value)} className="w-full bg-white/5 border border-white/15 rounded-md px-3 py-2 font-body text-sm text-white focus:outline-none focus:border-accent/50 transition-colors">
-                {CATEGORIES.map((c) => <option key={c} value={c} className="bg-[#0f2c1e]">{CATEGORY_LABELS[c][lang]}</option>)}
+                {ARTICLE_CATEGORIES.map((c) => <option key={c} value={c} className="bg-[#0f2c1e]">{categoryLabel(c, lang)}</option>)}
               </select>
             </div>
             <div>

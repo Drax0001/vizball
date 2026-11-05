@@ -19,3 +19,18 @@ export function localizeArticle(article, lang) {
 export function localizeArticles(articles, lang) {
   return (articles || []).map((a) => localizeArticle(a, lang)).filter(Boolean);
 }
+
+// Categories are stored in French; visitors see them in their language.
+export const ARTICLE_CATEGORIES = ['Événement', 'Tournoi', 'Portrait', 'Actualité', 'Communiqué'];
+const CATEGORY_LABELS = {
+  'Tous': { fr: 'Tous', en: 'All' },
+  'Événement': { fr: 'Événement', en: 'Event' },
+  'Tournoi': { fr: 'Tournoi', en: 'Tournament' },
+  'Portrait': { fr: 'Portrait', en: 'Portrait' },
+  'Actualité': { fr: 'Actualité', en: 'News' },
+  'Communiqué': { fr: 'Communiqué', en: 'Press release' },
+};
+
+export function categoryLabel(category, lang) {
+  return CATEGORY_LABELS[category]?.[lang] || category;
+}
