@@ -7,6 +7,10 @@ import t from '../../lib/translations';
 import heroThrone from '../../assets/images/vizball-throne.webp';
 import heroBallToLeg from '../../assets/images/ball-to-the-leg.webp';
 import heroCommunity from '../../assets/images/community-vizball.webp';
+import heroCourt from '../../assets/images/court-vizball.webp';
+import heroTeams from '../../assets/images/vizball-equipes-avant-coup-envoi.webp';
+import heroPitch from '../../assets/images/vizball-players-sitting-on-pitch.webp';
+import heroYouth from '../../assets/images/vizball-jeune-generation.webp';
 
 const SLIDE_MS = 7000;
 
@@ -31,6 +35,34 @@ const HERO_SLIDES = [
     subtitle: (tr) => tr.hero_slide3_subtitle,
     image: heroCommunity,
     position: 'center 40%',
+  },
+  {
+    label: (tr) => tr.hero_slide4_badge,
+    title: (tr) => tr.hero_slide4_title,
+    subtitle: (tr) => tr.hero_slide4_subtitle,
+    image: heroCourt,
+    position: 'center 45%',
+  },
+  {
+    label: (tr) => tr.hero_slide5_badge,
+    title: (tr) => tr.hero_slide5_title,
+    subtitle: (tr) => tr.hero_slide5_subtitle,
+    image: heroTeams,
+    position: 'center 55%',
+  },
+  {
+    label: (tr) => tr.hero_slide6_badge,
+    title: (tr) => tr.hero_slide6_title,
+    subtitle: (tr) => tr.hero_slide6_subtitle,
+    image: heroPitch,
+    position: 'center 40%',
+  },
+  {
+    label: (tr) => tr.hero_slide7_badge,
+    title: (tr) => tr.hero_slide7_title,
+    subtitle: (tr) => tr.hero_slide7_subtitle,
+    image: heroYouth,
+    position: 'center 35%',
   },
 ];
 
@@ -121,7 +153,7 @@ export default function HeroSection() {
 
         {/* Slide tabs with progress, arrows and pause */}
         <div className="mt-10 flex items-end gap-4 border-t border-white/20 pt-5 md:mt-14">
-          <ol className="grid flex-1 grid-cols-3 gap-3 sm:gap-6">
+          <ol className="grid flex-1 gap-2 sm:gap-4" style={{ gridTemplateColumns: `repeat(${HERO_SLIDES.length}, minmax(0, 1fr))` }}>
             {HERO_SLIDES.map((s, i) => (
               <li key={i}>
                 <button

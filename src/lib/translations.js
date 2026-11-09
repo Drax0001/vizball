@@ -443,6 +443,18 @@ const t = {
     hero_slide3_title: "COMMUNAUTÉ",
     hero_slide3_subtitle:
       "Faites partie de la première communauté de joueurs de Vizball.",
+    hero_slide4_badge: "Le butoir",
+    hero_slide4_title: "LA CIBLE",
+    hero_slide4_subtitle: "Le tir part du butoir : chaque balle, chaque point se joue sous les yeux d'un public en salle.",
+    hero_slide5_badge: "Jour de match",
+    hero_slide5_title: "FAIR-PLAY",
+    hero_slide5_subtitle: "Deux équipes alignées de part et d'autre de l'arbitre, avant le coup d'envoi.",
+    hero_slide6_badge: "Sur le terrain",
+    hero_slide6_title: "ESPRIT D'ÉQUIPE",
+    hero_slide6_subtitle: "Complicité et solidarité : au Vizball, on gagne ensemble, sur l'herbe comme en salle.",
+    hero_slide7_badge: "La relève",
+    hero_slide7_title: "NOUVELLE GÉNÉRATION",
+    hero_slide7_subtitle: "Les jeunes talents camerounais portent déjà les couleurs du Vizball, entourés de leurs supporters.",
 
     // Le Sport page — rules content
     sport_zones_title: "ZONES & DIMENSIONS",
@@ -1225,6 +1237,18 @@ const t = {
     hero_slide3_badge: "Join Us",
     hero_slide3_title: "COMMUNITY",
     hero_slide3_subtitle: "Be part of the first community of Vizball players.",
+    hero_slide4_badge: "The backstop",
+    hero_slide4_title: "THE TARGET",
+    hero_slide4_subtitle: "Every shot is aimed at the backstop, with every point played out in front of a packed indoor crowd.",
+    hero_slide5_badge: "Match day",
+    hero_slide5_title: "FAIR PLAY",
+    hero_slide5_subtitle: "Two teams lined up on either side of the referee, just before kick-off.",
+    hero_slide6_badge: "On the pitch",
+    hero_slide6_title: "TEAM SPIRIT",
+    hero_slide6_subtitle: "Teamwork and solidarity: in Vizball you win together, on grass or indoors.",
+    hero_slide7_badge: "The next generation",
+    hero_slide7_title: "NEW GENERATION",
+    hero_slide7_subtitle: "Young Cameroonian talents already wear the colours of Vizball, backed by their supporters.",
 
     // Le Sport page — rules content
     sport_zones_title: "ZONES & DIMENSIONS",
