@@ -160,8 +160,8 @@ function RuleAccordion({ title, rules, lang }) {
         <div key={i} className="flex items-start gap-3 py-2 border-b border-border/50 last:border-0">
               <span className="font-body text-xs font-bold text-accent bg-accent/10 px-2 py-1 rounded shrink-0">{rule.code}</span>
               <div>
-                <p className="font-body text-sm font-semibold text-foreground">{rule.title[lang]}</p>
-                <p className="font-body text-sm text-muted-foreground mt-1 leading-relaxed">{rule.desc[lang]}</p>
+                <p className="font-body text-base font-semibold text-foreground">{rule.title[lang]}</p>
+                <p className="font-body text-base text-muted-foreground mt-1 leading-relaxed">{rule.desc[lang]}</p>
               </div>
             </div>
         )}
@@ -270,7 +270,7 @@ export default function LeSport() {
             <div className="grid lg:grid-cols-2 gap-16 items-center">
               <div>
                 <h2 className="section-title mb-8 text-primary">{lang === 'en' ? 'A UNIQUE SPORT' : 'UN SPORT UNIQUE'}</h2>
-                <div className="space-y-4 font-body text-muted-foreground leading-relaxed">
+                <div className="space-y-4 font-body text-base text-muted-foreground leading-relaxed">
                   <p>
                     {lang === 'en'
                       ? "VizBall is a team sport played mainly with the hands and sometimes the feet. When the referee blows the whistle to start play, the Shooters try to hit the Target with the shooting ball."
@@ -320,7 +320,7 @@ export default function LeSport() {
             <AnimatedSection>
               <div className="bg-white/5 border border-white/10 rounded-lg p-8">
                 <h3 className="font-heading text-3xl text-accent mb-4">{tr.sport_zone_tir}</h3>
-                <ul className="space-y-3 font-body text-sm text-white/70">
+                <ul className="space-y-3 font-body text-base text-white/70">
                   <li className="flex items-start gap-2"><span className="text-accent mt-1">•</span>{tr.sport_zone_tir_1}</li>
                   <li className="flex items-start gap-2"><span className="text-accent mt-1">•</span>{tr.sport_zone_tir_2}</li>
                   <li className="flex items-start gap-2"><span className="text-accent mt-1">•</span>{tr.sport_zone_tir_3}</li>
@@ -331,7 +331,7 @@ export default function LeSport() {
             <AnimatedSection>
               <div className="bg-white/5 border border-white/10 rounded-lg p-8">
                 <h3 className="font-heading text-3xl text-accent mb-4">{tr.sport_zone_duel}</h3>
-                <ul className="space-y-3 font-body text-sm text-white/70">
+                <ul className="space-y-3 font-body text-base text-white/70">
                   <li className="flex items-start gap-2"><span className="text-accent mt-1">•</span>{tr.sport_zone_duel_1}</li>
                   <li className="flex items-start gap-2"><span className="text-accent mt-1">•</span>{tr.sport_zone_duel_2}</li>
                   <li className="flex items-start gap-2"><span className="text-accent mt-1">•</span>{tr.sport_zone_duel_3}</li>
@@ -373,7 +373,7 @@ export default function LeSport() {
                 <div className={`p-6 rounded-lg border ${pos.color} h-full`}>
                   <pos.icon size={28} className="mb-4" />
                   <h3 className="font-heading text-2xl text-foreground mb-3">{pos.title[lang]}</h3>
-                  <p className="font-body text-sm text-muted-foreground leading-relaxed">{pos.desc[lang]}</p>
+                  <p className="font-body text-base text-muted-foreground leading-relaxed">{pos.desc[lang]}</p>
                 </div>
               </AnimatedSection>
             )}
@@ -387,7 +387,7 @@ export default function LeSport() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <AnimatedSection>
             <h2 className="section-title mb-10 text-primary">{tr.sport_avant_partie_title}</h2>
-            <p className="font-body text-muted-foreground mb-6">
+            <p className="font-body text-base text-muted-foreground mb-6">
               {tr.sport_avant_partie_intro}
             </p>
             <div className="space-y-3">
@@ -396,7 +396,7 @@ export default function LeSport() {
                   <span className="w-6 h-6 rounded-full bg-accent/20 text-accent flex items-center justify-center shrink-0 font-body text-xs font-bold">
                     {i + 1}
                   </span>
-                  <p className="font-body text-sm text-foreground">{item[lang]}</p>
+                  <p className="font-body text-base text-foreground">{item[lang]}</p>
                 </div>
               )}
             </div>
@@ -428,10 +428,10 @@ export default function LeSport() {
             <h2 className="section-title mb-10 text-white">{tr.sport_fautes_title}</h2>
 
             <div className="bg-white/5 border border-white/10 rounded-lg p-8">
-              <p className="font-body text-white/80 leading-relaxed mb-4">
+              <p className="font-body text-base text-white/80 leading-relaxed mb-4">
                 {tr.sport_fautes_intro} <span className="text-accent font-semibold">T1, T4, C1, P1, A1, A3, G3</span>
               </p>
-              <p className="font-body text-white/80 leading-relaxed mb-6">
+              <p className="font-body text-base text-white/80 leading-relaxed mb-6">
                 {tr.sport_fautes_penalty}
               </p>
               <div className="bg-accent/10 border border-accent/30 rounded-lg p-4">
@@ -455,7 +455,7 @@ export default function LeSport() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <AnimatedSection>
             <h2 className="section-title mb-10 text-primary">{tr.sport_arbitral_title}</h2>
-            <p className="font-body text-muted-foreground leading-relaxed mb-10">
+            <p className="font-body text-base text-muted-foreground leading-relaxed mb-10">
               {tr.sport_arbitral_intro}
             </p>
           </AnimatedSection>
@@ -496,7 +496,7 @@ export default function LeSport() {
                     </span>
                     <h3 className="font-heading text-xl text-foreground">{official.title[lang]}</h3>
                   </div>
-                  <p className="font-body text-sm text-muted-foreground leading-relaxed">{official.desc[lang]}</p>
+                  <p className="font-body text-base text-muted-foreground leading-relaxed">{official.desc[lang]}</p>
                 </div>
               </AnimatedSection>
             ))}
@@ -520,8 +520,8 @@ export default function LeSport() {
                   <div key={i} className="flex items-start gap-3 p-3 bg-card rounded-lg border border-border">
                     <span className="w-1.5 h-1.5 rounded-full bg-accent mt-2 shrink-0" />
                     <div>
-                      <p className="font-body text-xs font-bold text-foreground">{item.signification[lang]}</p>
-                      <p className="font-body text-xs text-muted-foreground mt-0.5 italic">{item.geste[lang]}</p>
+                      <p className="font-body text-base font-bold text-foreground">{item.signification[lang]}</p>
+                      <p className="font-body text-base text-muted-foreground mt-0.5 italic">{item.geste[lang]}</p>
                     </div>
                   </div>
                 ))}
@@ -541,7 +541,7 @@ export default function LeSport() {
                   { fr: "Tout officiel peut signaler une faute grave (violence, insulte) quel que soit son territoire.", en: 'Any official may report a serious offence (violence, insults) regardless of their territory.' },
                   { fr: "Le Corps Arbitral doit être nommé avant le début de chaque rencontre officielle.", en: 'The refereeing body must be appointed before the start of every official match.' }
                 ].map((p, i) => (
-                  <li key={i} className="flex items-start gap-3 font-body text-sm text-white/80">
+                  <li key={i} className="flex items-start gap-3 font-body text-base text-white/80">
                     <span className="w-5 h-5 rounded-full bg-accent/20 text-accent flex items-center justify-center shrink-0 text-xs font-bold mt-0.5">{i + 1}</span>
                     {p[lang]}
                   </li>

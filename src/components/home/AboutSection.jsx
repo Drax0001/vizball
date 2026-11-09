@@ -4,8 +4,7 @@ import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import { useLang } from "../../lib/LanguageContext";
 import t from "../../lib/translations";
-import aboutImage from "../../assets/images/court-vizball.webp";
-import sideImage from "../../assets/images/vizball-players-sitting-on-pitch.webp";
+import aboutImage from "../../assets/images/vizball-2007-naissance.webp";
 
 export default function AboutSection() {
   const { lang } = useLang();
@@ -19,22 +18,16 @@ export default function AboutSection() {
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: 0.7 }}
-          className="relative pb-10 pr-10 sm:pb-14 sm:pr-14"
+          className="relative pb-4 pl-4"
         >
           <img
             src={aboutImage}
-            alt={lang === "en" ? "A Vizball player at the backstop, indoors" : "Un joueur de Vizball au butoir, en salle"}
+            alt={lang === "en" ? "Two Vizball players standing on a giant 2007 above Yaoundé" : "Deux joueurs de Vizball debout sur un 2007 géant au-dessus de Yaoundé"}
             loading="lazy"
             className="aspect-[4/3] w-full rounded-lg object-cover shadow-xl"
           />
-          <img
-            src={sideImage}
-            alt=""
-            loading="lazy"
-            className="absolute bottom-0 right-0 w-[42%] rounded-lg border-[6px] border-card object-cover shadow-xl aspect-[3/4]"
-          />
-          <div className="absolute left-5 top-5 rounded-md bg-accent px-5 py-3 text-primary shadow-lg">
-            <span className="block font-heading text-4xl font-black leading-none">2007</span>
+          <div className="absolute bottom-0 left-0 rounded-lg bg-primary p-5 text-white shadow-lg">
+            <span className="block font-heading text-3xl leading-none text-accent">2007</span>
             <span className="meta mt-1 block">{tr.about_since}</span>
           </div>
         </motion.div>

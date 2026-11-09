@@ -11,7 +11,7 @@ export default function FactsBar() {
     { v: '2007', l: tr.facts_1_l },
     { v: "4 × 15'", l: tr.facts_2_l },
     { v: '48 × 24', l: tr.facts_3_l },
-    { v: '12', l: tr.facts_4_l },
+    { v: '13', l: tr.facts_4_l },
     { v: '4 v 5', l: tr.facts_5_l },
   ];
 

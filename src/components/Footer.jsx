@@ -107,7 +107,12 @@ export default function Footer() {
         <div className="shell flex flex-col gap-3 py-4 text-sm text-white/90 md:flex-row md:items-center md:justify-between">
           <p>© {new Date().getFullYear()} Vizball Association. {tr.footer_rights}</p>
           <VisitorCounter />
-          <p className="hidden lg:block">{tr.footer_created}</p>
+          <p className="hidden lg:block">
+            {tr.footer_created}{" "}
+            <a href="https://servallsolutions.com" target="_blank" rel="noopener noreferrer" className="font-bold underline underline-offset-4 hover:text-accent">
+              Servall Solutions
+            </a>
+          </p>
           <button
             type="button"
             onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}

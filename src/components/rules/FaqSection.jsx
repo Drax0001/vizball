@@ -27,7 +27,7 @@ const faqs = [
   },
   {
     q: { fr: "Combien de ballons sont utilisés pendant un match ?", en: 'How many balls are used during a match?' },
-    a: { fr: "Le Vizball se joue avec 12 ballons : des balles de tir (3 par tireur dans leur bac) et des balles de catch. Une seule balle de tir à la fois peut circuler dans la zone de tir.", en: "Vizball is played with 12 balls: shooting balls (3 per Shooter in their tray) and catch balls. Only one shooting ball at a time may be in circulation in the shooting zone." }
+    a: { fr: "Le Vizball se joue avec 13 ballons : des balles de tir (dans le bac des tireurs) et des balles de catch. Une seule balle de tir à la fois peut circuler dans la zone de tir.", en: "Vizball is played with 13 balls: shooting balls (in the Shooters' tray) and catch balls. Only one shooting ball at a time may be in circulation in the shooting zone." }
   },
   {
     q: { fr: "Quelles sont les fautes les plus courantes ?", en: 'What are the most common fouls?' },
@@ -62,7 +62,7 @@ function FaqItem({ item, index, lang }) {
       >
         <div className="flex items-start gap-3">
           <HelpCircle size={18} className="text-accent shrink-0 mt-0.5" />
-          <span className="font-body font-semibold text-sm text-foreground">{item.q[lang]}</span>
+          <span className="font-body font-semibold text-base text-foreground">{item.q[lang]}</span>
         </div>
         <ChevronDown
           size={18}
@@ -79,7 +79,7 @@ function FaqItem({ item, index, lang }) {
             className="overflow-hidden"
           >
             <div className="px-5 pb-5 pl-11 border-t border-border/50">
-              <p className="font-body text-sm text-muted-foreground leading-relaxed pt-4">{item.a[lang]}</p>
+              <p className="font-body text-base text-muted-foreground leading-relaxed pt-4">{item.a[lang]}</p>
             </div>
           </motion.div>
         )}
